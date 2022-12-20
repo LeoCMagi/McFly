@@ -1,5 +1,5 @@
 #PARTIE A MODIFIER : Liste des fichiers .cpp (et uniquement les .cpp) à compiler
-SOURCES= position/free2d.cpp position/test.cpp 
+SOURCES= Position/free2d.cpp test.cpp
 #FIN DE LA PARTIE A MODIFIER
 
 # Nom du compilateur
