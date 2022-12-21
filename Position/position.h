@@ -3,17 +3,18 @@
 
 class pos {
  public:
-  //virtual pos (float[5] X);
+  pos (float X[3], float A[2]);
   /* apparently I connot define constructors virtually
      so I guess I'll just ignore the problem for now*/
   
   //virtual float coord (int   proj);
   /* I wanted to return a float[5] object, but forgot that it also didn't work...*/
-  virtual void     move  (float v[3]) const = 0;
-  virtual void     turn  (float a[2]) const = 0;
-  virtual float    dist  (pos   Y   ) const = 0;
-  virtual bool     order (int   axis,
-	        	  pos   Y   ) const = 0;
+  virtual void     move       (float v   );
+  virtual void     operator+= (float v[3]);
+  virtual void     turn       (float a[2]);
+  virtual float    dist       (pos   Y   );
+  virtual bool     order      (int   axis,
+                       	       pos   Y   );
 
   //float[5] coord (){return self.coord(0);};
   //void move (float v){return this->move({v,0,0});};
