@@ -12,7 +12,7 @@ free2d::free2d (float X[3], float A[2]){
      there will be un update...*/
   x_coord = X[0];
   y_coord = X[1];
-  t_angle = A[0];
+  t_angle = fmod(A[0]+M_PI, 2*M_PI)-M_PI;
 }
 
 void free2d::move (float v){
@@ -26,7 +26,7 @@ void free2d::operator+= (float v[3]){
 }
 
 void free2d::turn (float a[2]){
-  t_angle+= a[0];
+  t_angle= fmod(t_angle+a[0]+M_PI, 2*M_PI)-M_PI;
 }
 
 float free2d::dist (free2d Y){
