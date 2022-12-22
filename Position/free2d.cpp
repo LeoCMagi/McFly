@@ -9,15 +9,15 @@ using namespace std;
 free2d::free2d (float X[3], float A[2]){
   /* the parameters "X" and "A" are temporary...
      Once the modules "vec2" and "vec3" will be coded
-     there will be un update...*/
+     there will be an update...*/
   x_coord = X[0];
   y_coord = X[1];
   t_angle = fmod(A[0]+M_PI, 2*M_PI)-M_PI;
 }
 
 void free2d::move (float v){
-  x_coord+=v*cos(t_angle) - v*sin(t_angle);
-  y_coord+=v*sin(t_angle) + v*cos(t_angle);
+  x_coord+=v*cos(t_angle);
+  y_coord+=v*sin(t_angle);
 }
 
 void free2d::operator+= (float v[3]){
