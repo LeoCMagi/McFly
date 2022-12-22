@@ -37,31 +37,29 @@ class free2d {
 /* FREE2D Documentation :
 
 Projections:
-  0) {par défaut} projection rognée
+  0) {default} cropped projection
     x,y ∈ ]0 , 1[²
-    a   ∈ ]-π, π]
+    t   ∈ ]-π, π]
 
-    Quand un boid sort du carré [-½,½]²,
-      on ne voit plus que sa projection
-      sur les bords du carré.
-      (le tout, translaté d'un demi,
-      utiliser (0,0) comme centre d'image, c'est
-      plus simple à coder)
-    Cela permet de suivre leur orientation
-      sans sortir du carré...
+    When a boid leaves [-½,½]²,
+      we only get its projection on the square's
+      edges.
+      (all of that is shifted by (½,½) to center 
+      the picture on (0,0), for aesthetics)
+    This allows to follow their orentation without
+      leaving the center square...
   
 
-  1) projection triviale
+  1) trivial projection
     x,y ∈ ℝ²
-    a   ∈ ]-π, π]
+    t   ∈ ]-π, π]
 
 
-  2) projection expoantielle
+  2) exponantial projection
       x,y ∈ ]0, 1[²
-      a   ∈ ]-π, π]
+      t   ∈ ]-π, π]
 
-    Donne une vision d'ensemble de tout ℝ²
-      (le tout, translaté d'un demi,
-      utiliser (0,0) comme centre d'image, c'est
-      plus simple à coder)
+    Gives a global view of the entire ℝ²
+      (all of that is shifted by (½,½) to center 
+      the picture on (0,0), for aesthetics)
 */
