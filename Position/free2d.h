@@ -1,15 +1,16 @@
 #ifndef _FREE2D_H_
 #define _FREE2DN_H_
+#include "../Point_et_Vec/Point_et_Vec.h"
 #include "position.h"
 
 class free2d {
 //class free2d : public pos {
  public:
-  free2d (float X[3], float A[2]);
+  free2d (Vec3 X, Vec2 A);
   
   void  move       (float  v   );
-  void  operator+= (float  v[3]);
-  void  turn       (float  a[2]);
+  void  operator+= (Vec3   v   );
+  void  turn       (Vec2   a   );
   float dist       (free2d Y   );
   bool  order      (int    axis,
               	    free2d Y   );

@@ -1,15 +1,16 @@
 #ifndef _SQUARE_H_
 #define _SQUARE_H_
 #include "position.h"
+#include "../Point_et_Vec/Point_et_Vec.h"
 
 class square {
 //class square : public pos {
  public:
-  square (float X[3], float A[2]);
+  square (Vec3 X, Vec2 A);
   
   void  move       (float  v   );
-  void  operator+= (float  v[3]);
-  void  turn       (float  a[2]);
+  void  operator+= (Vec3   v   );
+  void  turn       (Vec2   a   );
   float dist       (square Y   );
   bool  order      (int    axis,
               	    square Y   );

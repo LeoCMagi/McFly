@@ -1,4 +1,5 @@
 #include "position.h"
+#include "../Point_et_Vec/Point_et_Vec.h"
 #include "square.h"
 #include <cmath>
 #include <iostream>
@@ -23,13 +24,13 @@ But which to find a solution.
 */
 
 
-square::square (float X[3], float A[2]){
+square::square (Vec3 X, Vec2 A){
   /* the parameters "X" and "A" are temporary...
      Once the modules "vec2" and "vec3" will be coded
      there will be an update...*/
-  x_coord = X[0];
-  y_coord = X[1];
-  t_angle = fmod(A[0]+M_PI, 2*M_PI)-M_PI;
+  x_coord = X.x;
+  y_coord = X.y;
+  t_angle = fmod(A.x+M_PI, 2*M_PI)-M_PI;
   if (y_coord - fmod(y_coord,2*r_y) > r_y) t_angle = -t_angle;
   if (x_coord - fmod(x_coord,2.) > 1)      t_angle = M_PI - t_angle;
   x_coord = fmod(x_coord, 1.);
@@ -52,15 +53,15 @@ void square::move (float v){
   y_coord = fmod(y_coord,r_y);
 }
 
-void square::operator+= (float v[3]){
-  x_coord+=v[0]*cos(t_angle) - v[1]*sin(t_angle);
-  y_coord+=v[0]*sin(t_angle) + v[1]*cos(t_angle);
+void square::operator+= (Vec3 v){
+  x_coord+=v.x*cos(t_angle) - v.x*sin(t_angle);
+  y_coord+=v.x*sin(t_angle) + v.y*cos(t_angle);
   if (y_coord - fmod(y_coord,2*r_y) > r_y) t_angle = -t_angle;
   if (x_coord - fmod(x_coord,2.) > 1)      t_angle = M_PI - t_angle;
 }
 
-void square::turn (float a[2]){
-  t_angle= fmod(t_angle+a[0]+M_PI, 2*M_PI)-M_PI;
+void square::turn (Vec2 a){
+  t_angle= fmod(t_angle+a.x+M_PI, 2*M_PI)-M_PI;
 }
 
 float square::dist (square Y){

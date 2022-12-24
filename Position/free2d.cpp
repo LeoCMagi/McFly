@@ -1,18 +1,19 @@
 #include "position.h"
 #include "free2d.h"
+#include "../Point_et_Vec/Point_et_Vec.h"
 #include <cmath>
 #include <iostream>
 #include <stdexcept>
 
 using namespace std;
 
-free2d::free2d (float X[3], float A[2]){
+free2d::free2d (Vec3 X, Vec2 A){
   /* the parameters "X" and "A" are temporary...
      Once the modules "vec2" and "vec3" will be coded
      there will be an update...*/
-  x_coord = X[0];
-  y_coord = X[1];
-  t_angle = fmod(A[0]+M_PI, 2*M_PI)-M_PI;
+  x_coord = X.x;
+  y_coord = X.y;
+  t_angle = fmod(A.x+M_PI, 2*M_PI)-M_PI;
 }
 
 void free2d::move (float v){
@@ -20,13 +21,13 @@ void free2d::move (float v){
   y_coord+=v*sin(t_angle);
 }
 
-void free2d::operator+= (float v[3]){
-  x_coord+=v[0]*cos(t_angle) - v[1]*sin(t_angle);
-  y_coord+=v[0]*sin(t_angle) + v[1]*cos(t_angle);
+void free2d::operator+= (Vec3 v){
+  x_coord+=v.x*cos(t_angle) - v.y*sin(t_angle);
+  y_coord+=v.x*sin(t_angle) + v.y*cos(t_angle);
 }
 
-void free2d::turn (float a[2]){
-  t_angle= fmod(t_angle+a[0]+M_PI, 2*M_PI)-M_PI;
+void free2d::turn (Vec2 a){
+  t_angle= fmod(t_angle+a.x+M_PI, 2*M_PI)-M_PI;
 }
 
 float free2d::dist (free2d Y){
