@@ -16,7 +16,7 @@ free2d::free2d (Vec3 X, Vec2 A){
   t_angle = fmod(A.x+M_PI, 2*M_PI)-M_PI;
 }
 
-void free2d::move (float v){
+void free2d::operator+= (real_t v){
   x_coord+=v*cos(t_angle);
   y_coord+=v*sin(t_angle);
 }
@@ -26,11 +26,11 @@ void free2d::operator+= (Vec3 v){
   y_coord+=v.x*sin(t_angle) + v.y*cos(t_angle);
 }
 
-void free2d::turn (Vec2 a){
+void free2d::operator^ (Vec2 a){
   t_angle= fmod(t_angle+a.x+M_PI, 2*M_PI)-M_PI;
 }
 
-float free2d::dist (free2d Y){
+real_t free2d::operator| (free2d Y){
   return sqrt( (x_coord-Y.x_coord)*(x_coord-Y.x_coord)
              + (y_coord-Y.y_coord)*(y_coord-Y.y_coord) );
 }
@@ -45,9 +45,28 @@ bool free2d::order (int axis, free2d Y){
   throw std::invalid_argument( "Unexisting axis" );
 }
 
-float free2d::x (int proj){
+Vec3  free2d::operator-  (free2d Y   ){
+  return {x_coord-Y.x_coord, y_coord-Y.y_coord, 0.};
+}
+
+Vec2 free2d::operator<< (free2d Y){
+  float x_d = Y.x_coord-x_coord;
+  float y_d = Y.y_coord-y_coord;
+  if (x_d==0.){
+    if (y_d>0) return {fmod(-t_angle+3*M_PI/2, 2*M_PI)-M_PI,0.};
+    if (y_d<0) return {fmod(-t_angle+  M_PI/2, 2*M_PI)-M_PI,0.};
+  }
+  real_t a = atan(y_d/x_d);
+  if (x_d>0) return {fmod( a+M_PI-t_angle, 2*M_PI)-M_PI,0};
+             return {fmod(-a     -t_angle, 2*M_PI)-M_PI,0};
+}
+
+
+
+
+real_t free2d::x (int proj){
   if (proj==0) {
-    float d = 1. - 1./16 ;
+    real_t d = 1. - 1./16 ;
     //≈0.9375 ie closse to 0.99 but with exact binary representation
     // made to ensure that a boid doesn't get too close to the edge 
     // because we don't want edge cases when going into pixels
@@ -56,7 +75,7 @@ float free2d::x (int proj){
       if (abs(x_coord)<.5) return 0.5 + d*x_coord;
       if (   x_coord>0   ) return 0.5 + d/2;
       if (   x_coord<0   ) return 0.5 - d/2;}
-    float X = x_coord/(2*abs(y_coord));
+    real_t X = x_coord/(2*abs(y_coord));
     if (abs(X)<0.5) return d*X + 0.5;
     return d* X/abs(X)/2 + 0.5;
   }
@@ -74,9 +93,9 @@ float free2d::x (int proj){
   throw std::invalid_argument( "Unexisting projection" );
 }
 
-float free2d::y (int proj){
+real_t free2d::y (int proj){
   if (proj==0) {
-    float d = 1. - 1./16 ;
+    real_t d = 1. - 1./16 ;
     //≈0.9375 ie closse to 0.99 but with exact binary representation
     // made to ensure that a boid doesn't get too close to the edge 
     // because we don't want edge cases when going into pixels
@@ -85,7 +104,7 @@ float free2d::y (int proj){
       if (abs(y_coord)<.5) return 0.5 + d*y_coord;
       if (   y_coord>0   ) return 0.5 + d/2;
       if (   y_coord<0   ) return 0.5 - d/2;}
-    float Y = y_coord/(2*abs(x_coord));
+    real_t Y = y_coord/(2*abs(x_coord));
     if (abs(Y)<0.5) return d*Y + 0.5;
     return d* Y/abs(Y)/2 + 0.5;
   }
@@ -103,7 +122,7 @@ float free2d::y (int proj){
   throw std::invalid_argument( "Unexisting projection" );
 }
 
-float free2d::z (int proj){
+real_t free2d::z (int proj){
   if (proj==0 || proj==1 || proj==2) return 0.;
 
   // case of an unexisting projection
@@ -114,7 +133,7 @@ float free2d::z (int proj){
   throw std::invalid_argument( "Unexisting projection" );
 }
 
-float free2d::t (int proj){
+real_t free2d::t (int proj){
   if (proj==0 || proj==1 || proj==2) return t_angle;
 
   // case of an unexisting projection
@@ -125,7 +144,7 @@ float free2d::t (int proj){
   throw std::invalid_argument( "Unexisting projection" );
 }
 
-float free2d::p (int proj){
+real_t free2d::p (int proj){
   if (proj==0 || proj==1 || proj==2) return 0.;
 
   // case of an unexisting projection

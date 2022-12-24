@@ -37,7 +37,7 @@ square::square (Vec3 X, Vec2 A){
   y_coord = fmod(y_coord,r_y);
 }
 
-void square::move (float v){
+void square::operator+= (float v){
   x_coord+=v*cos(t_angle);
   y_coord+=v*sin(t_angle);
   // x_coord //2 ∈ {0,1}
@@ -60,11 +60,11 @@ void square::operator+= (Vec3 v){
   if (x_coord - fmod(x_coord,2.) > 1)      t_angle = M_PI - t_angle;
 }
 
-void square::turn (Vec2 a){
+void square::operator^ (Vec2 a){
   t_angle= fmod(t_angle+a.x+M_PI, 2*M_PI)-M_PI;
 }
 
-float square::dist (square Y){
+float square::operator| (square Y){
   return sqrt( (x_coord-Y.x_coord)*(x_coord-Y.x_coord)
              + (y_coord-Y.y_coord)*(y_coord-Y.y_coord) );
 }
@@ -77,6 +77,22 @@ bool square::order (int axis, square Y){
        << "You requested the 'order' method on axis "
        << axis << endl << "There is no such axis" << endl;
   throw std::invalid_argument( "Unexisting axis" );
+}
+
+Vec3  free2d::operator-  (free2d Y   ){
+  return {x_coord-Y.x_coord, y_coord-Y.y_coord, 0.};
+}
+
+Vec2 free2d::operator<< (free2d Y){
+  float x_d = Y.x_coord-x_coord;
+  float y_d = Y.y_coord-y_coord;
+  if (x_d==0.){
+    if (y_d>0) return {fmod(-t_angle+3*M_PI/2, 2*M_PI)-M_PI,0.};
+    if (y_d<0) return {fmod(-t_angle+  M_PI/2, 2*M_PI)-M_PI,0.};
+  }
+  real_t a = atan(y_d/x_d);
+  if (x_d>0) return {fmod( a+M_PI-t_angle, 2*M_PI)-M_PI,0};
+             return {fmod(-a     -t_angle, 2*M_PI)-M_PI,0};
 }
 
 float square::x (int proj){
