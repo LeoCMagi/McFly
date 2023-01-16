@@ -1,0 +1,130 @@
+class Boid {
+  //Position
+  position 0 0 0 0
+    
+  //Classes utilis??es
+  * -- * Imp;
+  * -- * Rot;
+  * -- * pos;
+   
+  //Liste des variables
+  pos        position;
+  imp        impulsion;
+  sf_texture texture;
+  sf_sprite  sprite;
+      
+  //Liste des m??thodes
+  //format:
+  //type_entr??e(self exclu)->type_sortie nom_methode (nom_var osef){};
+  int->void             impose_noise (id osef){};
+  void                  update_pos   (){};
+  int->void             impose_noise (arg0 osef){};
+  sfRenderWindow&->void draw         (window osef){};
+};
+
+class pos {
+  //Position
+  position 650 50 200 250;
+  
+  //Classes utilis??es
+  * -- * Imp;
+  * -- * Rot;
+  
+  //Liste des m??thodes
+  Imp*Rot->pos  pos        (X osef, Angle osef){};
+  int*pos->bool order      (axis osef,p osef){};
+  Imp->void     move       (v osef){};
+  real_t->void  move       (r osef){};
+  Rot->void     turn       (A osef){};
+  pos->Imp      move_view  (p osef){};
+  pos->Vec2     angle_view (p osef){};
+  real_t        x (){};
+  real_t        y (){};
+  real_t        z (){};
+  real_t        t (){};
+  real_t        p (){};
+};
+
+  
+class Rot {
+  //Position
+  position 400 250 125 150;
+  
+  //Liste des variables
+  real_t theta;
+  real_t phi;
+  
+  //Liste des m??thodes
+  Rot->void    +=       (o osef){};
+  Rot->void    -=       (o osef){};
+  Rot->Rot     +        (o osef){};
+  Void->Rot    -        (){};
+  Rot->Rot     -        (o osef){};
+  real_t->void *=       (k osef){};
+  real_t->void /=       (k osef){};
+  real_t->Rot  *        (k osef){};
+  real_t->Rot  /        (k osef){};
+  real_t       direction() {};
+};
+
+  
+  
+class Imp {
+  //Position
+  position 0 250 0 0
+  
+  //Liste des variables
+  real_t x;
+  real_t y;
+  real_t z;
+  
+  //Liste des m??thodes
+  Imp->void          +=       (o osef){};
+  Imp->void          -=       (o osef){};
+  Imp->Imp           +        (o osef){};
+  Void->Imp          -        (){};
+  Imp->Imp           -        (o osef){};
+  real_t->void       *=       (k osef){};
+  real_t->void       /=       (k osef){};
+  real_t->Imp        *        (k osef){};
+  real_t->Imp        /        (k osef){};
+  Imp->real_t        |        (o osef){};
+  real_t             norm2    (){};
+  real_t             !        (){};
+  real_t*real_t->Imp rotate   (theta osef, phi osef){};
+  real_t*real_t->Imp u_angle  (theta osef, phi osef){};  
+  real_t->Imp        rotate   (theta osef){};
+  real_t->Imp        u_angle  (theta osef){}; 
+  real_t             direction() {};
+};
+  
+
+  
+class free3d {
+  //Classe dérivant de 
+  isA pos;
+  
+  //Position
+  position 600 350 125 150;
+  
+  //Liste des variables
+  real_t x_coord;
+  real_t y_coord;
+  real_t z_coord;
+  real_t theta_angle;
+  real_t phi_angle;
+};
+
+class sphere {
+  //Classe dérivant de 
+  isA pos;
+  
+  //Position
+  position 750 350 125 125;
+  
+  //Liste des variables
+  real_t theta_coord;
+  real_t phi_coord;
+  real_t theta_angle;
+  real_t phi_angle;
+};
