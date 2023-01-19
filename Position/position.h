@@ -1,6 +1,6 @@
 #ifndef _POSITION_H_
 #define _POSITION_H_
-#include "../Point_et_Vec/Point_et_Vec.h"
+#include "../Vec/Vec.h"
 
 class pos {
  public:

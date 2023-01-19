@@ -1,4 +1,4 @@
-#include "Point_et_Vec.h"
+#include "Vec.h"
 #include <cmath>
 #include <stdexcept>
 #include <cassert>

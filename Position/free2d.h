@@ -1,6 +1,6 @@
 #ifndef _FREE2D_H_
 #define _FREE2DN_H_
-#include "../Point_et_Vec/Point_et_Vec.h"
+#include "../Vec/Vec.h"
 #include "position.h"
 
 class free2d {

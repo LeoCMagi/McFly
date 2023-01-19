@@ -1,7 +1,7 @@
 #ifndef _SQUARE_H_
 #define _SQUARE_H_
 #include "position.h"
-#include "../Point_et_Vec/Point_et_Vec.h"
+#include "../Vec/Vec.h"
 
 class square {
 //class square : public pos {
