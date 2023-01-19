@@ -6,13 +6,13 @@
 class boids
 {
 pos position;
-vec3 impulsion;
+Imp impulsion;
 sf::Texture texture;
 sf::Sprite sprite;
 
 public:
 boids();
-boids(pos posi,vec3 impulse);
+boids(pos posi,Imp impulse);
 void impulsion_noise(int distrib);
 void update_position();
 

@@ -7,9 +7,9 @@
 
 using namespace std;
 
-free2d::free2d (Vec3 X, Vec2 A){
+free2d::free2d (Imp X, Rot A){
   /* the parameters "X" and "A" are temporary...
-     Once the modules "vec2" and "vec3" will be coded
+     Once the modules "Rot" and "Imp" will be coded
      there will be an update...*/
   x_coord = X.x;
   y_coord = X.y;
@@ -21,12 +21,12 @@ void free2d::operator+= (real_t v){
   y_coord+=v*sin(t_angle);
 }
 
-void free2d::operator+= (Vec3 v){
+void free2d::operator+= (Imp v){
   x_coord+=v.x*cos(t_angle) - v.y*sin(t_angle);
   y_coord+=v.x*sin(t_angle) + v.y*cos(t_angle);
 }
 
-void free2d::operator^ (Vec2 a){
+void free2d::operator^ (Rot a){
   t_angle= fmod(t_angle+a.x+M_PI, 2*M_PI)-M_PI;
 }
 
@@ -45,11 +45,11 @@ bool free2d::order (int axis, free2d Y){
   throw std::invalid_argument( "Unexisting axis" );
 }
 
-Vec3  free2d::operator-  (free2d Y   ){
+Imp  free2d::operator-  (free2d Y   ){
   return {x_coord-Y.x_coord, y_coord-Y.y_coord, 0.};
 }
 
-Vec2 free2d::operator<< (free2d Y){
+Rot free2d::operator<< (free2d Y){
   float x_d = Y.x_coord-x_coord;
   float y_d = Y.y_coord-y_coord;
   if (x_d==0.){

@@ -24,9 +24,9 @@ But which to find a solution.
 */
 
 
-square::square (Vec3 X, Vec2 A){
+square::square (Imp X, Rot A){
   /* the parameters "X" and "A" are temporary...
-     Once the modules "vec2" and "vec3" will be coded
+     Once the modules "Rot" and "Imp" will be coded
      there will be an update...*/
   x_coord = X.x;
   y_coord = X.y;
@@ -53,14 +53,14 @@ void square::operator+= (float v){
   y_coord = fmod(y_coord,r_y);
 }
 
-void square::operator+= (Vec3 v){
+void square::operator+= (Imp v){
   x_coord+=v.x*cos(t_angle) - v.x*sin(t_angle);
   y_coord+=v.x*sin(t_angle) + v.y*cos(t_angle);
   if (y_coord - fmod(y_coord,2*r_y) > r_y) t_angle = -t_angle;
   if (x_coord - fmod(x_coord,2.) > 1)      t_angle = M_PI - t_angle;
 }
 
-void square::operator^ (Vec2 a){
+void square::operator^ (Rot a){
   t_angle= fmod(t_angle+a.x+M_PI, 2*M_PI)-M_PI;
 }
 
@@ -79,11 +79,11 @@ bool square::order (int axis, square Y){
   throw std::invalid_argument( "Unexisting axis" );
 }
 
-Vec3  free2d::operator-  (free2d Y   ){
+Imp  free2d::operator-  (free2d Y   ){
   return {x_coord-Y.x_coord, y_coord-Y.y_coord, 0.};
 }
 
-Vec2 free2d::operator<< (free2d Y){
+Rot free2d::operator<< (free2d Y){
   float x_d = Y.x_coord-x_coord;
   float y_d = Y.y_coord-y_coord;
   if (x_d==0.){

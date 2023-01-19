@@ -3,7 +3,7 @@
 #include<cmath>
 
 //implementing constructors
-boids::boids(posu,vec3 impulsu):pos(posu),impulse(impulsu){}
+boids::boids(posu,Imp impulsu):pos(posu),impulse(impulsu){}
 
 boids::boids():pos(/*null position ?*/),impulse([0.,0.,0.]){
 texture.loadFromFile("oiseau.png");

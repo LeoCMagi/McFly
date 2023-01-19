@@ -6,31 +6,31 @@
 class square {
 //class square : public pos {
  public:
-  square (Vec3 X, Vec2 A);
+  square (Imp X, Rot A);
   
   void   operator+= (real_t v   );
-  void   operator+= (Vec3   v   );
-  void   operator^  (Vec2   a   );
+  void   operator+= (Imp   v   );
+  void   operator^  (Rot   a   );
   real_t operator|  (square Y   );
   bool   order      (int    axis,
               	    square  Y   );
-  Vec3   operator-  (square Y   );
-  Vec2   operator<< (square Y   );
+  Imp   operator-  (square Y   );
+  Rot   operator<< (square Y   );
   real_t x          (int    proj);
   real_t y          (int    proj);
   real_t z          (int    proj);
   real_t t          (int    proj);
   real_t p          (int    proj);
   
-  void   move       (Vec3   v){       this->operator+=( v);};
+  void   move       (Imp   v){       this->operator+=( v);};
   void   move       (real_t v){       this->operator+=( v);};
-  void   operator-= (Vec3   v){       this->operator+=(-v);};
+  void   operator-= (Imp   v){       this->operator+=(-v);};
   void   operator-= (real_t v){       this->operator+=(-v);};
-  void   turn       (Vec2   a){       this->operator^ ( a);};
+  void   turn       (Rot   a){       this->operator^ ( a);};
   real_t dist       (square Y){return this->operator| ( Y);};
-  Vec3   move_view  (square Y){return this->operator- ( Y);};
-  Vec2   angle_view (square Y){return this->operator<<( Y);};
-  Vec2   operator>> (square Y){return  Y<<(this[0]);};
+  Imp   move_view  (square Y){return this->operator- ( Y);};
+  Rot   angle_view (square Y){return this->operator<<( Y);};
+  Rot   operator>> (square Y){return  Y<<(this[0]);};
   real_t x (){return this->x(0);};
   real_t y (){return this->y(0);};
   real_t z (){return this->z(0);};
