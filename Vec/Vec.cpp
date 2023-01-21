@@ -15,13 +15,14 @@ void mat22_sol (real_t a, real_t b, real_t c, real_t d, real_t e, real_t f, real
 	y = (a * f - e * c) / det;
 }
 
-Imp Imp::u_angle (real_t theta, real_t phi) {
+Imp Imp::u_angle (Rot angles) {
 	return {
-	  .x = sin(theta)*cos(phi),
-	  .y = sin(theta)*sin(phi),
-	  .z = cos(theta)
+	  .x = sin(angles.theta)*cos(angles.phi),
+	  .y = sin(angles.theta)*sin(angles.phi),
+	  .z = cos(angles.theta)
 	};
 }
+
 
 real_t Imp::operator! () const {
   return sqrt(x*x+y*y+z*z);
@@ -32,11 +33,21 @@ real_t Imp::operator! () const {
 	return { .x = c * x - s * y,
 	         .y = s * x + c * y };
 }*/
-std::pair<real_t,real_t> Imp::direction() const {
-  return {acos(z/(!*this)), atan2(y,x)};
+
+Rot Imp::direction() const {
+  return {.theta =acos(z/(!*this)),.phi= atan2(y,x)};
 }
 
-
+Imp Imp::rotate (Rot angles2) const {
+  Rot angles1 = (*this).direction();
+  Rot anglesf = angles1+ angles2;
+  real_t r = !*this;
+  return r*u_angle(anglesf);
+    /*return Imp {
+    .x = r*sin(anglesf.theta)*cos(anglesf.phi),
+    .y = r*sin(anglesf.theta)*sin(anglesf.phi),
+    .z = r*cos(anglesf.theta)};*/
+}
 real_t angle_mod2pi_11 (real_t theta) {
 	while (theta > M_PI)
 		theta -= 2*M_PI;

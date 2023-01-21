@@ -17,17 +17,16 @@ using real_t = double; // peut être utile de de définir un type real_t pour fa
  * point dans un espace carthésien, il y a Point2 pour ça.
  */
 struct Rot {
-	real_t x, y;
-	void operator+=  (Rot o)         { x += o.x; y += o.y; }
-	void operator-=  (Rot o)         { x -= o.x; y -= o.y; }
-	Rot operator+   (Rot o)   const { return Rot{ x+o.x, y+o.y }; }
-	Rot operator-   ()         const { return Rot{ -x, -y }; }
-	Rot operator-   (Rot o)   const { return Rot{ x-o.x, y-o.y }; }
-	void operator*=  (real_t k)       { x *= k; y *= k; }
-	void operator/=  (real_t k)       { x /= k; y /= k; }
-	Rot operator*   (real_t k) const { return Rot{ k*x, k*y }; }
-	Rot operator/   (real_t k) const { return Rot{ x/k, y/k }; }
-  real_t direction() const; //renvoie la direction du vecteur (angle theta)
+	real_t theta, phi;
+	void operator+=  (Rot o)         { theta += o.theta; phi += o.phi; }
+	void operator-=  (Rot o)         { theta -= o.theta; phi -= o.phi; }
+	Rot operator+   (Rot o)   const { return Rot{ theta+o.theta, phi+o.phi }; }
+	Rot operator-   ()         const { return Rot{ -theta, -phi }; }
+	Rot operator-   (Rot o)   const { return Rot{ theta-o.theta, phi-o.phi }; }
+	void operator*=  (real_t k)       { theta *= k; phi *= k; }
+	void operator/=  (real_t k)       { theta /= k; phi /= k; }
+	Rot operator*   (real_t k) const { return Rot{ k*theta, k*phi }; }
+	Rot operator/   (real_t k) const { return Rot{ theta/k, phi/k }; }
 };
 inline Rot operator* (double k, const Rot& v) { return v*k; }
 
@@ -51,9 +50,9 @@ struct Imp {
 	real_t operator| (Imp o)   const { return x*o.x + y*o.y+z*o.z ; }	// produit scalaire
 	real_t norm2     ()         const { return x*x + y*y +z*z; }// norme au carré
 	real_t operator! ()         const;  // norme
-  //Imp  rotate     (real_t theta, real_t phi) const; je ne sais pas adapter cette fonction dans le cas 3D
-  static Imp u_angle (real_t theta, real_t phi);  // fonction statique de création d'un vecteur unité à partir d'un angle
-  std::pair<real_t,real_t> direction() const; // donne la direction (angle theta et phi du vecteur
+  Rot direction() const; // donne la direction (angle theta et phi du vecteur
+  Imp  rotate     (Rot angles2) const; //je ne sais pas adapter cette fonction dans le cas 3D
+  static Imp u_angle (Rot angles);  // fonction statique de création d'un vecteur unité à partir d'un angle
 };
 inline Imp operator* (double k, const Imp& v) { return v*k; }
 
