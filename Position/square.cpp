@@ -30,14 +30,14 @@ square::square (Imp X, Rot A){
      there will be an update...*/
   x_coord = X.x;
   y_coord = X.y;
-  t_angle = fmod(A.x+M_PI, 2*M_PI)-M_PI;
+  t_angle = fmod(A.theta+M_PI, 2*M_PI)-M_PI;
   if (y_coord - fmod(y_coord,2*r_y) > r_y) t_angle = -t_angle;
   if (x_coord - fmod(x_coord,2.) > 1)      t_angle = M_PI - t_angle;
   x_coord = fmod(x_coord, 1.);
   y_coord = fmod(y_coord,r_y);
 }
 
-void square::operator+= (float v){
+void square::operator+= (real_t v){
   x_coord+=v*cos(t_angle);
   y_coord+=v*sin(t_angle);
   // x_coord //2 ∈ {0,1}
@@ -61,10 +61,10 @@ void square::operator+= (Imp v){
 }
 
 void square::operator^ (Rot a){
-  t_angle= fmod(t_angle+a.x+M_PI, 2*M_PI)-M_PI;
+  t_angle= fmod(t_angle+a.theta+M_PI, 2*M_PI)-M_PI;
 }
 
-float square::operator| (square Y){
+real_t square::operator| (square Y){
   return sqrt( (x_coord-Y.x_coord)*(x_coord-Y.x_coord)
              + (y_coord-Y.y_coord)*(y_coord-Y.y_coord) );
 }
@@ -79,11 +79,11 @@ bool square::order (int axis, square Y){
   throw std::invalid_argument( "Unexisting axis" );
 }
 
-Imp  free2d::operator-  (free2d Y   ){
+Imp  square::operator-  (square Y   ){
   return {x_coord-Y.x_coord, y_coord-Y.y_coord, 0.};
 }
 
-Rot free2d::operator<< (free2d Y){
+Rot square::operator<< (square Y){
   float x_d = Y.x_coord-x_coord;
   float y_d = Y.y_coord-y_coord;
   if (x_d==0.){
@@ -95,7 +95,7 @@ Rot free2d::operator<< (free2d Y){
              return {fmod(-a     -t_angle, 2*M_PI)-M_PI,0};
 }
 
-float square::x (int proj){
+real_t square::x (int proj){
   if (proj==0 || proj==2) return x_coord;
 
   if (proj==1) {
@@ -124,7 +124,7 @@ float square::x (int proj){
   throw std::invalid_argument( "Unexisting projection" );
 }
 
-float square::y (int proj){
+real_t square::y (int proj){
   if (proj==0) return y_coord    ;
   if (proj==1 || proj==2) return y_coord/r_y;
 
@@ -136,7 +136,7 @@ float square::y (int proj){
   throw std::invalid_argument( "Unexisting projection" );
 }
 
-float square::z (int proj){
+real_t square::z (int proj){
   if (proj==0 || proj==1 || proj==2) return 0.;
 
   // case of an unexisting projection
@@ -147,7 +147,7 @@ float square::z (int proj){
   throw std::invalid_argument( "Unexisting projection" );
 }
 
-float square::t (int proj){
+real_t square::t (int proj){
   if (proj==0 || proj==1 || proj==2) return t_angle;
 
   // case of an unexisting projection
@@ -158,7 +158,7 @@ float square::t (int proj){
   throw std::invalid_argument( "Unexisting projection" );
 }
 
-float square::p (int proj){
+real_t square::p (int proj){
   if (proj==0 || proj==1 || proj==2) return 0.;
 
   // case of an unexisting projection

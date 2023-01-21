@@ -13,7 +13,7 @@ free2d::free2d (Imp X, Rot A){
      there will be an update...*/
   x_coord = X.x;
   y_coord = X.y;
-  t_angle = fmod(A.x+M_PI, 2*M_PI)-M_PI;
+  t_angle = fmod(A.theta+M_PI, 2*M_PI)-M_PI;
 }
 
 void free2d::operator+= (real_t v){
@@ -27,7 +27,7 @@ void free2d::operator+= (Imp v){
 }
 
 void free2d::operator^ (Rot a){
-  t_angle= fmod(t_angle+a.x+M_PI, 2*M_PI)-M_PI;
+  t_angle= fmod(t_angle+a.theta+M_PI, 2*M_PI)-M_PI;
 }
 
 real_t free2d::operator| (free2d Y){

@@ -51,7 +51,7 @@ struct Imp {
 	real_t norm2     ()         const { return x*x + y*y +z*z; }// norme au carré
 	real_t operator! ()         const;  // norme
   Rot direction() const; // donne la direction (angle theta et phi du vecteur
-  Imp  rotate     (Rot angles2) const; //je ne sais pas adapter cette fonction dans le cas 3D
+  Imp  rotate     (Rot angles2) const; //it returns the vector rotated by the angles theta2,phi2 which are encoded in angles2
   static Imp u_angle (Rot angles);  // fonction statique de création d'un vecteur unité à partir d'un angle
 };
 inline Imp operator* (double k, const Imp& v) { return v*k; }
