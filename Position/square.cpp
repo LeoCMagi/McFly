@@ -1,5 +1,3 @@
-#include "position.h"
-#include "../Vec/Vec.h"
 #include "square.h"
 #include <cmath>
 #include <iostream>

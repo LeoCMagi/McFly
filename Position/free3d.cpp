@@ -1,6 +1,4 @@
-#include "position.h"
 #include "free3d.h"
-#include "../Point_et_Vec/Point_et_Vec.h"
 #include <cmath>
 #include <iostream>
 #include <stdexcept>
