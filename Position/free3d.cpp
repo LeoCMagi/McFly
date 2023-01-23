@@ -19,7 +19,7 @@ void free3d::operator+= (real_t v){
 
 void free3d::operator+= (Imp v){
   Imp imp;
-  imp = v.rotate(angle)
+  imp = v.rotate(angle);
   x_coord+=imp.x;
   y_coord+=imp.y;
   z_coord+=imp.z;
@@ -133,7 +133,7 @@ real_t free3d::z (int proj){
 }
 
 real_t free3d::t (int proj){
-  if (proj==0 || proj==1 || proj==2) return angle.theta;
+  if (proj==0 || proj==1 || proj==2) return angle.theta();
 
   // case of an unexisting projection
   cout << endl << endl
@@ -144,7 +144,7 @@ real_t free3d::t (int proj){
 }
 
 real_t free3d::p (int proj){
-  if (proj==0 || proj==1 || proj==2) return angle.phi;
+  if (proj==0 || proj==1 || proj==2) return angle.phi();
 
   // case of an unexisting projection
   cout << endl << endl

@@ -28,7 +28,7 @@ square::square (Imp X, Rot A){
      there will be an update...*/
   x_coord = X.x;
   y_coord = X.y;
-  t_angle = fmod(A.theta+M_PI, 2*M_PI)-M_PI;
+  t_angle = fmod(A.theta()+M_PI, 2*M_PI)-M_PI;
   if (y_coord - fmod(y_coord,2*r_y) > r_y) t_angle = -t_angle;
   if (x_coord - fmod(x_coord,2.) > 1)      t_angle = M_PI - t_angle;
   x_coord = fmod(x_coord, 1.);
@@ -59,7 +59,7 @@ void square::operator+= (Imp v){
 }
 
 void square::operator^ (Rot a){
-  t_angle= fmod(t_angle+a.theta+M_PI, 2*M_PI)-M_PI;
+  t_angle= fmod(t_angle+a.theta()+M_PI, 2*M_PI)-M_PI;
 }
 
 real_t square::operator| (square Y){
