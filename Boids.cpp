@@ -3,14 +3,17 @@
 #include<cmath>
 //window.setFramerateLimit(FPS)
 //implementing constructors
+//change scale and opacity with distance in 3D ?
 boids::boids(posu,Imp impulsu):pos(posu),impulse(impulsu){}
 
-boids::boids():pos(/*null position ?*/),impulse([0.,0.,0.]){
+boids::boids():pos( ),impulse([0.,0.,0.]){
 texture.loadFromFile("oiseau.png");
 sprite.setTexture(texture);
-sprite.setColor(sf::Color(255, 255, 255, 128))//color,opacity
-sprite.setOrigin(sf::Vector3f(25.f,0.f,0.f))
-sprite.setPosition(sf::Vector3f(10.f, 50.f,75.f));}
+sprite.setColor(sf::Color(255, 255, 255, 128));//color,opacity
+sprite.setOrigin(sf::Vector3f(texture.getSize().x/2,texture.getSize().y/2));//to translate and rotate frm the center of the sprite
+sprite.setscale(0.05f,0.05f);//scale of the boid;
+sprite.setPosition(sf::Vector3f(pos.x(), pos.y(),pos.z()));//initial position of the boid}
+sprite.setRotation(Angle);//initial angle of the boid}
 
 
 void boids::impulsion_noise(int distrib){
