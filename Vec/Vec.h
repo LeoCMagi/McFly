@@ -6,29 +6,34 @@
 
 using real_t = double; // peut être utile de de définir un type real_t pour faire des tests entre simple et double précision
 
-// Nombre flottant infini
-#define Inf std::numeric_limits<real_t>::infinity()
-// Nombre flottant invalide (Not a Number)
-#define NaN std::numeric_limits<real_t>::signaling_NaN()
-
 /********************************************************************
  * Vecteur 2D. Simple structure (x,y) avec opérateurs surchargés
  * et quelques méthodes utiles. Ne pas utiliser pour représenter un
  * point dans un espace carthésien, il y a Point2 pour ça.
  */
-struct Rot {
-	real_t theta, phi;
-	void operator+=  (Rot o)         { theta += o.theta; phi += o.phi; }
-	void operator-=  (Rot o)         { theta -= o.theta; phi -= o.phi; }
-	Rot operator+   (Rot o)   const { return Rot{ theta+o.theta, phi+o.phi }; }
-	Rot operator-   ()         const { return Rot{ -theta, -phi }; }
-	Rot operator-   (Rot o)   const { return Rot{ theta-o.theta, phi-o.phi }; }
-	void operator*=  (real_t k)       { theta *= k; phi *= k; }
-	void operator/=  (real_t k)       { theta /= k; phi /= k; }
-	Rot operator*   (real_t k) const { return Rot{ k*theta, k*phi }; }
-	Rot operator/   (real_t k) const { return Rot{ theta/k, phi/k }; }
+class Rot {
+public :
+  void theta(real_t valeur) {p_theta=valeur;sync_interval();}
+  void phi(real_t valeur) {p_phi=valeur; sync_interval();}
+  real_t theta() const {return p_theta;}
+  real_t phi () const {return p_phi;}
+  Rot(const Rot & autre) = default;
+  Rot(real_t theta_, real_t phi_) {p_theta= theta_; p_phi=phi_; sync_interval();}
+  Rot() {p_theta=0;p_phi=0;}
+  void operator+=  (Rot o)         { theta(p_theta + o.theta()); phi(p_phi + o.phi()); }
+  void operator-=  (Rot o)         { theta(p_theta - o.theta()); phi(p_phi - o.phi()); }
+  Rot operator+   (Rot o)   const { return Rot(p_theta+o.p_theta, p_phi+o.p_phi); }
+  Rot operator-   ()         const { return Rot( -p_theta, -p_phi ); }
+  Rot operator-   (Rot o)   const { return Rot( p_theta-o.p_theta, p_phi-o.p_phi ); }
+  void operator*=  (real_t k)       { theta(p_theta * k); phi(p_phi * k); }
+  void operator/=  (real_t k)       { theta(p_theta/k); phi(p_phi/k); }
+  Rot operator*   (real_t k) const { return Rot( k*p_theta, k*p_phi ); }
+  Rot operator/   (real_t k) const { return Rot( p_theta/k, p_phi/k); }
+private :
+  real_t p_theta, p_phi;
+  void sync_interval();
 };
-inline Rot operator* (double k, const Rot& v) { return v*k; }
+inline Rot operator* (real_t k, const Rot& v) { return v*k; }
 
 
 /********************************************************************
@@ -61,6 +66,9 @@ inline Imp operator* (double k, const Imp& v) { return v*k; }
 real_t angle_mod2pi_11 (real_t);
 // réduit un angle à [0,2π]
 real_t angle_mod2pi_02 (real_t);
+//réduit un angle à [0, pi]
+real_t angle_modpi_01 (real_t);
+
 
 
 /// Divers

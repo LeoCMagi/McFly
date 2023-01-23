@@ -15,11 +15,31 @@ void mat22_sol (real_t a, real_t b, real_t c, real_t d, real_t e, real_t f, real
 	y = (a * f - e * c) / det;
 }
 
+void Rot::sync_interval() {
+  /*p_phi=fmod(p_phi+M_PI,2*M_PI)-M_PI;
+  real_t theta_ = fmod(p_theta+M_PI,2*M_PI)-M_PI;
+  if (theta_ >= 0) 
+    p_theta= theta_;
+  else{
+    p_theta=-theta_;
+    p_phi = fmod(-p_phi, 2*M_PI)-M_PI;
+    }*/
+  p_phi=angle_mod2pi_11(p_phi);
+  real_t theta_ = angle_mod2pi_11(p_theta);
+  if (theta_ >= 0) 
+    p_theta= theta_;
+  else{
+    p_theta=-theta_;
+    p_phi = angle_mod2pi_11(M_PI+p_phi);
+    }
+}
+  
+
 Imp Imp::u_angle (Rot angles) {
 	return {
-	  .x = sin(angles.theta)*cos(angles.phi),
-	  .y = sin(angles.theta)*sin(angles.phi),
-	  .z = cos(angles.theta)
+	  .x = sin(angles.theta())*cos(angles.phi()),
+	  .y = sin(angles.theta())*sin(angles.phi()),
+	  .z = cos(angles.theta())
 	};
 }
 
@@ -28,14 +48,9 @@ real_t Imp::operator! () const {
   return sqrt(x*x+y*y+z*z);
 }
 
-/*Imp Imp::rotate (real_t theta, real_t phi) const {
-	real_t c = cos(theta), s = sin(theta);
-	return { .x = c * x - s * y,
-	         .y = s * x + c * y };
-}*/
 
 Rot Imp::direction() const {
-  return {.theta =acos(z/(!*this)),.phi= atan2(y,x)};
+  return Rot(acos(z/(!*this)),atan2(y,x));
 }
 
 Imp Imp::rotate (Rot angles2) const {
@@ -43,11 +58,8 @@ Imp Imp::rotate (Rot angles2) const {
   Rot anglesf = angles1+ angles2;
   real_t r = !*this;
   return r*u_angle(anglesf);
-    /*return Imp {
-    .x = r*sin(anglesf.theta)*cos(anglesf.phi),
-    .y = r*sin(anglesf.theta)*sin(anglesf.phi),
-    .z = r*cos(anglesf.theta)};*/
 }
+
 real_t angle_mod2pi_11 (real_t theta) {
 	while (theta > M_PI)
 		theta -= 2*M_PI;
