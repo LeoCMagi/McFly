@@ -3,20 +3,8 @@ By Théo, Léo and Sacha
 
 Hello World :-)
 
-Commentaires sur ce qu'à fait Sacha :
-Je pense que pour coder les angles il vaudrait mieux faire un std::pair<real_t,real_t> car j'ai justement donné une fonction qui donne la direction d'un vecteur et qui renvoie un std::pair<real_t,real_t>. Je peux même te coder une classe qui te donnera directement tes angles entre 0 et 2*pi en fait je pense que je vais changer Vec2 et le renommer en angles.
-
+Commentaires de Théo à Sacha :
 La classe Pos étant virtuelle pure, il ne faut pas mettre de constructeurs.
-
-Je ne comprends pas trop la fonction void free2d::operator += (Vec3 v). Pourquoi ne pas faire simplement x_coor+=v.x et y_coord+=v.y ? C'est bon Sacha m'a expliqué
-
 J'ai un moyen encore plus efficace pour coder operator | faire return !(*this - Y) car si j'ai bien compris ton code (*this -Y) va renvoyer le vecteur entre ton point et le point Y et le ! va permettre d'en renvoyer la norme.
-
-Pour l'opérateur operator<< j'ai peut-être une commande pour simplifier cela mais cela demandera peut-être de faire beaucoup de boulversement au niveau de comment on code la classe. En fait non, il y a un moyen très simple de faire ça : (*this-Y).direction().second
-  
-Peux-tu réexpliquer les projections ?
-  
-Choses que je dois faire : C'est bon Sacha m'a expliqué
-renommer vec2 en angles et changer x et y en t et p
   
   
