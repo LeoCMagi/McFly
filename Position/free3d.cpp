@@ -57,12 +57,12 @@ Rot free3d::operator<< (free3d Y){
 
 // fonction to know how to scale in the square projection
 real_t dil_sqr(free3d X){
-  if (abs(X.x)<0.5 && abs(X.y)<0.5 && abs(X.z)<0.5){return 1.;}
-  real_t m;           m = abs(X.x);
-  if (m<abs(X.y)){    m = abs(X.y);}
-  if (m<abs(X.z)){ return abs(X.z);}
-  if (m==abs(X.x)){return abs(X.x)}
-                   return abs(X.y);
+  if (abs(X.x())<0.5 && abs(X.y())<0.5 && abs(X.z())<0.5){return 1.;}
+  real_t m;           m = abs(X.x());
+  if (m<abs(X.y())){    m = abs(X.y());}
+  if (m<abs(X.z())){ return abs(X.z());}
+  if (m==abs(X.x())){return abs(X.x());}
+                         return abs(X.y());
 }
 
 // !!!! Think !!!!!!
