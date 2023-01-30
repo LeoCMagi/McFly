@@ -9,7 +9,7 @@ using real_t = double; // peut être utile de de définir un type real_t pour fa
 /********************************************************************
  * Vecteur 2D. Simple structure (x,y) avec opérateurs surchargés
  * et quelques méthodes utiles. Ne pas utiliser pour représenter un
- * point dans un espace carthésien, il y a Point2 pour ça.
+ * point dans un espace cartésien, il y a Point2 pour ça.
  */
 class Rot {
 public :
