@@ -17,7 +17,7 @@ using pos = square;
 */
 
 
-/*   Position Documentation:/home/sacha/Projet_Info/McFly/test.cpp
+/*   Position Documentation:
 Every method's name can be used instead of the proper operator,
 if the user desires more clarity...
 let "p" refer to a given position.
