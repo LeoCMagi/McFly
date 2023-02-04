@@ -1,43 +1,23 @@
 #ifndef _POSITION_H_
 #define _POSITION_H_
-#include "../Vec/Vec.h"
 
-class pos {
- public:
-  pos (Imp X, Rot A);
-  
-  virtual void   operator+= (real_t v   );
-  virtual void   operator+= (Imp   v   );
-  virtual void   operator^  (Rot   a   );
-  virtual real_t operator|  (pos    Y   );
-  virtual bool   order      (int    axis,
-              	             pos  Y   );
-  virtual Imp   operator-  (pos Y   );
-  virtual Rot   operator<< (pos Y   );
-  virtual real_t x          (int    proj);
-  virtual real_t y          (int    proj);
-  virtual real_t z          (int    proj);
-  virtual real_t t          (int    proj);
-  virtual real_t p          (int    proj);
-  
-  void   move       (Imp   v){       this->operator+=( v);};
-  void   move       (real_t v){       this->operator+=( v);};
-  void   operator-= (Imp   v){       this->operator+=(-v);};
-  void   operator-= (real_t v){       this->operator+=(-v);};
-  void   turn       (Rot   a){       this->operator^ ( a);};
-  real_t dist       (pos    Y){return this->operator| ( Y);};
-  Imp   move_view  (pos    Y){return this->operator- ( Y);};
-  Rot   angle_view (pos    Y){return this->operator<<( Y);};
-  Rot   operator>> (pos    Y){return  Y<<(this[0]);};
-  real_t x (){return this->x(0);};
-  real_t y (){return this->y(0);};
-  real_t z (){return this->z(0);};
-  real_t t (){return this->t(0);};
-  real_t p (){return this->p(0);};
-  
-};
+/*
+#include "free2d.h"
+using pos = free2d;
+*/
 
-/*   Position Documentation:
+
+#include "free3d.h"
+using pos = free3d;
+
+
+/*
+#include "square.h"
+using pos = square;
+*/
+
+
+/*   Position Documentation:/home/sacha/Projet_Info/McFly/test.cpp
 Every method's name can be used instead of the proper operator,
 if the user desires more clarity...
 let "p" refer to a given position.

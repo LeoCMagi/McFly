@@ -1,10 +1,8 @@
 #ifndef _FREE3D_H_
 #define _FREE3D_H_
 #include "../Vec/Vec.h"
-#include "position.h"
 
 class free3d {
-//class free3d : public pos {
  public:
   free3d (Imp X, Rot A);
   

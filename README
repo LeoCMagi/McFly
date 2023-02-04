@@ -1,10 +1,2 @@
 This is the BOID project for MAG1 team "McFly"
 By Théo, Léo and Sacha
-
-Hello World :-)
-
-Commentaires de Théo à Sacha :
-La classe Pos étant virtuelle pure, il ne faut pas mettre de constructeurs.
-J'ai un moyen encore plus efficace pour coder operator | faire return !(*this - Y) car si j'ai bien compris ton code (*this -Y) va renvoyer le vecteur entre ton point et le point Y et le ! va permettre d'en renvoyer la norme.
-  
-  

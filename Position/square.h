@@ -1,10 +1,8 @@
 #ifndef _SQUARE_H_
 #define _SQUARE_H_
-#include "position.h"
 #include "../Vec/Vec.h"
 
 class square {
-//class square : public pos {
  public:
   square (Imp X, Rot A);
   

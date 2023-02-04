@@ -1,10 +1,8 @@
 #ifndef _FREE2D_H_
 #define _FREE2DN_H_
 #include "../Vec/Vec.h"
-#include "position.h"
 
 class free2d {
-//class free2d : public pos {
  public:
   free2d (Imp X, Rot A);
   
