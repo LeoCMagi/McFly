@@ -16,6 +16,11 @@ using pos = free3d;
 using pos = square;
 */
 
+/*
+#include "annulus.h"
+using pos = annulus;
+*/
+
 
 /*   Position Documentation:
 Every method's name can be used instead of the proper operator,
