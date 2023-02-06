@@ -1,20 +1,21 @@
 #ifndef BOIDS_H
 #define BOIDS_H
 #include "SFML/Graphics.hpp"
-#include "../position/position.h"
+#include "../position/free2d.h"
+//#include "../position/position.h"
 #include "../Vec/Vec.h"
 
 
 class boids
 {
-pos position;
+free2d position;
 Imp impulsion;
 sf::Texture texture;
 sf::Sprite sprite;
 
 public:
 boids();
-boids(pos posi,Imp impulse);
+boids(free2d posi,Imp impulse);
 void impulsion_noise(int distrib);
 void update_position();
 
