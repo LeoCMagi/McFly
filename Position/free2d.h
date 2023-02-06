@@ -1,5 +1,5 @@
 #ifndef _FREE2D_H_
-#define _FREE2DN_H_
+#define _FREE2D_H_
 #include "../Vec/Vec.h"
 
 class free2d {
@@ -12,13 +12,13 @@ class free2d {
   real_t operator|  (free2d Y   );
   bool   order      (int    axis,
               	    free2d  Y   );
-  Imp   operator-  (free2d  Y   );
-  Rot   operator<< (free2d  Y   );
-  real_t x          (int    proj);
-  real_t y          (int    proj);
-  real_t z          (int    proj);
-  real_t t          (int    proj);
-  real_t p          (int    proj);
+  Imp    operator-  (free2d  Y   );
+  Rot    operator<< (free2d  Y   );
+  real_t x          (int     proj);
+  real_t y          (int     proj);
+  real_t z          (int     proj);
+  real_t t          (int     proj);
+  real_t p          (int     proj);
   
   void   move       (Imp    v){       this->operator+=( v);};
   void   move       (real_t v){       this->operator+=( v);};
