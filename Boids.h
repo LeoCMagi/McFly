@@ -1,8 +1,8 @@
 #ifndef BOIDS_H
 #define BOIDS_H
 #include "SFML/Graphics.hpp"
-#include "../position/position.h"
-#include "../Vec/Vec.h"
+#include "Position/position.h"
+#include "Vec/Vec.h"
 
 
 class boids
