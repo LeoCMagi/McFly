@@ -1,21 +1,21 @@
-#include<iostream>
 #include "Boids.h"
-#include<cmath>
 #include<random>
-auto dice = std::uniform_int_distribution<int> distribution(2,360);
+std::default_random_engine generator;
+std::uniform_int_distribution<int> distribution(2,360);
+auto dice = std::bind (distribution,generator);
 //window.setFramerateLimit(FPS)
 //implementing constructors
 //change scale and opacity with distance in 3D ?
-boids::boids(pos posu,Imp impulsu):pos(posu),Imp(impulsu){}
+boids::boids(pos posu,Imp impulsu):position(posu),impulsion(impulsu){}
 
-boids::boids():pos(Imp {dice(),dice(),dice()}, Rot (dice(),dice() )),impulse(Imp {0.,0.,0.}){
+boids::boids():position(Imp {dice()/360,dice()/360,dice()/360}, Rot (dice(),dice() )),impulsion(Imp {0.,0.,0.}){
 texture.loadFromFile("oiseau.png");
 sprite.setTexture(texture);
 sprite.setColor(sf::Color(255, 255, 255, 128));//color,opacity
 sprite.setOrigin(sf::Vector2f(texture.getSize().x/2,texture.getSize().y/2));//to translate and rotate frm the center of the sprite
 sprite.setScale(0.02f,0.02f);//scale of the boid;
-sprite.setPosition(sf::Vector2f(pos.x(), pos.y()));//initial position of the boid}
-sprite.setRotation(Angle);//initial angle of the boid
+sprite.setPosition(sf::Vector2f(position.x()*500, position.y()*500));//initial position of the boid}
+sprite.setRotation(0.f);//initial angle of the boid
 }
 
 
@@ -35,22 +35,18 @@ void boids::impulsion_noise(int distrib){
   return b;
 }*/
 //if b(==1){ do something}
-
 }
 //max speed, max acceleration in input of update pos ?
 //more in flock.h
-void boids::update_postion(){
-(X,A)=boids.pos;
+void boids::update_position(){
 
-
-boids.sprite.rotate(15.f);//rotation of the sprite
-boids.sprite.move(sf::Vector3f(5.f,10.f,15.f));//translation of the sprite
+sprite.rotate(position.t());//rotation of the sprite
+sprite.move(sf::Vector2f(position.x(),position.y()));//translation of the sprite
 
 //RK4?Euler?
 }
 
-void boids::draw(sf::RenderWindow &window)
-{
-window.draw(sprite);
-}
-	
+void boids::draw(sf::RenderWindow &window){
+	window.draw(sprite);
+	}
+
