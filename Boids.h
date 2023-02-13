@@ -13,6 +13,8 @@ sf::Texture texture;
 //sf::Sprite sprite;
 
 public:
+float x;
+float y;
 pos posi() const{return position;}
 Imp impulsi() const{return impulsion;}
 sf::Sprite sprite;

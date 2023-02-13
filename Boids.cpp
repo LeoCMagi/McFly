@@ -1,20 +1,22 @@
 #include "Boids.h"
 #include<random>
-std::default_random_engine generator;
-std::uniform_int_distribution<int> distribution(2,360);
+#include<chrono>
+unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+std::default_random_engine generator (seed); 
+std::uniform_real_distribution<real_t> distribution(2.,360.);
 auto dice = std::bind (distribution,generator);
 //window.setFramerateLimit(FPS)
 //implementing constructors
 //change scale and opacity with distance in 3D ?
 boids::boids(pos posu,Imp impulsu):position(posu),impulsion(impulsu){}
 
-boids::boids():position(Imp {dice()/360,dice()/360,dice()/360}, Rot (dice(),dice() )),impulsion(Imp {0.,0.,0.}){
+boids::boids():position(Imp {x=dice(),y=dice(),dice()}, Rot (dice(),dice() )),impulsion(Imp {0.,0.,0.}){
 texture.loadFromFile("oiseau.png");
 sprite.setTexture(texture);
 sprite.setColor(sf::Color(255, 255, 255, 128));//color,opacity
 sprite.setOrigin(sf::Vector2f(texture.getSize().x/2,texture.getSize().y/2));//to translate and rotate frm the center of the sprite
 sprite.setScale(0.02f,0.02f);//scale of the boid;
-sprite.setPosition(sf::Vector2f(position.x()*500, position.y()*500));//initial position of the boid}
+sprite.setPosition(sf::Vector2f(position.x()*1500, position.y()*1200));//initial position of the boid}
 sprite.setRotation(0.f);//initial angle of the boid
 }
 
