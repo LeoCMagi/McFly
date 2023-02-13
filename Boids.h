@@ -13,6 +13,8 @@ sf::Texture texture;
 //sf::Sprite sprite;
 
 public:
+pos posi() const{return position;}
+Imp impulsi() const{return impulsion;}
 sf::Sprite sprite;
 boids();
 boids(pos posi,Imp impulse);
