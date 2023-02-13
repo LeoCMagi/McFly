@@ -1,5 +1,5 @@
 #PARTIE A MODIFIER : Liste des fichiers .cpp (et uniquement les .cpp) à compiler
-SOURCES= Position/free2d.cpp Position/free3d.cpp Position/square.cpp Vec/Vec.cpp test.cpp
+SOURCES= Position/free2d.cpp Position/free3d.cpp Position/square.cpp Vec/Vec.cpp Boids.cpp main.cpp
 #FIN DE LA PARTIE A MODIFIER
 
 # Nom du compilateur
@@ -9,7 +9,7 @@ LDFLAGS=-Wall -Wextra
 # Arguments pour l'etape de compilation : tous les avertissements (et même plus) sauf "ignored-attributes" (présence d'un bug dans GCC version 6 et plus)
 CPPFLAGS=-Wall -Wextra
 # Librairies : none
-LDLIBS=
+LDLIBS=-lsfml-graphics -lsfml-window -lsfml-system
 
 # Liste des fichier objet (*.o), générée automagiquement
 OBJETS=$(subst .cpp,.o,$(SOURCES))
