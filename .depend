@@ -1,0 +1,12 @@
+free2d.o: Position/free2d.cpp Position/free2d.h Position/../Vec/Vec.h
+free3d.o: Position/free3d.cpp Position/free3d.h Position/../Vec/Vec.h
+square.o: Position/square.cpp Position/square.h Position/../Vec/Vec.h
+Vec.o: Vec/Vec.cpp Vec/Vec.h
+Boids.o: Boids.cpp Boids.h Vec/Vec.h Position/position.h \
+ Position/square.h Position/../Vec/Vec.h
+Flock.o: Birds/Flock.cpp Birds/Flock.h Birds/../Boids.h \
+ Birds/../Vec/Vec.h Birds/../Position/position.h \
+ Birds/../Position/square.h Birds/../Position/../Vec/Vec.h
+main_flock.o: Birds/main_flock.cpp Birds/../Boids.h Birds/../Vec/Vec.h \
+ Birds/../Position/position.h Birds/../Position/square.h \
+ Birds/../Position/../Vec/Vec.h Birds/Flock.h
