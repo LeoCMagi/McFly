@@ -10,7 +10,6 @@ auto dice = std::bind (distribution,generator);
 //change scale and opacity with distance in 3D ?
 boids::boids(pos posu,Imp impulsu, sf::Texture& texture_ref):position(posu),impulsion(impulsu),texture(texture_ref){}
 
-
 boids::boids(sf::Texture& texture_ref):position(Imp {x=dice(),y=dice(),dice()}, Rot (dice(),dice() )),impulsion(Imp {0.,0.,0.}),texture(texture_ref){
 //texture.loadFromFile("oiseau.png");
 sprite.setTexture(texture);
