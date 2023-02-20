@@ -9,7 +9,7 @@ class boids
 {
 pos position;
 Imp impulsion;
-sf::Texture texture;
+sf::Texture& texture;
 //sf::Sprite sprite;
 
 public:
@@ -18,10 +18,10 @@ float y;
 pos posi() const{return position;}
 Imp impulsi() const{return impulsion;}
 sf::Sprite sprite;
-boids();
-boids(pos posi,Imp impulse);
+boids(sf::Texture& texture_ref);
+boids(pos posi,Imp impulse,sf::Texture& texture_ref);
 void impulsion_noise(int distrib);
-void update_position();
+//void update_position();
 
 void draw(sf::RenderWindow &window);//draw sprite in window
 

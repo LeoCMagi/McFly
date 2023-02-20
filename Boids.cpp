@@ -8,10 +8,10 @@ auto dice = std::bind (distribution,generator);
 //window.setFramerateLimit(FPS)
 //implementing constructors
 //change scale and opacity with distance in 3D ?
-boids::boids(pos posu,Imp impulsu):position(posu),impulsion(impulsu){}
+boids::boids(pos posu,Imp impulsu,sf::Texture& texture_ref):position(posu),impulsion(impulsu),texture(texture_ref){}
 
-boids::boids():position(Imp {x=dice(),y=dice(),dice()}, Rot (dice(),dice() )),impulsion(Imp {0.,0.,0.}){
-texture.loadFromFile("oiseau.png");
+boids::boids(sf::Texture& texture_ref):position(Imp {x=dice(),y=dice(),dice()}, Rot (dice(),dice() )),impulsion(Imp {0.,0.,0.}),texture(texture_ref){
+//texture.loadFromFile("oiseau.png");
 sprite.setTexture(texture);
 sprite.setColor(sf::Color(255, 255, 255, 128));//color,opacity
 sprite.setOrigin(sf::Vector2f(texture.getSize().x/2,texture.getSize().y/2));//to translate and rotate frm the center of the sprite
@@ -40,13 +40,21 @@ void boids::impulsion_noise(int distrib){
 }
 //max speed, max acceleration in input of update pos ?
 //more in flock.h
-void boids::update_position(){
-
-sprite.rotate(position.t());//rotation of the sprite
-sprite.move(sf::Vector2f(position.x(),position.y()));//translation of the sprite
+/*void boids::update_position(vector LIST){
+	real_t J = 1.0 ;//strength of re-alignment
+	Imp Falign= Imp {0.,0.,0.};
+	for (int j=0,j<5,j++){//sum on every near boid to re-align the bird
+		Falign+=-J*(impulsi() - LIST[j].impulsi());
+		}
+	Imp Fspeedctrl= Imp {0.,0.,0.};
+	sprite.rotate(position.t());//rotation of the sprite
+	sprite.move(sf::Vector2f(position.x(),position.y()));//translation of the sprite
 
 //RK4?Euler?
 }
+*/
+
+
 
 void boids::draw(sf::RenderWindow &window){
 	window.draw(sprite);

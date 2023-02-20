@@ -7,14 +7,14 @@ using pos = free2d;
 */
 
 
-#include "free3d.h"
+/*#include "free3d.h"
 using pos = free3d;
+*/
 
 
-/*
 #include "square.h"
 using pos = square;
-*/
+
 
 /*
 #include "annulus.h"

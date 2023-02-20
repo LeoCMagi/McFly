@@ -4,9 +4,11 @@ using namespace std;
 int main (){
 	sf::RenderWindow window(sf::VideoMode(1900, 1600), "BOIDS");
 	window.setFramerateLimit(30);
-	boids piaf = boids();
-	boids piaf2 = boids();
-	boids piaf3 = boids();
+	sf::Texture texture;
+	texture.loadFromFile("oiseau.png");
+	boids piaf = boids(texture);
+	boids piaf2 = boids(texture);
+	boids piaf3 = boids(texture);
 	cout<<"x "<<piaf.x<<" "<<piaf.y<<endl;
 	cout<<"x "<<piaf2.x<<" "<<piaf2.y<<endl;
 	cout<<"x "<<piaf3.x<<" "<<piaf3.y<<endl;
