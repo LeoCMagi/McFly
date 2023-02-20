@@ -3,13 +3,25 @@
 #include "Flock.h"
 using namespace std;
 int main (){
-	sf::RenderWindow window(sf::VideoMode(1600, 1600), "BOIDS");
+	sf::RenderWindow window(sf::VideoMode(1400, 1400), "BOIDS");
 	window.setFramerateLimit(30);
     Flock flock_piaf (3);
     std::vector<boids> l_piafs = flock_piaf.l_boids();
-	cout<<"x "<<l_piafs[0].x<<" "<<l_piafs[0].y<<endl;
+	int i;
+	for (i=0;i<3;i++) {
+		cout << "posi.x() " << l_piafs[i].posi().x() << " " << l_piafs[i].posi().y() << endl;
+	}
+	cout<<"x "<<l_piafs[0].posi().x()<<" "<<l_piafs[0].y<<endl;
 	cout<<"x "<<l_piafs[1].x<<" "<<l_piafs[1].y<<endl;
 	cout<<"x "<<l_piafs[2].x<<" "<<l_piafs[2].y<<endl;
+	int j;
+	for (i=0;i<3;i++) {
+		cout << "d_ij ";
+		for (j=0;j<i+1;j++) {
+			cout << flock_piaf.tab_dist()[i][j] << " ";
+		}
+		cout << endl;
+	}
 	
 	while (window.isOpen()){
 		window.clear(sf::Color::Yellow);
