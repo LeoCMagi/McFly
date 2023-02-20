@@ -9,10 +9,8 @@ auto dice = std::bind (distribution,generator);
 //implementing constructors
 //change scale and opacity with distance in 3D ?
 boids::boids(pos posu,Imp impulsu, sf::Texture& texture_ref):position(posu),impulsion(impulsu),texture(texture_ref){}
-boids::boids(pos posu,Imp impulsu,sf::Texture& texture_ref):position(posu),impulsion(impulsu),texture(texture_ref){}
 
-boids::boids(sf::Texture& texture_ref):position(Imp {x=dice(),y=dice(),dice()}, Rot (dice(),dice() )),impulsion(Imp {0.,0.,0.}),texture(texture_ref){
-//texture.loadFromFile("oiseau.png");
+
 boids::boids(sf::Texture& texture_ref):position(Imp {x=dice(),y=dice(),dice()}, Rot (dice(),dice() )),impulsion(Imp {0.,0.,0.}),texture(texture_ref){
 //texture.loadFromFile("oiseau.png");
 sprite.setTexture(texture);
@@ -45,11 +43,15 @@ void boids::impulsion_noise(int distrib){
 //more in flock.h
 /*void boids::update_position(vector LIST){
 	real_t J = 1.0 ;//strength of re-alignment
+	real_t v0= 4.0 //max speed ?
 	Imp Falign= Imp {0.,0.,0.};
 	for (int j=0,j<5,j++){//sum on every near boid to re-align the bird
 		Falign+=-J*(impulsi() - LIST[j].impulsi());
 		}
-	Imp Fspeedctrl= Imp {0.,0.,0.};
+	Imp Fspeedctrl = (8*lambda/pow(v0,6))*pow((v0*v0-impulsi()*impulsi()),3); // marginal speed ctrl
+	Imp noise = impulsion_noise(1);
+	
+	
 	sprite.rotate(position.t());//rotation of the sprite
 	sprite.move(sf::Vector2f(position.x(),position.y()));//translation of the sprite
 

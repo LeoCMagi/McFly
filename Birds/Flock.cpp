@@ -12,7 +12,7 @@ void Flock::update_dist() {
 }
 Flock::Flock (int n_) {
     n = n_;
-    texture.loadFromFile("../oiseau.png");
+    texture.loadFromFile("oiseau.png");
     //l_birds = std::vector<boids>(n_,boids(texture));
     l_birds.reserve(n);
     t_dist = std::vector<std::vector<real_t>> (n_,std::vector<real_t> (n_));
