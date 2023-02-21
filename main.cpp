@@ -9,9 +9,9 @@ int main (){
 	boids piaf = boids(texture);
 	boids piaf2 = boids(texture);
 	boids piaf3 = boids(texture);
-	cout<<"x "<<piaf.x<<" "<<piaf.y<<endl;
+	/*cout<<"x "<<piaf.x<<" "<<piaf.y<<endl;
 	cout<<"x "<<piaf2.x<<" "<<piaf2.y<<endl;
-	cout<<"x "<<piaf3.x<<" "<<piaf3.y<<endl;
+	cout<<"x "<<piaf3.x<<" "<<piaf3.y<<endl;*/
 	
 	while (window.isOpen()){
 		window.clear(sf::Color::Yellow);
@@ -30,9 +30,9 @@ int main (){
 				}}*/
 		window.clear(sf::Color::Yellow);
 		piaf.sprite.rotate(0.f);//rotation of the sprite
-		cout<<"pos: "<<piaf.posi().x(1)<<" "<<piaf.posi().y(1)<<"impulse: "<<piaf.impulsi().x<<endl;
+		/*cout<<"pos: "<<piaf.posi().x(1)<<" "<<piaf.posi().y(1)<<"impulse: "<<piaf.impulsi().x<<endl;
 		cout<<"pos: "<<piaf2.posi().x(1)<<" "<<piaf2.posi().y(1)<<"impulse: "<<piaf2.impulsi().x<<endl;
-		cout<<"pos: "<<piaf3.posi().x(1)<<" "<<piaf3.posi().y(1)<<"impulse: "<<piaf3.impulsi().x<<endl;
+		cout<<"pos: "<<piaf3.posi().x(1)<<" "<<piaf3.posi().y(1)<<"impulse: "<<piaf3.impulsi().x<<endl;*/
 		piaf2.sprite.rotate(3.f);
 		piaf3.sprite.rotate(40.f);
 		//piaf.sprite.move(sf::Vector2f(1,1));//translation of the sprite

@@ -8,18 +8,20 @@
 class boids
 {
 pos position;
-Imp impulsion;
+real_t v;
+//Imp impulsion;
 sf::Texture& texture;
 //sf::Sprite sprite;
 
 public:
-float x;
-float y;
+/*float x;
+float y;*/
 pos posi() const{return position;}
-Imp impulsi() const{return impulsion;}
+real_t speed() const{return v;}
 sf::Sprite sprite;
 boids(sf::Texture& texture_ref);
-boids(pos posi,Imp impulse,sf::Texture& texture_ref);
+//boids(pos posi,Imp impulse,sf::Texture& texture_ref);
+boids(pos posi, real_t vit, sf::Texture& texture_ref); 
 void impulsion_noise(int distrib);
 //void update_position();
 

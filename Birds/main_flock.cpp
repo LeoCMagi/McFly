@@ -11,9 +11,9 @@ int main (){
 	for (i=0;i<3;i++) {
 		cout << "posi.x() " << l_piafs[i].posi().x() << " " << l_piafs[i].posi().y() << endl;
 	}
-	cout<<"x "<<l_piafs[0].posi().x()<<" "<<l_piafs[0].y<<endl;
-	cout<<"x "<<l_piafs[1].x<<" "<<l_piafs[1].y<<endl;
-	cout<<"x "<<l_piafs[2].x<<" "<<l_piafs[2].y<<endl;
+	cout<<"x "<<l_piafs[0].posi().x()<<" "<<l_piafs[0].posi().y()<<endl;
+	cout<<"x "<<l_piafs[1].posi().x()<<" "<<l_piafs[1].posi().y()<<endl;
+	cout<<"x "<<l_piafs[2].posi().x()<<" "<<l_piafs[2].posi().x()<<endl;
 	int j;
 	for (i=0;i<3;i++) {
 		cout << "d_ij ";
