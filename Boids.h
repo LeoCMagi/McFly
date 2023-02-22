@@ -7,27 +7,25 @@
 
 class boids
 {
-pos position;
-real_t v;
-//Imp impulsion;
+pos          position;
+real_t       v;
 sf::Texture& texture;
 //sf::Sprite sprite;
 
 public:
-/*float x;
-float y;*/
-pos posi() const{return position;}
-real_t speed() const{return v;}
-sf::Sprite sprite;
 boids(sf::Texture& texture_ref);
+boids(pos          posi,
+      real_t       vit,
+      sf::Texture& texture_ref);
 //boids(pos posi,Imp impulse,sf::Texture& texture_ref);
-boids(pos posi, real_t vit, sf::Texture& texture_ref); 
-void impulsion_noise(int distrib);
+
+pos    posi           () const{return position;}
+real_t speed          () const{return v;}
+void   impulsion_noise(int distrib);
+void   draw           (sf::RenderWindow &window);//draw sprite in window
 //void update_position();
 
-void draw(sf::RenderWindow &window);//draw sprite in window
-
-
+sf::Sprite sprite;
 
 };
 #endif
