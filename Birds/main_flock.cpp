@@ -3,7 +3,7 @@
 #include "Flock.h"
 using namespace std;
 int main (){
-	sf::RenderWindow window(sf::VideoMode(1400, 1400), "BOIDS");
+	sf::RenderWindow window(sf::VideoMode(1900, 1600), "BOIDS");
 	window.setFramerateLimit(30);
     Flock flock_piaf (3);
     std::vector<boids> l_piafs = flock_piaf.l_boids();

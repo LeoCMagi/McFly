@@ -18,7 +18,7 @@ sprite.setTexture(texture);
 sprite.setColor(sf::Color(255, 255, 255, 128));//color,opacity
 sprite.setOrigin(sf::Vector2f(texture.getSize().x/2,texture.getSize().y/2));//to translate and rotate frm the center of the sprite
 sprite.setScale(0.02f,0.02f);//scale of the boid;
-sprite.setPosition(sf::Vector2f(position.x()*1500, position.y()*1200));//initial position of the boid}
+sprite.setPosition(sf::Vector2f(position.x()*100, position.y()*100));//initial position of the boid}
 sprite.setRotation(0.f);//initial angle of the boid
 }
 
@@ -58,6 +58,7 @@ void boids::impulsion_noise(int distrib){
 
 //RK4?Euler?
 }
+
 */
 
 
