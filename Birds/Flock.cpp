@@ -14,7 +14,7 @@ Flock::Flock (int n_) {
     n = n_;
     texture.loadFromFile("oiseau.png");
     //l_birds = std::vector<boids>(n_,boids(texture));
-    l_birds.reserve(n);
+    l_birds.reserve(n*sizeof(boids));
     t_dist = std::vector<std::vector<real_t>> (n_,std::vector<real_t> (n_));
     //l_sprites = std::vector<sf::Texture> (n_);
     int i;
