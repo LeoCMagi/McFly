@@ -23,8 +23,8 @@ pos    posi           () const{return position;}
 real_t speed          () const{return v;}
 void   impulsion_noise(int distrib);
 void   draw           (sf::RenderWindow &window);//draw sprite in window
-void   move           (real_t v) {position += v}
-void   turn           (Rot    r) {position  ^ r}
+void   move           (real_t v) {position += v};
+void   turn           (Rot    r) {position  ^ r};
 //void update_position();
 
 sf::Sprite sprite;

@@ -38,7 +38,7 @@ real_t annulus::operator| (annulus Y){
   float X,Y;
   X = fmod(x_coord-Y.x_coord+.5,1.)+.5;
   Y = fmod(y_coord-Y.y_coord+L/2., L)+L/2.;
-  return sqrt( X*X + Y*Y );
+  return X*X + Y*Y;
 }
 
 bool annulus::order (int axis, annulus Y){

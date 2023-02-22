@@ -63,8 +63,8 @@ void square::operator^ (Rot a){
 }
 
 real_t square::operator| (square Y){
-  return sqrt( (x_coord-Y.x_coord)*(x_coord-Y.x_coord)
-             + (y_coord-Y.y_coord)*(y_coord-Y.y_coord) );
+  return (x_coord-Y.x_coord)*(x_coord-Y.x_coord)
+       + (y_coord-Y.y_coord)*(y_coord-Y.y_coord);
 }
 
 bool square::order (int axis, square Y){

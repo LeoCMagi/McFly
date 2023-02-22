@@ -30,9 +30,9 @@ void free3d::operator^ (Rot a){
 }
 
 real_t free3d::operator| (free3d Y){
-  return sqrt( (x_coord-Y.x_coord)*(x_coord-Y.x_coord)
-             + (y_coord-Y.y_coord)*(y_coord-Y.y_coord)
-             + (z_coord-Y.z_coord)*(z_coord-Y.z_coord) );
+  return (x_coord-Y.x_coord)*(x_coord-Y.x_coord)
+       + (y_coord-Y.y_coord)*(y_coord-Y.y_coord)
+       + (z_coord-Y.z_coord)*(z_coord-Y.z_coord);
 }
 
 bool free3d::order (int axis, free3d Y){

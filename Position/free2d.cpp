@@ -29,8 +29,8 @@ void free2d::operator^ (Rot a){
 }
 
 real_t free2d::operator| (free2d Y){
-  return sqrt( (x_coord-Y.x_coord)*(x_coord-Y.x_coord)
-             + (y_coord-Y.y_coord)*(y_coord-Y.y_coord) );
+  return (x_coord-Y.x_coord)*(x_coord-Y.x_coord)
+       + (y_coord-Y.y_coord)*(y_coord-Y.y_coord);
 }
 
 bool free2d::order (int axis, free2d Y){
