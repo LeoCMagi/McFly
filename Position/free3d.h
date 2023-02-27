@@ -10,8 +10,6 @@ class free3d {
   void   operator+= (Imp    v   );
   void   operator^  (Rot    a   );
   real_t operator|  (free3d Y   );
-  bool   order      (int    axis,
-              	    free3d  Y   );
   Imp   operator-  (free3d  Y   );
   Rot   operator<< (free3d  Y   );
   real_t x          (int    proj);

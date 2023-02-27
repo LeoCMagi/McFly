@@ -35,17 +35,6 @@ real_t free3d::operator| (free3d Y){
        + (z_coord-Y.z_coord)*(z_coord-Y.z_coord);
 }
 
-bool free3d::order (int axis, free3d Y){
-  if (axis==1) return x_coord<Y.x_coord;
-  if (axis==2) return y_coord<Y.y_coord;
-  if (axis==3) return z_coord<Y.z_coord;
-  // case of an unexisting axis
-  cout << endl << endl
-       << "You requested the 'order' method on axis "
-       << axis << endl << "There is no such axis" << endl;
-  throw std::invalid_argument( "Unexisting axis" );
-}
-
 Imp  free3d::operator-  (free3d Y   ){
   return {x_coord-Y.x_coord, y_coord-Y.y_coord, z_coord-Y.z_coord};
 }
