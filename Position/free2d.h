@@ -10,8 +10,6 @@ class free2d {
   void   operator+= (Imp    v   );
   void   operator^  (Rot    a   );
   real_t operator|  (free2d Y   );
-  bool   order      (int    axis,
-              	    free2d  Y   );
   Imp    operator-  (free2d  Y   );
   Rot    operator<< (free2d  Y   );
   real_t x          (int     proj);
@@ -49,7 +47,7 @@ class free2d {
 Projections:
   0) {default} cropped projection
     x,y ∈ ]0 , 1[²
-    t   ∈ ]-π, π]
+    p   ∈ ]-π, π]
 
     When a boid leaves [-½,½]²,
       we only get its projection on the square's
@@ -62,12 +60,12 @@ Projections:
 
   1) trivial projection
     x,y ∈ ℝ²
-    t   ∈ ]-π, π]
+    p   ∈ ]-π, π]
 
 
   2) exponantial projection
       x,y ∈ ]0, 1[²
-      t   ∈ ]-π, π]
+      p   ∈ ]-π, π]
 
     Gives a global view of the entire ℝ²
       (all of that is shifted by (½,½) to center 
