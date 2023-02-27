@@ -7,13 +7,11 @@ class square {
   square (Imp X, Rot A);
   
   void   operator+= (real_t v   );
-  void   operator+= (Imp   v   );
-  void   operator^  (Rot   a   );
+  void   operator+= (Imp    v   );
+  void   operator^  (Rot    a   );
   real_t operator|  (square Y   );
-  bool   order      (int    axis,
-              	    square  Y   );
-  Imp   operator-  (square Y   );
-  Rot   operator<< (square Y   );
+  Imp    operator-  (square Y   );
+  Rot    operator<< (square Y   );
   real_t x          (int    proj);
   real_t y          (int    proj);
   real_t z          (int    proj);
@@ -26,9 +24,9 @@ class square {
   void   operator-= (real_t v){       this->operator+=(-v);};
   void   turn       (Rot   a){       this->operator^ ( a);};
   real_t dist       (square Y){return this->operator| ( Y);};
-  Imp   move_view  (square Y){return this->operator- ( Y);};
-  Rot   angle_view (square Y){return this->operator<<( Y);};
-  Rot   operator>> (square Y){return  Y<<(this[0]);};
+  Imp    move_view  (square Y){return this->operator- ( Y);};
+  Rot    angle_view (square Y){return this->operator<<( Y);};
+  Rot    operator>> (square Y){return  Y<<(this[0]);};
   real_t x (){return this->x(0);};
   real_t y (){return this->y(0);};
   real_t z (){return this->z(0);};
@@ -59,7 +57,7 @@ Dimensions of the box:
 Projections:
   0) {default} whilde projection
     (x,y) ∈ [0,1] x [0, r_y]
-    t   ∈ ]-π, π]
+    p   ∈ ]-π, π]
 
     all the coordinates are visible.
     Warning : if r_x >> r_y
@@ -68,7 +66,7 @@ Projections:
 
   1) croped projection
     x,y ∈ [0 , 1]²
-    t   ∈ ]-π, π]
+    p   ∈ ]-π, π]
 
     the space is scaled to enlarge the smaller
       axis. The bigger axis is thus cropped.
@@ -77,7 +75,7 @@ Projections:
   
   2) dilated projection
     x,y ∈ [0 , 1]²
-    t   ∈ ]-π, π]
+    p   ∈ ]-π, π]
 
     the entire space is now visible, without
       loss of space. However, the angles are
