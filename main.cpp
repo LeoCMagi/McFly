@@ -34,7 +34,8 @@ int main (){
 		cout<<"pos: "<<piaf2.posi().x(1)<<" "<<piaf2.posi().y(1)<<"impulse: "<<piaf2.impulsi().x<<endl;
 		cout<<"pos: "<<piaf3.posi().x(1)<<" "<<piaf3.posi().y(1)<<"impulse: "<<piaf3.impulsi().x<<endl;*/
 		piaf2.sprite.rotate(3.f);
-		piaf3.sprite.rotate(40.f);
+		piaf3.sprite.rotate(-3.f);
+		
 		//piaf.sprite.move(sf::Vector2f(1,1));//translation of the sprite
 		//piaf2.sprite.move(sf::Vector2f(3,1));
 		//piaf3.sprite.move(sf::Vector2f(3,3));
@@ -43,11 +44,21 @@ int main (){
 
 
 
-
+		//cout << piaf.sprite.getRotation()<<endl;
+		//cout<<piaf2.sprite.getRotation()<<endl;
+		//cout<<piaf3.sprite.getRotation()<<endl;
 		piaf.draw(window);
 		piaf2.draw(window);
 		piaf3.draw(window);
 		window.display();
 }
+		cout<< piaf.posi().p()<<endl;
+		cout<< piaf.posi().t()<<endl;
+		cout<< piaf2.posi().p()<<endl;
+		cout<< piaf3.posi().p()<<endl;
+		cout<< " getrot" << endl;
+		cout << piaf.sprite.getRotation()<<endl;
+		cout<<piaf2.sprite.getRotation()<<endl;
+		cout<<piaf3.sprite.getRotation()<<endl;
 	return 0;
 }
