@@ -148,7 +148,7 @@ real_t square::p (int proj){
 }
 
 real_t square::t (int proj){
-  if (proj==0 || proj==1 || proj==2) return M_PI/2, ;
+  if (proj==0 || proj==1 || proj==2) return M_PI/2;
 
   // case of an unexisting projection
   cout << endl << endl

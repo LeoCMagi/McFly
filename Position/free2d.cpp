@@ -133,7 +133,7 @@ real_t free2d::p (int proj){
 }
 
 real_t free2d::t (int proj){
-  if (proj==0 || proj==1 || proj==2) return 0.;
+  if (proj==0 || proj==1 || proj==2) return M_PI/2;
 
   // case of an unexisting projection
   cout << endl << endl

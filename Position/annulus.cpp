@@ -126,7 +126,7 @@ real_t annulus::p (int proj){
 }
 
 real_t annulus::t (int proj){
-  if (proj==0 || proj==1 || proj==2) return 0.;
+  if (proj==0 || proj==1 || proj==2) return M_PI/2;
 
   // case of an unexisting projection
   cout << endl << endl
