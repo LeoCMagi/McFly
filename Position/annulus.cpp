@@ -13,7 +13,7 @@ annulus::annulus (Imp X, Rot A){
      there will be an update...*/
   x_coord = fmod(X.x, 1.);
   y_coord = fmod(X.y, L );
-  t_angle = fmod(A.theta()+M_PI, 2*M_PI)-M_PI;
+  t_angle = fmod(A.phi()+M_PI, 2*M_PI)-M_PI;
 }
 
 void annulus::operator+= (real_t v){
@@ -41,16 +41,6 @@ real_t annulus::operator| (annulus Y){
   return X*X + Y*Y;
 }
 
-bool annulus::order (int axis, annulus Y){
-  if (axis==1) return x_coord<Y.x_coord;
-  if (axis==2) return y_coord<Y.x_coord;
-  // case of an unexisting axis
-  cout << endl << endl
-       << "You requested the 'order' method on axis "
-       << axis << endl << "There is no such axis" << endl;
-  throw std::invalid_argument( "Unexisting axis" );
-}
-
 Imp  annulus::operator-  (annulus Y   ){
   float X,Y;
   X = fmod(x_coord-Y.x_coord+.5,1.)+.5;
@@ -62,12 +52,12 @@ Rot annulus::operator<< (annulus Y){
   float x_d = fmod(x_coord-Y.x_coord+.5,1.)+.5;
   float y_d = fmod(y_coord-Y.y_coord+L/2., L)+L/2.;
   if (x_d==0.){
-    if (y_d>0) return {fmod(-t_angle+3*M_PI/2, 2*M_PI)-M_PI,0.};
-    if (y_d<0) return {fmod(-t_angle+  M_PI/2, 2*M_PI)-M_PI,0.};
+    if (y_d>0) return {M_PI/2, fmod(-t_angle+3*M_PI/2, 2*M_PI)-M_PI};
+    if (y_d<0) return {M_PI/2, fmod(-t_angle+  M_PI/2, 2*M_PI)-M_PI};
   }
   real_t a = atan(y_d/x_d);
-  if (x_d>0) return {fmod( a+M_PI-t_angle, 2*M_PI)-M_PI,0};
-             return {fmod(-a     -t_angle, 2*M_PI)-M_PI,0};
+  if (x_d>0) return {M_PI/2, fmod( a+M_PI-t_angle, 2*M_PI)-M_PI};
+             return {M_PI/2, fmod(-a     -t_angle, 2*M_PI)-M_PI};
 }
 
 
@@ -124,7 +114,7 @@ real_t annulus::z (int proj){
   throw std::invalid_argument( "Unexisting projection" );
 }
 
-real_t annulus::t (int proj){
+real_t annulus::p (int proj){
   if (proj==0 || proj==1 || proj==2) return t_angle;
 
   // case of an unexisting projection
@@ -135,7 +125,7 @@ real_t annulus::t (int proj){
   throw std::invalid_argument( "Unexisting projection" );
 }
 
-real_t annulus::p (int proj){
+real_t annulus::t (int proj){
   if (proj==0 || proj==1 || proj==2) return 0.;
 
   // case of an unexisting projection
