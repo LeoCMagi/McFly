@@ -38,6 +38,8 @@ class free3d {
   real_t y_coord;
   real_t z_coord;
   Rot angle; // stands for (θ, \phi)
+
+  real_t dil_sqr();
 };
 
 #endif

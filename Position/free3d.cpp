@@ -45,13 +45,13 @@ Rot free3d::operator<< (free3d Y){
 }
 
 // fonction to know how to scale in the square projection
-real_t dil_sqr(free3d X){
-  if (abs(X.x())<0.5 && abs(X.y())<0.5 && abs(X.z())<0.5){return 1.;}
-  real_t m;             m = abs(X.x());
-  if (m< abs(X.y())){   m = abs(X.y());}
-  if (m< abs(X.z())){return abs(X.z());}
-  if (m==abs(X.x())){return abs(X.x());}
-                     return abs(X.y());
+real_t free3d::dil_sqr(){
+  if (abs(x_coord)<0.5 && abs(y_coord)<0.5 && abs(z_coord)<0.5){return 1.;}
+  real_t m;               m = abs(x_coord);
+  if (m< abs(y_coord)){   m = abs(y_coord);}
+  if (m< abs(z_coord)){return abs(z_coord);}
+  if (m==abs(x_coord)){return abs(x_coord);}
+                       return abs(y_coord);
 }
 
 // !!!! Think !!!!!!
@@ -61,7 +61,7 @@ real_t free3d::x (int proj){
     //≈0.9375 ie closse to 0.99 but with exact binary representation
     // made to ensure that a boid doesn't get too close to the edge 
     // because we don't want edge cases when going into pixels
-    return x_coord/dil_sqr(*this)*d/2 + 0.5;
+    return x_coord/(this->dil_sqr())*d/2 + 0.5;
   }
 
   if (proj==1) return x_coord;
@@ -83,7 +83,7 @@ real_t free3d::y (int proj){
     //≈0.9375 ie closse to 0.99 but with exact binary representation
     // made to ensure that a boid doesn't get too close to the edge 
     // because we don't want edge cases when going into pixels
-    return y_coord/dil_sqr(*this)*d/2 + 0.5;
+    return y_coord/(this->dil_sqr())*d/2 + 0.5;
   }
 
   if (proj==1) return y_coord;
@@ -105,7 +105,7 @@ real_t free3d::z (int proj){
     //≈0.9375 ie closse to 0.99 but with exact binary representation
     // made to ensure that a boid doesn't get too close to the edge 
     // because we don't want edge cases when going into pixels
-    return z_coord/dil_sqr(*this)*d/2 + 0.5;
+    return z_coord/(this->dil_sqr())*d/2 + 0.5;
   }
 
   if (proj==1) return z_coord;
