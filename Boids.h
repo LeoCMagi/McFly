@@ -13,7 +13,6 @@ sf::Texture& texture;
 //sf::Sprite sprite;
 
 public:
-
 boids(sf::Texture& texture_ref);
 boids(pos          posi,
       real_t       vit,

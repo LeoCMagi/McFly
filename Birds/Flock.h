@@ -7,8 +7,11 @@ class Flock {
     int n;
     std::vector<boids> l_birds;
     std::vector<std::vector<real_t>> t_dist;
+
     void update_dist ();
+    void store_data ();
     //std::vector<sf::Texture> l_sprites;
+
     public :
     sf::Texture texture;
     std::vector<std::vector<real_t>> tab_dist () const {return t_dist;}
