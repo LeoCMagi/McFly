@@ -5,15 +5,15 @@ using namespace std;
 int main (){
 	sf::RenderWindow window(sf::VideoMode(1900, 1600), "BOIDS");
 	window.setFramerateLimit(30);
-    Flock flock_piaf (3);
-    std::vector<boids> l_piafs = flock_piaf.l_boids();
+    Flock flock_piaf (3,0,0,0,0);
+    std::vector<pos> l_piafs = flock_piaf.pos_boids();
 	int i;
 	for (i=0;i<3;i++) {
-		cout << "posi.x() " << l_piafs[i].posi().x() << " " << l_piafs[i].posi().y() << endl;
+		cout << "posi.x() " << l_piafs[i].x() << " " << l_piafs[i].y() << endl;
 	}
-	cout<<"x "<<l_piafs[0].posi().x()<<" "<<l_piafs[0].posi().y()<<endl;
-	cout<<"x "<<l_piafs[1].posi().x()<<" "<<l_piafs[1].posi().y()<<endl;
-	cout<<"x "<<l_piafs[2].posi().x()<<" "<<l_piafs[2].posi().x()<<endl;
+	cout<<"x "<<l_piafs[0].x()<<" "<<l_piafs[0].y()<<endl;
+	cout<<"x "<<l_piafs[1].x()<<" "<<l_piafs[1].y()<<endl;
+	cout<<"x "<<l_piafs[2].x()<<" "<<l_piafs[2].y()<<endl;
 	int j;
 	for (i=0;i<3;i++) {
 		cout << "d_ij ";
@@ -39,15 +39,7 @@ int main (){
 				//	break; 
 				}}*/
 		window.clear(sf::Color::Yellow);
-
-
-
-
-
-		int k; 
-        for (k=0;k<3;k++) {
-            window.draw(l_piafs[k].sprite);
-        }
+		flock_piaf.draw(window);
         //flock_piaf.draw(window);
 		window.display();
 }
