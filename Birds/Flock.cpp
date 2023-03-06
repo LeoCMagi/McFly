@@ -47,28 +47,30 @@ void store_data(int& iteration,
                 bool is_drone,
                 ofstream file)
     if (iteration==0){
-                      file << "time ";
-                      file << "boid ";
-                      file << "speed ";
-                      file << "x ";
-                      file << "y ";
-                      file << "z ";
-        if (tp){      file << "theta ";
-                      file << "phi ";  }
-        if (is_drone){file << "drone ";}
+                      file << "time,";
+                      file << "boid,";
+                      file << "speed,";
+                      file << "x,";
+                      file << "y,";
+                      file << "z,";
+        if (tp){      file << "theta,";
+                      file << "phi,";  }
+        if (is_drone){file << "drone,";}
                       file << endl;
     }
     if (iteration%N_dt==0){
         int i;
         for (i=0, i<n, i++){
-                          file << iteration << " ";
-                          file << i << " ";
-                          file << l_birds[i].v << " ";
-                          file << l_birds[i].position.x(proj) << " ";
-                          file << l_birds[i].position.y(proj) << " ";
-                          file << l_birds[i].position.z(proj) << " ";
-            if (tp){      file << l_birds[i].position.t(proj) << " ";
-                          file << l_birds[i].position.p(proj) << " ";}
-            if (is_drone){file << l_birds[i].drone << " ";}
+                          file << iteration << ",";
+                          file << i << ",";
+                          file << l_birds[i].v << ",";
+                          file << l_birds[i].position.x(proj) << ",";
+                          file << l_birds[i].position.y(proj) << ",";
+                          file << l_birds[i].position.z(proj) << ",";
+            if (tp){      file << l_birds[i].position.t(proj) << ",";
+                          file << l_birds[i].position.p(proj) << ",";}
+            if (is_drone){file << l_birds[i].drone << ",";}
                           file << endl;
-    }}
+    }
+    iteration++;
+    }
