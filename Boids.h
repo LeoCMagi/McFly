@@ -21,7 +21,7 @@ boids(pos          posi,
 
 pos    posi           () const{return position;}
 real_t speed          () const{return v;}
-void   impulsion_noise(int distrib);
+Imp   impulsion_noise();
 void   draw           (sf::RenderWindow &window);//draw sprite in window
 void   move           (real_t v) {position += v;}
 void   turn           (Rot    r) {position  ^ r;}
