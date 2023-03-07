@@ -25,6 +25,7 @@ Imp   impulsion_noise();
 void   draw           (sf::RenderWindow &window);//draw sprite in window
 void   move           (real_t v) {position += v;}
 void   turn           (Rot    r) {position  ^ r;}
+void set_v (real_t v_) {v =v_;}
 //void update_position();
 
 sf::Sprite sprite;
