@@ -15,6 +15,7 @@ class Flock {
     std::vector<pos> l_pos_prec;
     std::vector<std::vector<real_t>> t_dist;
     void update_dist ();
+    //void store_data ();
     //std::vector<sf::Texture> l_sprites;
     public :
     sf::Texture texture;
