@@ -9,6 +9,9 @@ unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 std::default_random_engine generator (seed); 
 std::uniform_real_distribution<real_t> distribution(2.,360.);
 auto dice = std::bind (distribution,generator);
+std::normal_distribution<real_t> normal(0.,sqrt(2*3*0.5));
+auto gauss = std::bind (normal,generator);
+
 void Flock::update_dist() {
     int i, j;
     for (i=0;i<n;i++) {
@@ -71,10 +74,14 @@ void Flock::update_flock() {
                 -l_speed_prec[j]*sin(angles.theta())*sin(angles.phi()),
                 -l_speed_prec[j]*cos(angles.theta())};
             }
-            Imp F = Fsc+Fint; //dt =1
-            l_speed[i] = !(F+Imp{l_speed[i],0,0});
-            l_pos[i] ^ F.direction();
         }
+        Imp noise = Imp{gauss(),gauss(),gauss()};
+        Imp upd_spe = Fsc+Fint + noise; //dt =1
+        l_speed[i] = !(upd_spe+Imp{l_speed[i],0,0});
+        l_pos[i] ^ upd_spe.direction();
+        l_sprites[i].rotate(upd_spe.direction().phi()*180/M_PI);
+        Imp mvmt = l_pos[i] -l_pos_prec[i];
+        l_sprites[i].move(sf::Vector2f(mvmt.x*1500, mvmt.y*1200));
     }
     update_dist();
 }
