@@ -1,5 +1,5 @@
 #PARTIE A MODIFIER : Liste des fichiers .cpp (et uniquement les .cpp) à compiler
-SOURCES= Position/free2d.cpp Position/free3d.cpp Position/square.cpp Vec/Vec.cpp Birds/Flock.cpp  Birds/main_flock.cpp #main.cpp Boids.cpp
+SOURCES= Position/free2d.cpp Position/free3d.cpp Position/square.cpp Vec/Vec.cpp Birds/Flock.cpp     Birds/main_flock.cpp #test.cpp 
 #FIN DE LA PARTIE A MODIFIER
 
 # Nom du compilateur

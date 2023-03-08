@@ -9,7 +9,7 @@ unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 std::default_random_engine generator (seed); 
 std::uniform_real_distribution<real_t> distribution(2.,360.);
 auto dice = std::bind (distribution,generator);
-std::normal_distribution<real_t> normal(0.,sqrt(2*3*0.5));
+std::normal_distribution<real_t> normal(0.,sqrt(2*3*0.5*0.0000001));
 auto gauss = std::bind (normal,generator);
 
 void Flock::update_dist() {
