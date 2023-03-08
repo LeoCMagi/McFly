@@ -51,7 +51,28 @@ Flock::Flock (int n_, real_t J_, real_t v0_, real_t rc_, real_t g_) {
     l_pos_prec = l_pos;
     update_dist();
 }
-//Flock::Flock (const std::vector<boids>& list_birds, real_t J_, real_t v0_, real_t rc_,real_t g_):n(list_birds.size()), J(J_), v0(v0_), rc(rc_), g(g_), l_birds(list_birds),l_birds_prec(std:vector<real_t>), t_dist(std::vector<std::vector<real_t>> (list_birds.size(),std::vector<real_t> (list_birds.size()))){update_dist();}
+
+Flock::Flock (const std::vector<real_t>& speed_birds, const std::vector<pos>& pos_birds, real_t J_, real_t v0_, real_t rc_,real_t g_) {
+    l_speed=speed_birds; l_pos = pos_birds; l_pos_prec = pos_birds;
+    n = l_pos.size();
+    l_sprites = std::vector<sf::Sprite> (n);
+    t_dist = std::vector<std::vector<real_t>> (n,std::vector<real_t> (n));
+    J=J_;
+    v0=v0_;
+    rc=rc_;
+    g=g_;
+    texture.loadFromFile("oiseau.png");
+    int i ;
+    for (i=0;i<n;i++) {
+        l_sprites[i].setTexture(texture);
+        l_sprites[i].setColor(sf::Color(255, 255, 255, 128));//color,opacity 
+        l_sprites[i].setOrigin(sf::Vector2f(texture.getSize().x/2,texture.getSize().y/2));//to translate and rotate frm the center of the sprite 
+        l_sprites[i].setScale(0.02f,0.02f);//scale of the boid; 
+        l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*1500, l_pos[i].y()*1200));//initial position of the boid} 
+        l_sprites[i].setRotation(l_pos[i].p()*180/M_PI);//initial angle of the boid
+    }
+    update_dist();
+}
 void Flock::draw(sf::RenderWindow& window) {
     int i;
     for (i=0;i<n;i++) {
@@ -76,7 +97,7 @@ void Flock::update_flock() {
             }
         }
         Imp noise = Imp{gauss(),gauss(),gauss()};
-        Imp upd_spe = Fsc+Fint + noise; //dt =1
+        Imp upd_spe = Fsc+Fint + 0*noise; //dt =1
         l_speed[i] = !(upd_spe+Imp{l_speed[i],0,0});
         l_pos[i] ^ upd_spe.direction();
         l_sprites[i].setRotation(l_pos[i].p()*180/M_PI);

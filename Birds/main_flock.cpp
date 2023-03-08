@@ -1,11 +1,18 @@
 #include<iostream>
 #include "Flock.h"
+#include <cmath>
 using namespace std;
 int main (){
-	sf::RenderWindow window(sf::VideoMode(1900, 1600), "BOIDS");
+	sf::RenderWindow window(sf::VideoMode(1500, 1200), "BOIDS");
 	window.setFramerateLimit(30);
-    Flock flock_piaf (100,0,1,0,0);
-    std::vector<pos> l_piafs = flock_piaf.pos_boids();
+    //Flock flock_piaf (100,0,1,0,0);
+    std::vector<real_t> speed_birds (3,0.02);
+	std::vector<pos> pos_birds;
+	pos_birds.push_back(pos(Imp{0,0,0},Rot(0,0)));
+	pos_birds.push_back(pos(Imp{0.5,0.5,0},Rot(0,M_PI/4)));
+	pos_birds.push_back(pos(Imp{0.3,0.3,0},Rot(0,0)));
+	Flock flock_piaf (speed_birds, pos_birds, 0, 0.02, 0,0);
+	std::vector<pos> l_piafs = flock_piaf.pos_boids();
 	int i;
 	for (i=0;i<3;i++) {
 		cout << "posi.x() " << l_piafs[i].x() << " " << l_piafs[i].y() << endl;

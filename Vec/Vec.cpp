@@ -50,7 +50,12 @@ real_t Imp::operator! () const {
 
 
 Rot Imp::direction() const {
-  return Rot(acos(z/(!*this)),atan2(y,x));
+  if (!*this ==0) {
+    return Rot(0,0);
+  }
+  else {
+    return Rot(acos(z/(!*this)),atan2(y,x));
+  }
 }
 
 Imp Imp::rotate (Rot angles2) const {

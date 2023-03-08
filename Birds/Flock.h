@@ -26,7 +26,7 @@ class Flock {
     void update_flock();
     void set_parameters (real_t J_, real_t v0_, real_t rc_,real_t g_);
     Flock (int n_,real_t J_, real_t v0_, real_t rc_, real_t g_);
-    //Flock (const std::vector<boids>& list_birds, real_t J_, real_t v0_, real_t rc_,real_t g_);
+    Flock (const std::vector<real_t>& speed_birds, const std::vector<pos>& pos_birds, real_t J_, real_t v0_, real_t rc_,real_t g_);
     void draw(sf::RenderWindow& window);
 };
 
