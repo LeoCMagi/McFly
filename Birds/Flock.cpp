@@ -15,10 +15,10 @@ auto gauss = std::bind (normal,generator);
 void Flock::update_dist() {
     int i, j;
     for (i=0;i<n;i++) {
-        t_dist[i][i]=0;
-        for (j=0;j<i;j++) {
+        for (j=0;j<n;j++) {
             t_dist[i][j] = (l_pos[i] | l_pos[j]);
         }
+        t_dist[i][i]=0;
     }
 }
 void Flock::set_parameters (real_t J_, real_t v0_, real_t rc_,real_t g_) {
@@ -68,9 +68,9 @@ void Flock::update_flock() {
         Imp Fsc {.x= 2*g*(v0-l_speed_prec[i]),.y=0,.z=0};
         Imp Fint {0,0,0};
         for (j=0;j<n;j++) {
-            if (t_dist[i][j]<rc) {
+            if (t_dist[i][j]<rc && i!=j) {
                 Rot angles = l_pos_prec[i] <<l_pos_prec[j];
-                Fint += J*Imp{l_speed_prec[i]-l_speed_prec[j]*sin(angles.phi())*cos(angles.theta()),
+                Fint += -J*Imp{l_speed_prec[i]-l_speed_prec[j]*cos(angles.phi())*sin(angles.theta()),
                 -l_speed_prec[j]*sin(angles.theta())*sin(angles.phi()),
                 -l_speed_prec[j]*cos(angles.theta())};
             }
@@ -79,9 +79,8 @@ void Flock::update_flock() {
         Imp upd_spe = Fsc+Fint + noise; //dt =1
         l_speed[i] = !(upd_spe+Imp{l_speed[i],0,0});
         l_pos[i] ^ upd_spe.direction();
-        l_sprites[i].rotate(upd_spe.direction().phi()*180/M_PI);
-        Imp mvmt = l_pos[i] -l_pos_prec[i];
-        l_sprites[i].move(sf::Vector2f(mvmt.x*1500, mvmt.y*1200));
+        l_sprites[i].setRotation(l_pos[i].p()*180/M_PI);
+        l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*1500, l_pos[i].y()*1200));
     }
     update_dist();
 }
