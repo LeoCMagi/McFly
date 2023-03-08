@@ -9,7 +9,7 @@ unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 std::default_random_engine generator (seed); 
 std::uniform_real_distribution<real_t> distribution(2.,360.);
 auto dice = std::bind (distribution,generator);
-std::normal_distribution<real_t> normal(0.,sqrt(2*3*0.5*0.0000001));
+std::normal_distribution<real_t> normal(0.,sqrt(2*3*0.5*0.00000001));
 auto gauss = std::bind (normal,generator);
 
 void Flock::update_dist() {
@@ -33,7 +33,7 @@ Flock::Flock (int n_, real_t J_, real_t v0_, real_t rc_, real_t g_) {
     texture.loadFromFile("oiseau.png");
     //l_birds_prec = std::vector<boids> (n);
     //l_birds = std::vector<boids>(n_,boids(texture));
-    l_speed = std::vector<real_t> (n_,0);
+    l_speed = std::vector<real_t> (n_,0.0);
     l_pos = std::vector<pos> (n_,pos(Imp{0,0,0}, Rot(0,0)));
     t_dist = std::vector<std::vector<real_t>> (n_,std::vector<real_t> (n_));
     l_sprites = std::vector<sf::Sprite> (n_);
@@ -97,7 +97,7 @@ void Flock::update_flock() {
             }
         }
         Imp noise = Imp{gauss(),gauss(),gauss()};
-        Imp upd_spe = Fsc+Fint + 0*noise; //dt =1
+        Imp upd_spe = Fsc+Fint + noise; //dt =1
         l_speed[i] = !(upd_spe+Imp{l_speed[i],0,0});
         l_pos[i] ^ upd_spe.direction();
         l_sprites[i].setRotation(l_pos[i].p()*180/M_PI);

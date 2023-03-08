@@ -59,7 +59,7 @@ void square::operator+= (Imp v){
 }
 
 void square::operator^ (Rot a){
-  t_angle= fmod(t_angle+a.theta()+M_PI, 2*M_PI)-M_PI;
+  t_angle= fmod(t_angle+a.phi()+M_PI, 2*M_PI)-M_PI;
 }
 
 real_t square::operator| (square Y){
