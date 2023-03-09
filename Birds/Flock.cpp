@@ -86,18 +86,19 @@ void Flock::update_flock() {
     int i, j;
     for (i=0;i<n;i++) {
         l_pos[i]+= l_speed_prec[i]; //dt=1 
-        Imp Fsc {.x= 2*g*(v0-l_speed_prec[i]),.y=0,.z=0};
+        Imp Fsc {.x= 2*g*(v0-l_speed_prec[i]),.y=0,.z=0};//linear correction
+       // Imp Fsc {.x= (8*g/pow(v0,6))*pow((v0*v0-l_speed_prec[i]*l_speed_prec[i]),3),.y=0,.z=0};//marginal speed correction
         Imp Fint {0,0,0};
         for (j=0;j<n;j++) {
-            if (t_dist[i][j]<rc && i!=j) {
-                Rot angles = l_pos_prec[i] <<l_pos_prec[j];
+       	  Rot angles = l_pos_prec[i] <<l_pos_prec[j];
+            if (t_dist[i][j]<rc && i!=j && angles.phi()<M_PI/4 && angles.phi()>(-M_PI/4)) {
                 Fint += -J*Imp{l_speed_prec[i]-l_speed_prec[j]*cos(angles.phi())*sin(angles.theta()),
                 -l_speed_prec[j]*sin(angles.theta())*sin(angles.phi()),
                 -l_speed_prec[j]*cos(angles.theta())};
             }
         }
         Imp noise = Imp{gauss(),gauss(),gauss()};
-        Imp upd_spe = Fsc+Fint + noise; //dt =1
+        Imp upd_spe = Fsc+Fint + 0*noise; //dt =1
         l_speed[i] = !(upd_spe+Imp{l_speed[i],0,0});
         l_pos[i] ^ upd_spe.direction();
         l_sprites[i].setRotation(l_pos[i].p()*180/M_PI);

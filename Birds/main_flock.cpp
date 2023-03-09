@@ -3,9 +3,9 @@
 #include <cmath>
 using namespace std;
 int main (){
-	sf::RenderWindow window(sf::VideoMode(1500, 1200), "BOIDS");
+	sf::RenderWindow window(sf::VideoMode(1900, 1600), "BOIDS");
 	window.setFramerateLimit(30);
-     Flock flock_piaf (1700,0.001,0.02,0.003,0.002);
+     Flock flock_piaf (30,0.0001,0.00551,0.02,0.002);
      //std::vector<real_t> speed_birds (3,0.02);
 	//std::vector<pos> pos_birds;
 	//pos_birds.push_back(pos(Imp{0,0,0},Rot(0,0)));
