@@ -69,7 +69,8 @@ real_t angle_mod2pi_02 (real_t);
 //réduit un angle à [0, pi]
 real_t angle_modpi_01 (real_t);
 
-
+real_t rest (real_t x, real_t d);
+int    div (real_t x, real_t d);
 
 /// Divers
 

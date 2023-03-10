@@ -65,6 +65,22 @@ Imp Imp::rotate (Rot angles2) const {
   return r*u_angle(anglesf);
 }
 
+real_t rest (real_t x, real_t d){
+  real_t q = x/d;
+  int k;
+  if (q>=0) k = int(q);
+  if (q<0) k = int(q) - 1;
+  return x - k*d;
+}
+
+int div (real_t x, real_t d){
+  real_t q = x/d;
+  int k;
+  if (q>=0) k = int(q);
+  if (q<0) k = int(q) + 1;
+  return k;
+}
+
 real_t angle_mod2pi_11 (real_t theta) {
 	while (theta > M_PI)
 		theta -= 2*M_PI;

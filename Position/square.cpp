@@ -17,10 +17,28 @@ if (r_y>1)  r_y = 1/r_y;
 But sadly, I cannot do so outside a "main" function
 And I cannot define a main function without conflicting 
 with the actual program...
-I'll just leave it like this, for now
+I'll just lcdeave it like this, for now
 But which to find a solution.
 */
 
+void square::clean(){
+  real_t x_0 = rest(x_coord,1);
+  real_t y_0 = rest(y_coord,1*r_y);
+  int k_x = div (x_coord, 1.);
+  int k_y = div (y_coord, r_y);
+  if (k_x%2==1){
+    x_coord = 1 - x_0;
+    t_angle = M_PI -t_angle;
+  }else{
+    x_coord = x_0;
+  }
+  if (k_y%2==1){
+    y_coord = r_y - y_0;
+    t_angle = - t_angle; 
+  }else{
+    y_coord = y_0;
+  }
+}
 
 square::square (Imp X, Rot A){
   /* the parameters "X" and "A" are temporary...
@@ -29,10 +47,7 @@ square::square (Imp X, Rot A){
   x_coord = X.x;
   y_coord = X.y;
   t_angle = fmod(A.phi()+M_PI, 2*M_PI)-M_PI;
-  if (y_coord - fmod(y_coord,2*r_y) > r_y) t_angle = -t_angle;
-  if (x_coord - fmod(x_coord,2.) > 1)      t_angle = M_PI - t_angle;
-  x_coord = fmod(x_coord, 1.);
-  y_coord = fmod(y_coord,r_y);
+  this->clean();
 }
 
 void square::operator+= (real_t v){
@@ -45,17 +60,13 @@ void square::operator+= (real_t v){
   // a // 2b     <=> (a - fmod(a,2b))/2b
   // a//2b > 0.5 <=>  a - fmod(a,2b) > b
   // hence :
-  if (y_coord - fmod(y_coord,2*r_y) > r_y) t_angle = -t_angle;
-  if (x_coord - fmod(x_coord,2.) > 1)      t_angle = M_PI - t_angle;
-  x_coord = fmod(x_coord, 1.);
-  y_coord = fmod(y_coord,r_y);
+  this->clean();
 }
 
 void square::operator+= (Imp v){
   x_coord+=v.x*cos(t_angle) - v.x*sin(t_angle);
   y_coord+=v.x*sin(t_angle) + v.y*cos(t_angle);
-  if (y_coord - fmod(y_coord,2*r_y) > r_y) t_angle = -t_angle;
-  if (x_coord - fmod(x_coord,2.) > 1)      t_angle = M_PI - t_angle;
+  this->clean();
 }
 
 void square::operator^ (Rot a){

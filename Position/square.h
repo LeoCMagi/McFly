@@ -37,6 +37,8 @@ class square {
   float x_coord;
   float y_coord;
   float t_angle; // stands for θ, angle with axis 0.
+
+  void clean();
 };
 
 #endif
