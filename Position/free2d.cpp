@@ -11,7 +11,7 @@ free2d::free2d (Imp X, Rot A){
      there will be an update...*/
   x_coord = X.x;
   y_coord = X.y;
-  t_angle = fmod(A.phi()+M_PI, 2*M_PI)-M_PI;
+  t_angle = rest(A.phi()+M_PI, 2*M_PI)-M_PI;
 }
 
 void free2d::operator+= (real_t v){
@@ -25,7 +25,7 @@ void free2d::operator+= (Imp v){
 }
 
 void free2d::operator^ (Rot a){
-  t_angle= fmod(t_angle+a.theta()+M_PI, 2*M_PI)-M_PI;
+  t_angle= rest(t_angle+a.theta()+M_PI, 2*M_PI)-M_PI;
 }
 
 real_t free2d::operator| (free2d Y){
@@ -41,12 +41,12 @@ Rot free2d::operator<< (free2d Y){
   float x_d = Y.x_coord-x_coord;
   float y_d = Y.y_coord-y_coord;
   if (x_d==0.){
-    if (y_d>0) return {M_PI/2, fmod(-t_angle+3*M_PI/2, 2*M_PI)-M_PI};
-    if (y_d<0) return {M_PI/2, fmod(-t_angle+  M_PI/2, 2*M_PI)-M_PI};
+    if (y_d>0) return {M_PI/2, rest(-t_angle+3*M_PI/2, 2*M_PI)-M_PI};
+    if (y_d<0) return {M_PI/2, rest(-t_angle+  M_PI/2, 2*M_PI)-M_PI};
   }
   real_t a = atan(y_d/x_d);
-  if (x_d>0) return {M_PI/2, fmod( a+M_PI-t_angle, 2*M_PI)-M_PI};
-             return {M_PI/2, fmod(-a     -t_angle, 2*M_PI)-M_PI};
+  if (x_d>0) return {M_PI/2, rest( a+M_PI-t_angle, 2*M_PI)-M_PI};
+             return {M_PI/2, rest(-a     -t_angle, 2*M_PI)-M_PI};
 }
 
 

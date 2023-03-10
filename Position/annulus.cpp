@@ -11,53 +11,53 @@ annulus::annulus (Imp X, Rot A){
   /* the parameters "X" and "A" are temporary...
      Once the modules "Rot" and "Imp" will be coded
      there will be an update...*/
-  x_coord = fmod(X.x, 1.);
-  y_coord = fmod(X.y, L );
-  t_angle = fmod(A.phi()+M_PI, 2*M_PI)-M_PI;
+  x_coord = rest(X.x, 1.);
+  y_coord = rest(X.y, L );
+  t_angle = rest(A.phi()+M_PI, 2*M_PI)-M_PI;
 }
 
 void annulus::operator+= (real_t v){
   x_coord+=v*cos(t_angle);
   y_coord+=v*sin(t_angle);
-  x_coord = fmod(x_coord, 1.);
-  y_coord = fmod(y_coord, L );
+  x_coord = rest(x_coord, 1.);
+  y_coord = rest(y_coord, L );
 }
 
 void annulus::operator+= (Imp v){
   x_coord+=v.x*cos(t_angle) - v.y*sin(t_angle);
   y_coord+=v.x*sin(t_angle) + v.y*cos(t_angle);
-  x_coord = fmod(x_coord, 1.);
-  y_coord = fmod(y_coord, L );
+  x_coord = rest(x_coord, 1.);
+  y_coord = rest(y_coord, L );
 }
 
 void annulus::operator^ (Rot a){
-  t_angle= fmod(t_angle+a.theta()+M_PI, 2*M_PI)-M_PI;
+  t_angle= rest(t_angle+a.theta()+M_PI, 2*M_PI)-M_PI;
 }
 
 real_t annulus::operator| (annulus Y){
   float X,Y;
-  X = fmod(x_coord-Y.x_coord+.5,1.)+.5;
-  Y = fmod(y_coord-Y.y_coord+L/2., L)+L/2.;
+  X = rest(x_coord-Y.x_coord+.5,1.)+.5;
+  Y = rest(y_coord-Y.y_coord+L/2., L)+L/2.;
   return X*X + Y*Y;
 }
 
 Imp  annulus::operator-  (annulus Y   ){
   float X,Y;
-  X = fmod(x_coord-Y.x_coord+.5,1.)+.5;
-  Y = fmod(y_coord-Y.y_coord+L/2., L)+L/2.;
+  X = rest(x_coord-Y.x_coord+.5,1.)+.5;
+  Y = rest(y_coord-Y.y_coord+L/2., L)+L/2.;
   return {X, Y, 0.};
 }
 
 Rot annulus::operator<< (annulus Y){
-  float x_d = fmod(x_coord-Y.x_coord+.5,1.)+.5;
-  float y_d = fmod(y_coord-Y.y_coord+L/2., L)+L/2.;
+  float x_d = rest(x_coord-Y.x_coord+.5,1.)+.5;
+  float y_d = rest(y_coord-Y.y_coord+L/2., L)+L/2.;
   if (x_d==0.){
-    if (y_d>0) return {M_PI/2, fmod(-t_angle+3*M_PI/2, 2*M_PI)-M_PI};
-    if (y_d<0) return {M_PI/2, fmod(-t_angle+  M_PI/2, 2*M_PI)-M_PI};
+    if (y_d>0) return {M_PI/2, rest(-t_angle+3*M_PI/2, 2*M_PI)-M_PI};
+    if (y_d<0) return {M_PI/2, rest(-t_angle+  M_PI/2, 2*M_PI)-M_PI};
   }
   real_t a = atan(y_d/x_d);
-  if (x_d>0) return {M_PI/2, fmod( a+M_PI-t_angle, 2*M_PI)-M_PI};
-             return {M_PI/2, fmod(-a     -t_angle, 2*M_PI)-M_PI};
+  if (x_d>0) return {M_PI/2, rest( a+M_PI-t_angle, 2*M_PI)-M_PI};
+             return {M_PI/2, rest(-a     -t_angle, 2*M_PI)-M_PI};
 }
 
 

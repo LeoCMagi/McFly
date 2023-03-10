@@ -16,14 +16,6 @@ void mat22_sol (real_t a, real_t b, real_t c, real_t d, real_t e, real_t f, real
 }
 
 void Rot::sync_interval() {
-  /*p_phi=fmod(p_phi+M_PI,2*M_PI)-M_PI;
-  real_t theta_ = fmod(p_theta+M_PI,2*M_PI)-M_PI;
-  if (theta_ >= 0) 
-    p_theta= theta_;
-  else{
-    p_theta=-theta_;
-    p_phi = fmod(-p_phi, 2*M_PI)-M_PI;
-    }*/
   p_phi=angle_mod2pi_11(p_phi);
   real_t theta_ = angle_mod2pi_11(p_theta);
   if (theta_ >= 0) 

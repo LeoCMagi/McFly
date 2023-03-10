@@ -46,7 +46,7 @@ square::square (Imp X, Rot A){
      there will be an update...*/
   x_coord = X.x;
   y_coord = X.y;
-  t_angle = fmod(A.phi()+M_PI, 2*M_PI)-M_PI;
+  t_angle = rest(A.phi()+M_PI, 2*M_PI)-M_PI;
   this->clean();
 }
 
@@ -57,8 +57,8 @@ void square::operator+= (real_t v){
   //        0 => nombre paire de mirroirs selon l'axe y
   //        1 => nécéssite un mirroir selon y
   // idem mais inversion x,y
-  // a // 2b     <=> (a - fmod(a,2b))/2b
-  // a//2b > 0.5 <=>  a - fmod(a,2b) > b
+  // a // 2b     <=> (a - rest(a,2b))/2b
+  // a//2b > 0.5 <=>  a - rest(a,2b) > b
   // hence :
   this->clean();
 }
@@ -70,7 +70,7 @@ void square::operator+= (Imp v){
 }
 
 void square::operator^ (Rot a){
-  t_angle= fmod(t_angle+a.phi()+M_PI, 2*M_PI)-M_PI;
+  t_angle= rest(t_angle+a.phi()+M_PI, 2*M_PI)-M_PI;
 }
 
 real_t square::operator| (square Y){
@@ -87,12 +87,12 @@ Rot square::operator<< (square Y){
   float x_d = Y.x_coord-x_coord;
   float y_d = Y.y_coord-y_coord;
   if (x_d==0.){
-    if (y_d>0) return {M_PI/2, fmod(-t_angle+3*M_PI/2, 2*M_PI)-M_PI};
-    if (y_d<0) return {M_PI/2, fmod(-t_angle+  M_PI/2, 2*M_PI)-M_PI};
+    if (y_d>0) return {M_PI/2, rest(-t_angle+3*M_PI/2, 2*M_PI)-M_PI};
+    if (y_d<0) return {M_PI/2, rest(-t_angle+  M_PI/2, 2*M_PI)-M_PI};
   }
   real_t a = atan(y_d/x_d);
-  if (x_d>0) return {M_PI/2, fmod( a+M_PI-t_angle, 2*M_PI)-M_PI};
-             return {M_PI/2, fmod(-a     -t_angle, 2*M_PI)-M_PI};
+  if (x_d>0) return {M_PI/2, rest( a+M_PI-t_angle, 2*M_PI)-M_PI};
+             return {M_PI/2, rest(-a     -t_angle, 2*M_PI)-M_PI};
 }
 
 real_t square::x (int proj){
