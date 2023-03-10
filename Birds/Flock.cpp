@@ -37,8 +37,6 @@ Flock::Flock (int N_birds_, real_t vi_birds,const std::vector<real_t>& speed_dro
     g0 =0;
     int n = N_birds_ + n_drones;
     texture.loadFromFile("oiseau.png");
-    //l_birds_prec = std::vector<boids> (n);
-    //l_birds = std::vector<boids>(n_,boids(texture));
     l_speed = std::vector<real_t> (n,0.0);
     l_pos = std::vector<pos> (n,pos(Imp{0,0,0}, Rot(0,0)));
     t_dist = std::vector<std::vector<real_t>> (n,std::vector<real_t> (n));
