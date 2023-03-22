@@ -5,7 +5,16 @@ using namespace std;
 int main (){
 	sf::RenderWindow window(sf::VideoMode(1900, 1600), "BOIDS");
 	window.setFramerateLimit(30);
-     Flock flock_piaf (30,0.0001,0.00551,0.02,0.002);
+	int nb_drones = 20;
+	std::vector<real_t> speed_drones(nb_drones, 0.01);
+	std::vector<pos> pos_drones (nb_drones, pos(Imp{0.,0.,0}, Rot(M_PI/2,0)));
+	int k;
+	for (k=0;k<nb_drones;k++) {
+		pos_drones[k] = pos(Imp{1.0*k/nb_drones,0.5,0},Rot(M_PI/2,0));
+	}
+	pos_drones[1] = pos(Imp{0.4,0.4,0}, Rot(0,0));
+    Flock flock_piaf (200, 0.005 ,speed_drones,pos_drones);
+	flock_piaf.set_parameters(0.3,0.0521,0.07,0.01,0.05,0.03); // J, v0, rc, g, l0, g0
      //std::vector<real_t> speed_birds (3,0.02);
 	//std::vector<pos> pos_birds;
 	//pos_birds.push_back(pos(Imp{0,0,0},Rot(0,0)));
