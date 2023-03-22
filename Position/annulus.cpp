@@ -4,8 +4,8 @@
 #include <stdexcept>
 
 using namespace std;
-real_t r_y=1.;
-real_t L=1/r_y;
+real_t d_y=1.;
+real_t L=1/d_y;
 
 annulus::annulus (Imp X, Rot A){
   /* the parameters "X" and "A" are temporary...
@@ -35,17 +35,17 @@ void annulus::operator^ (Rot a){
 }
 
 real_t annulus::operator| (annulus Y){
-  float X,Y;
-  X = rest(x_coord-Y.x_coord+.5,1.)+.5;
-  Y = rest(y_coord-Y.y_coord+L/2., L)+L/2.;
-  return X*X + Y*Y;
+  float X_f,Y_f;
+  X_f = rest(x_coord-Y.x_coord+.5,1.)+.5;
+  Y_f = rest(y_coord-Y.y_coord+L/2., L)+L/2.;
+  return X_f*X_f + Y_f*Y_f;
 }
 
 Imp  annulus::operator-  (annulus Y   ){
-  float X,Y;
-  X = rest(x_coord-Y.x_coord+.5,1.)+.5;
-  Y = rest(y_coord-Y.y_coord+L/2., L)+L/2.;
-  return {X, Y, 0.};
+  float X_f,Y_f;
+  X_f = rest(x_coord-Y.x_coord+.5,1.)+.5;
+  Y_f = rest(y_coord-Y.y_coord+L/2., L)+L/2.;
+  return {X_f, Y_f, 0.};
 }
 
 Rot annulus::operator<< (annulus Y){
@@ -66,21 +66,21 @@ real_t annulus::x (int proj){
   if (proj==0 || proj==2) return x_coord;
 
   if (proj==1) {
-    // X = 1/r_y;
+    // X = 1/d_y;
     // eps = (X-1)/2
-    // x' = x/r_y
+    // x' = x/d_y
     // if x' < eps return 0
     // if > 1+eps  return 0
     //             return x'
-    // x'>1+eps <=> x_coord/r_y > 1 + (X-1)/2
-    //          <=> x_coord/r_y > 1 + (1/r_y-1)/2
-    //          <=>2*x_coord/r_y> 2 + 1/r_y -1
-    //          <=> 2 * x_coord > r_y + 1 (-1 sinon)
+    // x'>1+eps <=> x_coord/d_y > 1 + (X-1)/2
+    //          <=> x_coord/d_y > 1 + (1/d_y-1)/2
+    //          <=>2*x_coord/d_y> 2 + 1/d_y -1
+    //          <=> 2 * x_coord > d_y + 1 (-1 sinon)
     // ATTENTION JE CROIS QUE C FAUX, tester!!!!
-    float eps = (1/r_y - 1) / 2;
-    if (x_coord/r_y < eps)     return 0.;
-    if (x_coord/r_y > 1 + eps) return 1.;
-    /*                     */  return (x_coord- (1-r_y)/2)/r_y;
+    float eps = (1/d_y - 1) / 2;
+    if (x_coord/d_y < eps)     return 0.;
+    if (x_coord/d_y > 1 + eps) return 1.;
+    /*                     */  return (x_coord- (1-d_y)/2)/d_y;
   }
 
   // case of an unexisting projection
@@ -93,7 +93,7 @@ real_t annulus::x (int proj){
 
 real_t annulus::y (int proj){
   if (proj==0) return y_coord    ;
-  if (proj==1 || proj==2) return y_coord/r_y;
+  if (proj==1 || proj==2) return y_coord/d_y;
 
   // case of an unexisting projection
   cout << endl << endl

@@ -11,15 +11,15 @@ using pos = free2d;
 using pos = free3d;
 */
 
-
+/*
 #include "square.h"
 using pos = square;
+*/
 
 
-/*
 #include "annulus.h"
 using pos = annulus;
-*/
+
 
 
 /*   Position Documentation:
