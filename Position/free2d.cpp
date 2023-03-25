@@ -25,7 +25,7 @@ void free2d::operator+= (Imp v){
 }
 
 void free2d::operator^ (Rot a){
-  t_angle= rest(t_angle+a.theta()+M_PI, 2*M_PI)-M_PI;
+  t_angle= rest(t_angle+a.phi()+M_PI, 2*M_PI)-M_PI;
 }
 
 real_t free2d::operator| (free2d Y){
