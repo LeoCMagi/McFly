@@ -217,7 +217,7 @@ void Flock::store_data(int iteration,
                           file << "," << l_pos[i].y(proj);
                           file << "," << l_pos[i].z(proj);
             if (tp){      file << "," << l_pos[i].t(proj);
-                          file << "," << l_pos[i].p(proj)}
+                          file << "," << l_pos[i].p(proj);}
             if (is_drone){file        << (i>= N_birds);}
                           file << endl;
 }   }       }
