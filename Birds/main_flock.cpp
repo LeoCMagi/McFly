@@ -1,6 +1,7 @@
 #include<iostream>
 #include "Flock.h"
 #include <cmath>
+#include<fstream>
 using namespace std;
 int main (){
 	sf::RenderWindow window(sf::VideoMode(1900, 1600), "BOIDS");
@@ -38,8 +39,10 @@ int main (){
 		cout << endl;
 	}
 	int etape=0;
+	ofstream history;
+	history.open("data.csv", std::ofstream::out);
 	while (window.isOpen()){
-		etape+=1;
+		flock_piaf.store_data(etape, 30, 0, false, false, history);
 		cout << "etape " << etape << endl;
 		window.clear(sf::Color::Yellow);
 		sf::Event event;
@@ -62,9 +65,8 @@ int main (){
 			}
 			cout << endl;
 		}
-		
+		etape+=1;
 		flock_piaf.draw(window);
-        //flock_piaf.draw(window);
 		window.display();
 }
 	return 0;

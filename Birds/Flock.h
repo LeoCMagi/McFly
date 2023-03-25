@@ -4,6 +4,7 @@
 #include "../Vec/Vec.h"
 #include "../Position/position.h"
 #include "SFML/Graphics.hpp"
+#include<fstream>
 
 class Flock {
     private :
@@ -28,6 +29,12 @@ class Flock {
     Flock (int N_birds_, real_t vi_birds, const std::vector<real_t>& speed_drones, const std::vector<pos>& pos_drones); //vi_birds initial speed of birds
     Flock (const std::vector<real_t>& speed_birds, const std::vector<pos>& pos_birds,const std::vector<real_t>& speed_drones, const std::vector<pos>& pos_drones);
     void draw(sf::RenderWindow& window);
+    void store_data(int  iteration,
+                    int  N_dt,
+                    int  proj,
+                    bool tp,
+                    bool is_drone,
+                    std::ofstream& file);
 };
 
 #endif

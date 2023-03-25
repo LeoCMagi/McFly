@@ -4,6 +4,7 @@
 #include <cmath>
 #include<random>
 #include<chrono>
+#include<fstream>
 using namespace std;
 unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 std::default_random_engine generator (seed); 
@@ -188,12 +189,12 @@ void Flock::update_flock() {
     }
     update_dist();
 }
-/*void store_data(int& iteration,
+void Flock::store_data(int iteration,
                 int  N_dt,
                 int  proj,
                 bool tp,
                 bool is_drone,
-                ofstream file)
+                std::ofstream& file){
     if (iteration==0){
                       file << "time,";
                       file << "boid,";
@@ -208,17 +209,15 @@ void Flock::update_flock() {
     }
     if (iteration% N_dt==0){
         int i;
-        for (i=0, i<n, i++){
+        for (i=0; i<N_birds+n_drones; i++){
                           file << iteration << ",";
                           file << i << ",";
-                          file << l_birds[i].v << ",";
-                          file << l_birds[i].position.x(proj) << ",";
-                          file << l_birds[i].position.y(proj) << ",";
-                          file << l_birds[i].position.z(proj) << ",";
-            if (tp){      file << l_birds[i].position.t(proj) << ",";
-                          file << l_birds[i].position.p(proj) << ",";}
-            if (is_drone){file << l_birds[i].drone << ",";}
+                          file << l_speed[i] << ",";
+                          file << l_pos[i].x(proj) << ",";
+                          file << l_pos[i].y(proj) << ",";
+                          file << l_pos[i].z(proj) << ",";
+            if (tp){      file << l_pos[i].t(proj) << ",";
+                          file << l_pos[i].p(proj) << ",";}
+            if (is_drone){file << (i>= N_birds) << ",";}
                           file << endl;
-    }
-    iteration++;
-    }*/
+}   }       }
