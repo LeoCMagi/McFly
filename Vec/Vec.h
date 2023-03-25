@@ -1,9 +1,6 @@
 #ifndef _UTIL_H_
 #define _UTIL_H_
 
-#include <utility>
-#include <limits>
-
 using real_t = double; // peut être utile de de définir un type real_t pour faire des tests entre simple et double précision
 
 /********************************************************************
