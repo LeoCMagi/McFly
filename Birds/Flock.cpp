@@ -140,7 +140,6 @@ void Flock::update_flock() {
         Imp Fint {0,0,0};
         Imp Frep {0,0,0};
         for (j=0;j<n;j++) {
-            nb_neighb=0;
        	  Rot angles = l_pos_prec[i] <<l_pos_prec[j];
        	  int M =1;//number of interacting neighbours
             if (t_dist[i][j]<rc && i!=j && angles.phi()<M_PI/2 && angles.phi()>(-M_PI/2)) {
@@ -161,8 +160,6 @@ void Flock::update_flock() {
                 -l_speed_prec[j_min]*cos(angles_min.theta())};
             Frep = g0*(pow(l0/sqrt(t_dist[i][j_min]), 3)-l0*l0/t_dist[i][j_min])*(l_pos_prec[i]-l_pos_prec[j_min]);*/
         //F = F/nb_neighb;
-        Frep/nb_neighb;
-        Falign/nb_neighb;
         Imp noise = Imp{gauss(),gauss(),gauss()};
         Imp upd_spe = Frep +Fsc+Fint+Imp{l_speed[i],0,0} + 0*noise; //dt =1
         l_speed[i] = !(upd_spe);
