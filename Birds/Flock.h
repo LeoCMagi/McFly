@@ -1,6 +1,6 @@
 #ifndef FLOCK_H
 #define FLOCK_H
-//#include "../Boids.h"
+#include<fstream>
 #include "../Vec/Vec.h"
 #include "../Position/position.h"
 #include "SFML/Graphics.hpp"
