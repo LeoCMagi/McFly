@@ -196,28 +196,28 @@ void Flock::store_data(int iteration,
                 bool is_drone,
                 std::ofstream& file){
     if (iteration==0){
-                      file << "time,";
-                      file << "boid,";
-                      file << "speed,";
-                      file << "x,";
-                      file << "y,";
-                      file << "z,";
-        if (tp){      file << "theta,";
-                      file << "phi,";  }
-        if (is_drone){file << "drone,";}
+                      file << "time";
+                      file << ",boid";
+                      file << ",speed";
+                      file << ",x";
+                      file << ",y";
+                      file << ",z";
+        if (tp){      file << ",theta";
+                      file << ",phi";  }
+        if (is_drone){file << ",drone";}
                       file << endl;
     }
     if (iteration% N_dt==0){
         int i;
         for (i=0; i<N_birds+n_drones; i++){
-                          file << iteration << ",";
-                          file << i << ",";
-                          file << l_speed[i] << ",";
-                          file << l_pos[i].x(proj) << ",";
-                          file << l_pos[i].y(proj) << ",";
-                          file << l_pos[i].z(proj) << ",";
-            if (tp){      file << l_pos[i].t(proj) << ",";
-                          file << l_pos[i].p(proj) << ",";}
-            if (is_drone){file << (i>= N_birds) << ",";}
+                          file        << iteration;
+                          file << "," << i;
+                          file << "," << l_speed[i];
+                          file << "," << l_pos[i].x(proj);
+                          file << "," << l_pos[i].y(proj);
+                          file << "," << l_pos[i].z(proj);
+            if (tp){      file << "," << l_pos[i].t(proj);
+                          file << "," << l_pos[i].p(proj)}
+            if (is_drone){file        << (i>= N_birds);}
                           file << endl;
 }   }       }
