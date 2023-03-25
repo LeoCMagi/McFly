@@ -1,8 +1,8 @@
 #ifndef _POSITION_H_
 #define _POSITION_H_
 
-/*
-#include "free2d.h"
+
+/*#include "free2d.h"
 using pos = free2d;
 */
 
@@ -11,13 +11,14 @@ using pos = free2d;
 using pos = free3d;
 */
 
-/*
+
 #include "square.h"
 using pos = square;
-*/
 
 
-#include "annulus.h"
+
+
+/*#include "annulus.h"
 using pos = annulus;
 
 
