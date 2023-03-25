@@ -40,8 +40,13 @@ int main (){
 	}
 	int etape=0;
 	ofstream history;
-	history.open("data.csv", std::ofstream::out);
+	history.open("Analysis/data.csv", std::ofstream::out);
 	while (window.isOpen()){
+		if (history.is_open()) {
+    std::cout << "Successfully opened data file" << std::endl;
+} else {
+    std::cout << "Failed to open data file" << std::endl;
+}
 		flock_piaf.store_data(etape, 30, 0, false, false, history);
 		cout << "etape " << etape << endl;
 		window.clear(sf::Color::Yellow);
