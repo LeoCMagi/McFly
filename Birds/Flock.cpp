@@ -5,6 +5,14 @@
 #include<random>
 #include<chrono>
 using namespace std;
+
+/*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXX                        XXX
+    XXX     Initialisation     XXX
+    XXX                        XXX
+    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+*/
+
 unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 std::default_random_engine generator (seed); 
 std::uniform_real_distribution<real_t> distribution(2.,360.);
@@ -12,16 +20,14 @@ auto dice = std::bind (distribution,generator);
 std::normal_distribution<real_t> normal(0.,sqrt(2*3*0.5*0.00000001));
 auto gauss = std::bind (normal,generator);
 
-void Flock::update_dist() {
-    int i, j;
-    int n = N_birds+n_drones;
-    for (i=0;i<n;i++) {
-        for (j=0;j<n;j++) {
-            t_dist[i][j] = (l_pos[i] | l_pos[j]);
-        }
-        t_dist[i][i]=0;
-    }
-}
+
+/*  XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXX                      XXX
+    XXX     Constructors     XXX
+    XXX                      XXX
+    XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+*/
+
 void Flock::set_parameters (real_t J_, real_t v0_, real_t rc_,real_t g_, real_t l0_, real_t g0_) {
     J=J_; v0=v0_; rc=rc_; g=g_; l0=l0_; g0=g0_;
 }
@@ -126,6 +132,14 @@ void Flock::draw(sf::RenderWindow& window) {
 }
 
 
+/*
+
+  XXXXXXXXXXXXXXXXXXXXXXXXXX
+  XXX                    XXX
+  XXX     Old Update     XXX
+  XXX                    XXX
+  XXXXXXXXXXXXXXXXXXXXXXXXXX
+
 
 void Flock::update_flock() {
     l_speed_prec = l_speed;
@@ -172,7 +186,130 @@ void Flock::update_flock() {
     l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*1500, l_pos[i].y()*1200));
     }
     update_dist();
+}*/
+
+/*  XXXXXXXXXXXXXXXXXXXXXXXXXX
+    XXX                    XXX
+    XXX     Les Forces     XXX
+    XXX                    XXX
+    XXXXXXXXXXXXXXXXXXXXXXXXXX
+*/
+
+Imp Flock::get_F (int i){
+    int state = this->boid_state(i);
+    Imp F;
+    if (state==0) F = F_rep(i);
+    if (state==1) F = F_all(i);
+    if (state> 1) F = 0*F_att(i);
+
+    F = F + Imp{v0, 0, 0};
+    return F;
 }
+
+Imp Flock::F_rep(int i){
+    int j;
+    int n= N_birds+n_drones;
+    int avg=0;
+    Imp F;
+    F = 0*F;
+    for (j=0; j<n; j++){if (i!=j && t_dist[i][j]<rc){//Calcul de la force
+        F += (1./t_dist[i][j])*(l_pos_prec[j] - l_pos_prec[i]);
+        avg+=1;
+    }}
+    return (-g0/avg)*F;
+}
+
+Imp Flock::F_all(int i){
+    int j;
+    int n= N_birds+n_drones;
+    int avg=0;
+    Imp F, F_temp;
+    F = 0*F;
+    for (j=0; j<n; j++){if (i!=j && t_dist[i][j]<l0){//Calcul de la force
+        F_temp = F_temp.u_angle(l_pos_prec[i] <<l_pos_prec[j]);
+        F     += F_temp;
+        avg+=1;
+    }}
+    return (J/avg)*F;
+}
+
+
+Imp Flock::F_att(int i){
+    int j,best_j;
+    int n= N_birds+n_drones;
+    real_t d;
+
+    // Initialisation de recherche plus proche voisin
+    if (n==1) return {0,0,0};
+    if (i==0) {d=t_dist[0][1]; best_j=1;}
+    if (i!=0) {d=t_dist[0][i]; best_j=0;}
+
+    // Recherche plus proche voisin
+    for (j=0; j<n; j++){if(i!=j && t_dist[i][j]<d){
+        best_j = j;
+        d = t_dist[i][j];
+    }}
+    return (g/d)*(l_pos_prec[best_j]-l_pos_prec[i]);
+}
+
+
+/*  XXXXXXXXXXXXXXXXXXXXXXXXXXX
+    XXX                     XXX
+    XXX     Les Updates     XXX
+    XXX                     XXX
+    XXXXXXXXXXXXXXXXXXXXXXXXXXX
+*/
+
+void Flock::update_graphics(){
+    int i;
+    int n= N_birds+n_drones;
+    for (i=0; i<n; i++){
+        l_sprites[i].setRotation(l_pos[i].p()*180/M_PI);
+        l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*1500, l_pos[i].y()*1200));
+    }
+}
+
+int Flock::boid_state(int i){
+    int j;
+    bool has_neighbor = false;
+    int n= N_birds+n_drones;
+    for (j=0;j<n;j++) {
+        if (i!=j && t_dist[i][j]<rc*rc) return 0;
+        if (i!=j && t_dist[i][j]<l0*l0) has_neighbor = true;
+    }
+    if (has_neighbor) return 1;
+    return 2;
+}
+
+void Flock::update_flock() {
+    real_t lv = 100*l0; // parceque j'ai inventé une variable
+    int i;
+    int n= N_birds+n_drones;
+    Imp F;
+    l_pos_prec = l_pos;
+    //l_speed_prec = l_speed;    car pour l'instant, je bosse à vitesse constante
+    for (i=0; i<n; i++){
+        F = get_F (i);
+        l_pos[i] ^ F.direction(); // Action de la force
+        l_pos[i] += v0;
+        }
+    update_dist();
+
+    // Et maintenant, actualisation graphique
+    this->update_graphics();
+}
+
+void Flock::update_dist() {
+    int i, j;
+    int n = N_birds+n_drones;
+    for (i=0;i<n;i++) {
+        for (j=0;j<n;j++) {
+            t_dist[i][j] = (l_pos[i] | l_pos[j]);
+        }
+        t_dist[i][i]=0;
+    }
+}
+
 void Flock::store_data(int iteration,
                 int  N_dt,
                 int  proj,

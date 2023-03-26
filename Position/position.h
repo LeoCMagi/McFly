@@ -17,8 +17,8 @@ using pos = square;
 
 
 
-
-/*#include "annulus.h"
+/*
+#include "annulus.h"
 using pos = annulus;
 */
 

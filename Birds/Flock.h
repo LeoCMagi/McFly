@@ -15,6 +15,12 @@ class Flock {
     std::vector<pos> l_pos_prec;
     std::vector<std::vector<real_t>> t_dist;
     void update_dist ();
+    int boid_state(int i);
+    void update_graphics();
+    Imp get_F(int i);
+    Imp F_rep(int i);
+    Imp F_att(int i);
+    Imp F_all(int i);
     
     public :
     sf::Texture texture;
