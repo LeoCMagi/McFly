@@ -1,6 +1,5 @@
 #ifndef FLOCK_H
 #define FLOCK_H
-#include<fstream>
 #include "../Vec/Vec.h"
 #include "../Position/position.h"
 #include "SFML/Graphics.hpp"
@@ -16,8 +15,7 @@ class Flock {
     std::vector<pos> l_pos_prec;
     std::vector<std::vector<real_t>> t_dist;
     void update_dist ();
-    //void store_data ();
-    //std::vector<sf::Texture> l_sprites;
+    
     public :
     sf::Texture texture;
     std::vector<sf::Sprite> l_sprites;

@@ -30,9 +30,10 @@ int main (){
 	//pos_drones[0] = pos(Imp{0.4,0.4,0}, Rot(0,0));
 	
      Flock flock_piaf (400,0.005,speed_drones,pos_drones);//int n_,real_t J_, real_t v0_, real_t rc_, real_t g_
-     flock_piaf.set_parameters (1.1,1.551,0.007,0.00001,0.0007,0.002);//real_t J_, real_t v0_, real_t rc_,real_t g_,l0,g0)
-     
+     flock_piaf.set_parameters (1.1,0.1,0.07,0.00001,0.0007,0.02);//real_t J_, real_t v0_, real_t rc_,real_t g_,l0,g0)
      flock_piaf.set_parameters (0.06,1.551,0.007,0.00001,0.0002,0.02);
+     
+     //flock_piaf.set_parameters (0.06,1.551,0.007,0.00001,0.0002,0.02);
      //flock_piaf.set_parameters (1.0,0.005,0.1,0.01,0.01,1.0);
      
      //std::vector<real_t> speed_birds (3,0.02);
@@ -42,8 +43,8 @@ int main (){
 	//pos_birds.push_back(pos(Imp{0.3,0.3,0},Rot(0,0)));
 	//Flock flock_piaf (speed_birds, pos_birds, 0, 0.02, 0,0.02);
 	//std::vector<pos> l_piafs = flock_piaf.pos_boids();
-	int i;
-	int j;
+	//int i;
+	//int j;
 	/*for (i=0;i<3;i++) {
 		cout << "posi.x() " << l_piafs[i].x() << " " << l_piafs[i].y() << endl;
 	}

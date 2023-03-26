@@ -4,7 +4,6 @@
 #include <cmath>
 #include<random>
 #include<chrono>
-#include<fstream>
 using namespace std;
 unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 std::default_random_engine generator (seed); 
@@ -46,7 +45,7 @@ Flock::Flock (int N_birds_,real_t vi_birds,const std::vector<real_t>& speed_dron
     	   l_speed[i]= vi_birds;
         l_pos[i] = pos(Imp {dice(),dice(),dice()}, Rot (dice()*M_PI/180,dice()*M_PI/180));//dice()*M_PI/180));
         l_sprites[i].setTexture(texture);
-        l_sprites[i].setColor(sf::Color(255, 255, 255, 128));//color,opacity 
+        l_sprites[i].setColor(sf::Color(0, 0, 0, 108));//color,opacity 
         l_sprites[i].setOrigin(sf::Vector2f(texture.getSize().x/2,texture.getSize().y/2));//to translate and rotate frm the center of the sprite 
         l_sprites[i].setScale(0.07f,0.07f);//scale of the boid; 
         l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*1500, l_pos[i].y()*1200));//initial position of the boid} 
@@ -58,7 +57,7 @@ Flock::Flock (int N_birds_,real_t vi_birds,const std::vector<real_t>& speed_dron
         l_sprites[i].setTexture(texture);
         l_sprites[i].setColor(sf::Color::Blue);//color,opacity 
         l_sprites[i].setOrigin(sf::Vector2f(texture.getSize().x/2,texture.getSize().y/2));//to translate and rotate frm the center of the sprite 
-        l_sprites[i].setScale(0.07f,0.07f);//scale of the boid; 
+        l_sprites[i].setScale(0.09f,0.09f);//scale of the boid; 
         l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*1500, l_pos[i].y()*1200));//initial position of the boid} 
         l_sprites[i].setRotation(l_pos[i].p()*180/M_PI);//initial angle of the boid
     }
@@ -66,7 +65,7 @@ Flock::Flock (int N_birds_,real_t vi_birds,const std::vector<real_t>& speed_dron
         l_speed[i] =speed_drones[i-N_birds_];
         l_pos[i] = pos_drones[i-N_birds_];
         l_sprites[i].setTexture(texture);
-        l_sprites[i].setColor(sf::Color::Blue);//color,opacity 
+        l_sprites[i].setColor(sf::Color(120, 0, 0, 128));//color,opacity 
         l_sprites[i].setOrigin(sf::Vector2f(texture.getSize().x/2,texture.getSize().y/2));//to translate and rotate frm the center of the sprite 
         l_sprites[i].setScale(0.07f,0.07f);//scale of the boid; 
         l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*1500, l_pos[i].y()*1200));//initial position of the boid} 
@@ -154,19 +153,11 @@ void Flock::update_flock() {
             Fint=1.0/M*Fint;
             Frep=1.0/M*Frep;
         }
-        /*Rot angles_min = l_pos_prec[i] <<l_pos_prec[j_min];
-        Falign += -J*Imp{l_speed_prec[i]-l_speed_prec[j_min]*cos(angles_min.phi())*sin(angles_min.theta()),
-                -l_speed_prec[j_min]*sin(angles_min.theta())*sin(angles_min.phi()),
-                -l_speed_prec[j_min]*cos(angles_min.theta())};
-            Frep = g0*(pow(l0/sqrt(t_dist[i][j_min]), 3)-l0*l0/t_dist[i][j_min])*(l_pos_prec[i]-l_pos_prec[j_min]);*/
-        //F = F/nb_neighb;
         Imp noise = Imp{gauss(),gauss(),gauss()};
         Imp upd_spe = Frep +Fsc+Fint+Imp{l_speed[i],0,0} + 0*noise; //dt =1
         l_speed[i] = !(upd_spe);
         l_pos[i] ^ upd_spe.direction();
-        if (l_speed[i]> 0.01) 
-            l_speed[i] = 0.01;
-        //l_pos[i] ^ F.direction();
+        if (l_speed[i]> 0.01) {l_speed[i] = 0.01;}
         l_sprites[i].setRotation(l_pos[i].p()*180/M_PI);
         l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*1500, l_pos[i].y()*1200));
     }
