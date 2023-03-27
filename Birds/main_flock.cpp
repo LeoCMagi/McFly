@@ -12,10 +12,10 @@ int main (){
 */
 	real_t I_all=0.5;
 	real_t v0=0.01;
-	real_t rc=0.01;
-	real_t g=0.05;
-	real_t l0=0.1;
-	real_t g0=g;
+	real_t r_rep=0.01;
+	real_t I_att=0.05;
+	real_t r_all=0.1;
+	real_t I_rep=I_att;
 
 	int N_Boids = 30;
 	int nb_drones = 0;
@@ -39,7 +39,7 @@ int main (){
 		pos_drones[k] = pos(Imp{1.0*k/nb_drones,0.5,0},Rot(M_PI/2,0));
 	}
     Flock flock_piaf (N_Boids, I_all, speed_drones, pos_drones);
-    flock_piaf.set_parameters (I_all,v0,rc,g,l0,g0);
+    flock_piaf.set_parameters (I_all,v0,r_rep,I_att,r_all,I_rep);
 	
 
 

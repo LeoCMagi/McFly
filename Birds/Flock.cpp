@@ -29,18 +29,18 @@ auto gauss = std::bind (normal,generator);
     XXXXXXXXXXXXXXXXXXXXXXXXXXXX
 */
 
-void Flock::set_parameters (real_t I_all_, real_t v0_, real_t rc_,real_t g_, real_t l0_, real_t g0_) {
-    I_all=I_all_; v0=v0_; rc=rc_; g=g_; l0=l0_; g0=g0_;
+void Flock::set_parameters (real_t I_all_, real_t v0_, real_t r_rep_,real_t I_att_, real_t r_all_, real_t I_rep_) {
+    I_all=I_all_; v0=v0_; r_rep=r_rep_; I_att=I_att_; r_all=r_all_; I_rep=I_rep_;
 }
 Flock::Flock (int N_birds_,real_t vi_birds,const std::vector<real_t>& speed_drones,const std::vector<pos>& pos_drones){
     N_birds=N_birds_;
     n_drones= speed_drones.size();
     I_all=0;
     v0=0;
-    rc=0;
-    g=0;
-    l0=0;
-    g0=0;
+    r_rep=0;
+    I_att=0;
+    r_all=0;
+    I_rep=0;
     int n = N_birds_ +n_drones; 
     texture.loadFromFile("oiseau.png");
     l_speed = std::vector<real_t> (n,vi_birds);
@@ -94,10 +94,10 @@ Flock::Flock (const std::vector<real_t>& speed_birds, const std::vector<pos>& po
     t_dist = std::vector<std::vector<real_t>> (n,std::vector<real_t> (n));
     I_all=0;
     v0=0;
-    rc=0;
-    g=0;
-    l0=0;
-    g0=0;
+    r_rep=0;
+    I_att=0;
+    r_all=0;
+    I_rep=0;
     texture.loadFromFile("oiseau.png");
     int i;
     for (i=0;i<N_birds;i++) {
@@ -149,20 +149,20 @@ void Flock::update_flock() {
     int n= N_birds+n_drones;
     for (i=0;i<N_birds;i++) {
         l_pos[i]+= l_speed_prec[i]; //dt=1 
-        Imp Fsc {.x= 2*g*(v0-l_speed_prec[i]),.y=0,.z=0};//linear correction
-       // Imp Fsc {.x= (8*g/pow(v0,6))*pow((v0*v0-l_speed_prec[i]*l_speed_prec[i]),3),.y=0,.z=0};//marginal speed correction
+        Imp Fsc {.x= 2*I_att*(v0-l_speed_prec[i]),.y=0,.z=0};//linear correction
+       // Imp Fsc {.x= (8*I_att/pow(v0,6))*pow((v0*v0-l_speed_prec[i]*l_speed_prec[i]),3),.y=0,.z=0};//marginal speed correction
         Imp Fint {0,0,0};
         Imp Frep {0,0,0};
         for (j=0;j<n;j++) {
        	  Rot angles = l_pos_prec[i] <<l_pos_prec[j];
        	  int M =1;//number of interacting neighbours
-            if (t_dist[i][j]<rc && i!=j && angles.phi()<M_PI/2 && angles.phi()>(-M_PI/2)) {
+            if (t_dist[i][j]<r_rep && i!=j && angles.phi()<M_PI/2 && angles.phi()>(-M_PI/2)) {
             	 M+=1;
                 Fint += -J*Imp{l_speed_prec[i]-l_speed_prec[j]*cos(angles.phi())*sin(angles.theta()),
                 -l_speed_prec[j]*sin(angles.theta())*sin(angles.phi()),-l_speed_prec[j]*cos(angles.theta())};
-                Frep = g0*(
-                			pow(l0/sqrt(t_dist[i][j]), 3)
-                		    -l0*l0/t_dist[i][j])
+                Frep = I_rep*(
+                			pow(r_all/sqrt(t_dist[i][j]), 3)
+                		    -r_all*r_all/t_dist[i][j])
                 		*(l_pos_prec[i]-l_pos_prec[j]);
             }
             Fint=1.0/M*Fint;
@@ -191,7 +191,7 @@ void Flock::update_flock() {
 
 /*  XXXXXXXXXXXXXXXXXXXXXXXXXX
     XXX                    XXX
-    XXX     Les Forces     XXX
+    XXX     The Forces     XXX
     XXX                    XXX
     XXXXXXXXXXXXXXXXXXXXXXXXXX
 */
@@ -213,11 +213,11 @@ Imp Flock::F_rep(int i){
     int avg=0;
     Imp F;
     F = 0*F;
-    for (j=0; j<n; j++){if (i!=j && t_dist[i][j]<rc){//Calcul de la force
+    for (j=0; j<n; j++){if (i!=j && t_dist[i][j]<r_rep){//Calcul de la force
         F += (v0/t_dist[i][j])*(l_pos_prec[j] - l_pos_prec[i]);
         avg+=1;
     }}
-    return (-g0/avg)*F;
+    return (-I_rep/avg)*F;
 }
 
 Imp Flock::F_all(int i){
@@ -226,7 +226,7 @@ Imp Flock::F_all(int i){
     int avg=0;
     Imp F, F_temp;
     F = 0*F;
-    for (j=0; j<n; j++){if (i!=j && t_dist[i][j]<l0){//Calcul de la force
+    for (j=0; j<n; j++){if (i!=j && t_dist[i][j]<r_all){//Calcul de la force
         F_temp = F_temp.u_angle(l_pos_prec[i] <<l_pos_prec[j]);
         F     += F_temp;
         avg+=1;
@@ -275,15 +275,15 @@ int Flock::boid_state(int i){
     bool has_neighbor = false;
     int n= N_birds+n_drones;
     for (j=0;j<n;j++) {
-        if (i!=j && t_dist[i][j]<rc*rc) return 0;
-        if (i!=j && t_dist[i][j]<l0*l0) has_neighbor = true;
+        if (i!=j && t_dist[i][j]<r_rep*r_rep) return 0;
+        if (i!=j && t_dist[i][j]<r_all*r_all) has_neighbor = true;
     }
     if (has_neighbor) return 1;
     return 2;
 }
 
 void Flock::update_flock() {
-    real_t lv = 100*l0; // parceque j'ai inventé une variable
+    real_t lv = 100*r_all; // parceque j'ai inventé une variable
     int i;
     int n= N_birds+n_drones;
     Imp F;
