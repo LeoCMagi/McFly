@@ -9,7 +9,7 @@ class Flock {
     private :
     int N_birds, n_drones;
     real_t I_rep, I_all, I_att; // Force Intensities
-    real_t r_rep, r_all;        // Radius of interaction
+    real_t r_rep, r_all, r_att; // Radius of interaction
     real_t v0;                  // Other parameters
     std::vector<real_t> l_speed;
     std::vector<pos> l_pos;
@@ -31,7 +31,9 @@ class Flock {
     std::vector<real_t> speed_boids () const {return l_speed;}
     std::vector<pos> pos_boids() const {return l_pos;}
     void update_flock();
-    void set_parameters (real_t I_all_, real_t v0_, real_t r_rep_,real_t I_att_, real_t r_all_, real_t I_rep_);
+    void set_Intensities (real_t I_rep_, real_t I_all_, real_t I_att_);
+    void set_Radii       (real_t r_rep_, real_t r_all_, real_t r_att_);
+    void set_Speed       (real_t v0_);
     Flock (int N_birds_, real_t vi_birds, const std::vector<real_t>& speed_drones, const std::vector<pos>& pos_drones); //vi_birds initial speed of birds
     Flock (const std::vector<real_t>& speed_birds, const std::vector<pos>& pos_birds,const std::vector<real_t>& speed_drones, const std::vector<pos>& pos_drones);
     void draw(sf::RenderWindow& window);

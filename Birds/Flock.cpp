@@ -28,10 +28,18 @@ auto gauss = std::bind (normal,generator);
     XXX                      XXX
     XXXXXXXXXXXXXXXXXXXXXXXXXXXX
 */
-
-void Flock::set_parameters (real_t I_all_, real_t v0_, real_t r_rep_,real_t I_att_, real_t r_all_, real_t I_rep_) {
-    I_all=I_all_; v0=v0_; r_rep=r_rep_; I_att=I_att_; r_all=r_all_; I_rep=I_rep_;
+void Flock::set_Intensities (real_t I_rep_, real_t I_all_, real_t I_att_){
+    I_rep=I_rep_; I_all=I_all_; I_att=I_att_;
 }
+
+void Flock::set_Radii (real_t r_rep_, real_t r_all_, real_t r_att_){
+    r_rep=r_rep_; r_all=r_all_; r_att=r_att_;
+}
+
+void Flock::set_Speed (real_t v0_){
+    v0=v0_;
+}
+
 Flock::Flock (int N_birds_,real_t vi_birds,const std::vector<real_t>& speed_drones,const std::vector<pos>& pos_drones){
     N_birds=N_birds_;
     n_drones= speed_drones.size();
