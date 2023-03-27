@@ -17,8 +17,8 @@ unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 std::default_random_engine generator (seed); 
 std::uniform_real_distribution<real_t> distribution(2.,360.);
 auto dice = std::bind (distribution,generator);
-// Distribution normale de largeur de l'ordre de 1%
-std::normal_distribution<real_t> normal(0.,0.01);
+// Distribution normale de largeur de l'ordre de 10%
+std::normal_distribution<real_t> normal(0.,0.1);
 auto gauss = std::bind (normal,generator);
 
 
@@ -28,8 +28,8 @@ auto gauss = std::bind (normal,generator);
     XXX                      XXX
     XXXXXXXXXXXXXXXXXXXXXXXXXXXX
 */
-void Flock::set_Intensities (real_t I_rep_, real_t I_all_, real_t I_att_){
-    I_rep=I_rep_; I_all=I_all_; I_att=I_att_;
+void Flock::set_Intensities (real_t I_rep_, real_t I_all_, real_t I_att_, real_t I_noi_){
+    I_rep=I_rep_; I_all=I_all_; I_att=I_att_; I_noi=I_noi_;
 }
 
 void Flock::set_Radii (real_t r_rep_, real_t r_all_, real_t r_att_){
@@ -211,7 +211,7 @@ Imp Flock::get_F (int i){
     if (state==1) F = F_all(i);
     if (state> 1) F = F_att(i);
     // Noise
-    F+=(v0/sqrt(3))* Imp{gauss(),gauss(),gauss()};
+    F+=(v0*I_noi/sqrt(3))* Imp{gauss(),gauss(),gauss()};
     return F + Imp{v0, 0, 0};
 }
 
@@ -291,7 +291,6 @@ int Flock::boid_state(int i){
 }
 
 void Flock::update_flock() {
-    real_t lv = 100*r_all; // parceque j'ai inventé une variable
     int i;
     int n= N_birds+n_drones;
     Imp F;

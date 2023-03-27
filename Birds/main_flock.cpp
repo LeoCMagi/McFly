@@ -13,6 +13,7 @@ int main (){
 	real_t I_all=0.5;
 	real_t I_att=0.05;
 	real_t I_rep=I_att;
+	real_t I_noi=0.;
 
 	real_t v0=0.01;
 	real_t r_rep=0.01;
@@ -42,7 +43,7 @@ int main (){
 	}
     Flock flock_piaf (N_Boids, I_all, speed_drones, pos_drones);
 	
-    flock_piaf.set_Intensities (I_rep, I_all, I_att);
+    flock_piaf.set_Intensities (I_rep, I_all, I_att, I_noi);
     flock_piaf.set_Radii       (r_rep, r_all, r_att);
     flock_piaf.set_Speed       (v0);
 
