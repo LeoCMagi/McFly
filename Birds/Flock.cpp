@@ -219,8 +219,7 @@ Imp Flock::F_rep(int i){
     int j;
     int n= N_birds+n_drones;
     int avg=0;
-    Imp F;
-    F = 0*F;
+    Imp F {0,0,0};
     for (j=0; j<n; j++){if (i!=j && t_dist[i][j]<r_rep){//Calcul de la force
         F += (v0/t_dist[i][j])*(l_pos_prec[j] - l_pos_prec[i]);
         avg+=1;
@@ -232,10 +231,10 @@ Imp Flock::F_all(int i){
     int j;
     int n= N_birds+n_drones;
     int avg=0;
-    Imp F, F_temp;
-    F = 0*F;
+    Imp F {0,0,0};
+    Imp F_temp;
     for (j=0; j<n; j++){if (i!=j && t_dist[i][j]<r_all){//Calcul de la force
-        F_temp = F_temp.u_angle(l_pos_prec[i] <<l_pos_prec[j]);
+        F_temp = Imp::u_angle(l_pos_prec[i] <<l_pos_prec[j]);
         F     += F_temp;
         avg+=1;
     }}
@@ -296,11 +295,14 @@ void Flock::update_flock() {
     Imp F;
     l_pos_prec = l_pos;
     //l_speed_prec = l_speed;    car pour l'instant, je bosse à vitesse constante
-    for (i=0; i<n; i++){
+    for (i=0; i<N_birds; i++){
         F = get_F (i);
         l_pos[i] ^ F.direction(); // Action de la force
         l_pos[i] += v0;
         }
+    for (i= N_birds; i<n; i++) {
+        l_pos[i]+= l_speed[i];
+    }
     update_dist();
 
     // Et maintenant, actualisation graphique

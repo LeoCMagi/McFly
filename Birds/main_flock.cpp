@@ -21,7 +21,7 @@ int main (){
 	real_t r_att=10000;
 
 	int N_Boids = 30;
-	int nb_drones = 0;
+	int nb_drones = 10;
 
 
 /*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
