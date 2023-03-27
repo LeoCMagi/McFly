@@ -32,13 +32,16 @@ class Flock {
 */  //   Update-related
     void update_dist    ();
     void update_graphics();
-    int  boid_state     (int i);
 
     //  Force-related
-    Imp get_F(int i);
-    Imp F_rep(int i);
-    Imp F_att(int i);
-    Imp F_all(int i);
+    int  boid_state (int i);
+    Imp  get_F      (int i);
+    Imp  F_rep      (int i);
+    Imp  F_att      (int i);
+    Imp  F_all      (int i);
+    bool is_visible (int from,
+                     int to)
+         {return true;};//( (l_pos_prec[to]-l_pos_prec[from]).x > 0 );};
 
 
     public :
@@ -71,7 +74,9 @@ class Flock {
 /*  XXXXXXXXXXXXXXXXXXXXXXXX
     XXX     Updators     XXX
     XXXXXXXXXXXXXXXXXXXXXXXX
-*/  void update_flock();
+*/  void old_update_flock();
+
+    void update_flock();
     void draw        (sf::RenderWindow& window);
     void store_data  (int  iteration,
                       int  N_dt,

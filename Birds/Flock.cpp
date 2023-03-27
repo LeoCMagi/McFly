@@ -57,7 +57,7 @@ Flock::Flock (int N_birds_,real_t vi_birds,const std::vector<real_t>& speed_dron
     l_sprites = std::vector<sf::Sprite> (n);
     int i;
     for (i=0;i<N_birds_;i++) {
-    	   l_speed[i]= vi_birds;
+    	l_speed[i]= vi_birds;
         l_pos[i] = pos(Imp {dice(),dice(),dice()}, Rot (dice()*M_PI/180,dice()*M_PI/180));//dice()*M_PI/180));
         l_sprites[i].setTexture(texture);
         l_sprites[i].setColor(sf::Color(0, 0, 0, 108));//color,opacity 
@@ -73,16 +73,6 @@ Flock::Flock (int N_birds_,real_t vi_birds,const std::vector<real_t>& speed_dron
         l_sprites[i].setColor(sf::Color::Blue);//color,opacity 
         l_sprites[i].setOrigin(sf::Vector2f(texture.getSize().x/2,texture.getSize().y/2));//to translate and rotate frm the center of the sprite 
         l_sprites[i].setScale(0.09f,0.09f);//scale of the boid; 
-        l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*1500, l_pos[i].y()*1200));//initial position of the boid} 
-        l_sprites[i].setRotation(l_pos[i].p()*180/M_PI);//initial angle of the boid
-    }
-     for (i=N_birds; i<n;i++) {
-        l_speed[i] =speed_drones[i-N_birds_];
-        l_pos[i] = pos_drones[i-N_birds_];
-        l_sprites[i].setTexture(texture);
-        l_sprites[i].setColor(sf::Color(120, 0, 0, 128));//color,opacity 
-        l_sprites[i].setOrigin(sf::Vector2f(texture.getSize().x/2,texture.getSize().y/2));//to translate and rotate frm the center of the sprite 
-        l_sprites[i].setScale(0.07f,0.07f);//scale of the boid; 
         l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*1500, l_pos[i].y()*1200));//initial position of the boid} 
         l_sprites[i].setRotation(l_pos[i].p()*180/M_PI);//initial angle of the boid
     }
@@ -141,16 +131,14 @@ void Flock::draw(sf::RenderWindow& window) {
 }
 
 
-/*
-
-  XXXXXXXXXXXXXXXXXXXXXXXXXX
+/*XXXXXXXXXXXXXXXXXXXXXXXXXX
   XXX                    XXX
   XXX     Old Update     XXX
   XXX                    XXX
   XXXXXXXXXXXXXXXXXXXXXXXXXX
+*/
 
-
-void Flock::update_flock() {
+void Flock::old_update_flock() {
     l_speed_prec = l_speed;
     l_pos_prec = l_pos;
     int i, j;
@@ -166,7 +154,7 @@ void Flock::update_flock() {
        	  int M =1;//number of interacting neighbours
             if (t_dist[i][j]<r_rep && i!=j && angles.phi()<M_PI/2 && angles.phi()>(-M_PI/2)) {
             	 M+=1;
-                Fint += -J*Imp{l_speed_prec[i]-l_speed_prec[j]*cos(angles.phi())*sin(angles.theta()),
+                Fint += -I_all*Imp{l_speed_prec[i]-l_speed_prec[j]*cos(angles.phi())*sin(angles.theta()),
                 -l_speed_prec[j]*sin(angles.theta())*sin(angles.phi()),-l_speed_prec[j]*cos(angles.theta())};
                 Frep = I_rep*(
                 			pow(r_all/sqrt(t_dist[i][j]), 3)
@@ -195,7 +183,7 @@ void Flock::update_flock() {
     l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*1500, l_pos[i].y()*1200));
     }
     update_dist();
-}*/
+}
 
 /*  XXXXXXXXXXXXXXXXXXXXXXXXXX
     XXX                    XXX
@@ -282,8 +270,11 @@ int Flock::boid_state(int i){
     bool has_neighbor = false;
     int n= N_birds+n_drones;
     for (j=0;j<n;j++) {
-        if (i!=j && t_dist[i][j]<r_rep*r_rep) return 0;
-        if (i!=j && t_dist[i][j]<r_all*r_all) has_neighbor = true;
+        if (i!=j                      &&
+            t_dist[i][j]<r_rep*r_rep) return 0;
+        if (i!=j                      &&
+            t_dist[i][j]<r_all*r_all  &&
+            is_visible(i,j))          has_neighbor = true;
     }
     if (has_neighbor) return 1;
     return 2;
@@ -297,7 +288,7 @@ void Flock::update_flock() {
     //l_speed_prec = l_speed;    car pour l'instant, je bosse à vitesse constante
     for (i=0; i<N_birds; i++){
         F = get_F (i);
-        l_pos[i] ^ F.direction(); // Action de la force
+        l_pos[i] ^ F.direction(); // Action of the force
         l_pos[i] += v0;
         }
     for (i= N_birds; i<n; i++) {
@@ -305,7 +296,7 @@ void Flock::update_flock() {
     }
     update_dist();
 
-    // Et maintenant, actualisation graphique
+    // And now, the graphic update
     this->update_graphics();
 }
 
