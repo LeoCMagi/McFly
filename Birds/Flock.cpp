@@ -250,7 +250,7 @@ Imp Flock::F_att(int i){
         best_j = j;
         d = t_dist[i][j];
     }}
-    return (v0*g/d)*(l_pos_prec[best_j]-l_pos_prec[i]);
+    return (v0*I_att/d)*(l_pos_prec[best_j]-l_pos_prec[i]);
 }
 
 

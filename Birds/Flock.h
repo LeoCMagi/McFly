@@ -8,7 +8,9 @@
 class Flock {
     private :
     int N_birds, n_drones;
-    real_t I_all, v0, r_rep, I_att, r_all, I_rep;
+    real_t I_rep, I_all, I_att; // Force Intensities
+    real_t r_rep, r_all;        // Radius of interaction
+    real_t v0;                  // Other parameters
     std::vector<real_t> l_speed;
     std::vector<pos> l_pos;
     std::vector<real_t> l_speed_prec;
