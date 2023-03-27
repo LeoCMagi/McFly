@@ -200,10 +200,8 @@ Imp Flock::get_F (int i){
     Imp F;
     if (state==0) F = F_rep(i);
     if (state==1) F = F_all(i);
-    if (state> 1) F = 0*F_att(i);
-
-    F = F + Imp{v0, 0, 0};
-    return F;
+    if (state> 1) F = F_att(i);
+    return F + Imp{v0, 0, 0};
 }
 
 Imp Flock::F_rep(int i){
@@ -213,7 +211,7 @@ Imp Flock::F_rep(int i){
     Imp F;
     F = 0*F;
     for (j=0; j<n; j++){if (i!=j && t_dist[i][j]<rc){//Calcul de la force
-        F += (1./t_dist[i][j])*(l_pos_prec[j] - l_pos_prec[i]);
+        F += (v0/t_dist[i][j])*(l_pos_prec[j] - l_pos_prec[i]);
         avg+=1;
     }}
     return (-g0/avg)*F;
@@ -230,7 +228,7 @@ Imp Flock::F_all(int i){
         F     += F_temp;
         avg+=1;
     }}
-    return (J/avg)*F;
+    return (J*v0/avg)*F;
 }
 
 
@@ -249,7 +247,7 @@ Imp Flock::F_att(int i){
         best_j = j;
         d = t_dist[i][j];
     }}
-    return (g/d)*(l_pos_prec[best_j]-l_pos_prec[i]);
+    return (v0*g/d)*(l_pos_prec[best_j]-l_pos_prec[i]);
 }
 
 

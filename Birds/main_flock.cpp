@@ -10,10 +10,10 @@ int main (){
     XXX                              XXX
     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 */
-	real_t J=0.005;
+	real_t J=0.5;
 	real_t v0=0.01;
 	real_t rc=0.01;
-	real_t g=0.005;
+	real_t g=0.05;
 	real_t l0=0.1;
 	real_t g0=g;
 
