@@ -1,12 +1,13 @@
 #ifndef _UTIL_H_
 #define _UTIL_H_
 
-using real_t = double; // peut être utile de de définir un type real_t pour faire des tests entre simple et double précision
-
+using real_t = double;
 /********************************************************************
- * Vecteur 2D. Simple structure (x,y) avec opérateurs surchargés
- * et quelques méthodes utiles. Ne pas utiliser pour représenter un
- * point dans un espace cartésien, il y a Point2 pour ça.
+ * Rot a class with the private arguments (p_theta, p_phi) in order to
+ * make sure that they are include respectively in [0, pi] and [-pi, pi].
+ * This class will permit to describe the direction of a boid.
+ * You have to use the constructor of this class in order to make sure
+ * to create and object with theta and phi in the right intervals.
  */
 class Rot {
 public :
@@ -28,15 +29,14 @@ public :
   Rot operator/   (real_t k) const { return Rot( p_theta/k, p_phi/k); }
 private :
   real_t p_theta, p_phi;
-  void sync_interval();
+  void sync_interval(); // a function which puts p_theta and p_phi in the right intervals.
 };
 inline Rot operator* (real_t k, const Rot& v) { return v*k; }
 
 
 /********************************************************************
- * Vecteur 2D. Simple structure (x,y) avec opérateurs surchargés
- * et quelques méthodes utiles. Ne pas utiliser pour représenter un
- * point dans un espace carthésien, il y a Point2 pour ça.
+ * Imp. Simple structure (x,y,z). It represents a 3D vector in cartesian
+ * coordinates.
  */
 struct Imp {
   real_t x, y,z;
@@ -49,12 +49,12 @@ struct Imp {
   void operator/=  (real_t k)       { x /= k; y /= k; z/=k; }
   Imp operator*   (real_t k) const { return Imp{ k*x, k*y, k*z }; }
   Imp operator/   (real_t k) const { return Imp{ x/k, y/k, z/k }; }
-	real_t operator| (Imp o)   const { return x*o.x + y*o.y+z*o.z ; }	// produit scalaire
-	real_t norm2     ()         const { return x*x + y*y +z*z; }// norme au carré
-	real_t operator! ()         const;  // norme
-  Rot direction() const; // donne la direction (angle theta et phi du vecteur
+	real_t operator| (Imp o)   const { return x*o.x + y*o.y+z*o.z ; }	// scalar product
+	real_t norm2     ()         const { return x*x + y*y +z*z; }// norm² 
+	real_t operator! ()         const;  // norm
+  Rot direction() const; // gives the angles (theta, phi) between the vector and the axis x,y and z.
   Imp  rotate     (Rot angles2) const; //it returns the vector rotated by the angles theta2,phi2 which are encoded in angles2
-  static Imp u_angle (Rot angles);  // fonction statique de création d'un vecteur unité à partir d'un angle
+  static Imp u_angle (Rot angles);  // function which creates the unitary with direction angles2
 };
 inline Imp operator* (double k, const Imp& v) { return v*k; }
 
@@ -68,15 +68,5 @@ real_t angle_modpi_01 (real_t);
 
 real_t rest (real_t x, real_t d);
 int    div (real_t x, real_t d);
-
-/// Divers
-
-/********************************************************************
- * Réslution du système linéaire
- * ⎡a  b⎤ ⎡x⎤   ⎡e⎤
- * ⎣c  d⎦ ⎣y⎦ = ⎣f⎦
- */
-void mat22_sol (real_t a, real_t b, real_t c, real_t d, real_t e, real_t f, real_t& x, real_t& y);
-
 
 #endif

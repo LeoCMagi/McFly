@@ -5,24 +5,15 @@
 using namespace std;
 
 
-
-// ⎡a  b⎤ ⎡x⎤   ⎡e⎤
-// ⎣c  d⎦ ⎣y⎦ = ⎣f⎦
-//
-void mat22_sol (real_t a, real_t b, real_t c, real_t d, real_t e, real_t f, real_t& x, real_t& y) {
-	real_t det = a * d - b * c;
-	x = (e * d - b * f) / det;
-	y = (a * f - e * c) / det;
-}
-
-void Rot::sync_interval() {
-  p_phi=angle_mod2pi_11(p_phi);
-  real_t theta_ = angle_mod2pi_11(p_theta);
+void Rot::sync_interval() { 
+  p_phi=angle_mod2pi_11(p_phi); 
+  real_t theta_ = angle_mod2pi_11(p_theta); // in order to put theta and phi between -pi and pi
   if (theta_ >= 0) 
     p_theta= theta_;
   else{
     p_theta=-theta_;
-    p_phi = angle_mod2pi_11(M_PI+p_phi);
+    p_phi = angle_mod2pi_11(M_PI+p_phi);/* theta has to be >0 thus whe have to apply the transformation
+theta ->-theta and phi -> phi+pi since it's a transformation that doesn't change our object */
     }
 }
   
