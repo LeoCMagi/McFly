@@ -10,7 +10,7 @@ int main (){
     XXX                              XXX
     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 */
-	real_t J=0.5;
+	real_t I_all=0.5;
 	real_t v0=0.01;
 	real_t rc=0.01;
 	real_t g=0.05;
@@ -38,8 +38,8 @@ int main (){
 	for (k=0;k<nb_drones;k++) {
 		pos_drones[k] = pos(Imp{1.0*k/nb_drones,0.5,0},Rot(M_PI/2,0));
 	}
-    Flock flock_piaf (N_Boids, J, speed_drones, pos_drones);
-    flock_piaf.set_parameters (J,v0,rc,g,l0,g0);
+    Flock flock_piaf (N_Boids, I_all, speed_drones, pos_drones);
+    flock_piaf.set_parameters (I_all,v0,rc,g,l0,g0);
 	
 
 

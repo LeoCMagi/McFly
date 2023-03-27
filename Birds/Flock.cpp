@@ -17,7 +17,8 @@ unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 std::default_random_engine generator (seed); 
 std::uniform_real_distribution<real_t> distribution(2.,360.);
 auto dice = std::bind (distribution,generator);
-std::normal_distribution<real_t> normal(0.,sqrt(2*3*0.5*0.00000001));
+// Distribution normale de largeur de l'ordre de 1%
+std::normal_distribution<real_t> normal(0.,0.01);
 auto gauss = std::bind (normal,generator);
 
 
@@ -28,13 +29,13 @@ auto gauss = std::bind (normal,generator);
     XXXXXXXXXXXXXXXXXXXXXXXXXXXX
 */
 
-void Flock::set_parameters (real_t J_, real_t v0_, real_t rc_,real_t g_, real_t l0_, real_t g0_) {
-    J=J_; v0=v0_; rc=rc_; g=g_; l0=l0_; g0=g0_;
+void Flock::set_parameters (real_t I_all_, real_t v0_, real_t rc_,real_t g_, real_t l0_, real_t g0_) {
+    I_all=I_all_; v0=v0_; rc=rc_; g=g_; l0=l0_; g0=g0_;
 }
 Flock::Flock (int N_birds_,real_t vi_birds,const std::vector<real_t>& speed_drones,const std::vector<pos>& pos_drones){
     N_birds=N_birds_;
     n_drones= speed_drones.size();
-    J=0;
+    I_all=0;
     v0=0;
     rc=0;
     g=0;
@@ -91,7 +92,7 @@ Flock::Flock (const std::vector<real_t>& speed_birds, const std::vector<pos>& po
     t_dist = std::vector<std::vector<real_t>> (n,std::vector<real_t> (n));
     l_sprites = std::vector<sf::Sprite> (n);
     t_dist = std::vector<std::vector<real_t>> (n,std::vector<real_t> (n));
-    J=0;
+    I_all=0;
     v0=0;
     rc=0;
     g=0;
@@ -201,6 +202,8 @@ Imp Flock::get_F (int i){
     if (state==0) F = F_rep(i);
     if (state==1) F = F_all(i);
     if (state> 1) F = F_att(i);
+    // Noise
+    F+=(v0/sqrt(3))* Imp{gauss(),gauss(),gauss()};
     return F + Imp{v0, 0, 0};
 }
 
@@ -228,7 +231,7 @@ Imp Flock::F_all(int i){
         F     += F_temp;
         avg+=1;
     }}
-    return (J*v0/avg)*F;
+    return (I_all*v0/avg)*F;
 }
 
 
