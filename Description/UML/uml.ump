@@ -1,28 +1,49 @@
-class Boid {
+class Flock {
   //Position
-  position 0 0 0 0
+  position 0 0 0 0;
     
   //Classes utilis??es
   * -- * Imp;
   * -- * Rot;
-  * -- * pos;
+  * -- * Pos;
    
   //Liste des variables
-  pos        position;
-  imp        impulsion;
-  sf_texture texture;
-  sf_sprite  sprite;
+  int                  n_birds;
+  int                  n_drones;
+  real_t               i_rep;
+  real_t               i_all;
+  real_t               i_att;
+  real_t               i_noi;
+  real_t               r_rep;
+  real_t               r_all;
+  real_t               t_att;
+  real_t               v0;
+  vector_real_t        l_speed;
+  vector_real_t        l_speed_prec;
+  vector_pos           l_pos;
+  vector_pos           l_pos_prec;
+  vector_vector_real_t t_dist;
+  sf_texture           texture;
+  sf_sprite            sprite;
       
   //Liste des m??thodes
   //format:
-  //type_entr??e(self exclu)->type_sortie nom_methode (nom_var osef){};
-  int->void             impose_noise (id osef){};
-  void                  update_pos   (){};
-  int->void             impose_noise (arg0 osef){};
-  sfRenderWindow&->void draw         (window osef){};
+  //type_entr??e(self exclu)->type_sortie
+  vect_vect_real_t tab_dist    ();
+  vector_real_t                   speed_boids ();
+  vector_pos                      pos_boids   ();
+  vector_real_t                   speed_boids ();
+  vector_pos                      pos_boids   ();
+  real_t**4->void set_Intensities (I_rep osef,I_all osef,I_att osef,I_noi osef);
+  real_t**3->void set_Radii       (r_rep osef,r_all osef,r_att osef);
+  real_t->void set_Speed          (v0 osef);
+  void update_flock();
+  void old_update_flock();
+  RenderWindow&->void draw(window osef);
+  int**3*bool**2*ofstream&->void store_data (itteration osef,N_dt osef, proj osef, tp osef, is_drone osef, file osef);
 };
 
-class pos {
+class Pos {
   //Position
   position 650 50 200 250;
   
@@ -31,13 +52,11 @@ class pos {
   * -- * Rot;
   
   //Liste des m??thodes
-  Imp*Rot->pos  pos        (X osef, Angle osef){};
-  int*pos->bool order      (axis osef,p osef){};
-  Imp->void     move       (v osef){};
   real_t->void  move       (r osef){};
   Rot->void     turn       (A osef){};
-  pos->Imp      move_view  (p osef){};
-  pos->Vec2     angle_view (p osef){};
+  Pos->Imp      move_view  (p osef){};
+  Pos->Vec2     angle_view (p osef){};
+  Pos->real_t   dist       (p osef){};
   real_t        x (){};
   real_t        y (){};
   real_t        z (){};
@@ -48,7 +67,7 @@ class pos {
   
 class Rot {
   //Position
-  position 400 250 125 150;
+  position 450 250 125 150;
   
   //Liste des variables
   real_t theta;
@@ -65,13 +84,14 @@ class Rot {
   real_t->Rot  *        (k osef){};
   real_t->Rot  /        (k osef){};
   real_t       direction() {};
+  real_t 	   theta    () {};
 };
 
   
   
 class Imp {
   //Position
-  position 0 250 0 0
+  position 100 300 0 0
   
   //Liste des variables
   real_t x;
@@ -100,12 +120,12 @@ class Imp {
   
 
   
-class free3d {
-  //Classe dérivant de 
-  isA pos;
+class Free3d {
+  //Classe d??rivant de 
+  isA Pos;
   
   //Position
-  position 600 350 125 150;
+  position 700 350 125 150;
   
   //Liste des variables
   real_t x_coord;
@@ -115,9 +135,9 @@ class free3d {
   real_t phi_angle;
 };
 
-class sphere {
-  //Classe dérivant de 
-  isA pos;
+class Sphere {
+  //Classe d??rivant de 
+  isA Pos;
   
   //Position
   position 750 350 125 125;

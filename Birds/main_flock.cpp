@@ -12,7 +12,7 @@ int main (){
 */
 	real_t I_all=0.5;
 	real_t I_att=0.05;
-	real_t I_rep=I_att;
+	real_t I_rep=0.05;
 	real_t I_noi=0.;
 
 	real_t v0=0.01;
@@ -20,8 +20,8 @@ int main (){
 	real_t r_all=0.1;
 	real_t r_att=10000;
 
-	int N_Boids = 30;
-	int nb_drones = 10;
+	int N_Boids = 100;
+	int nb_drones = 0;
 
 
 /*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX

@@ -80,7 +80,10 @@ real_t square::operator| (square Y){
 
 
 Imp  square::operator-  (square Y   ){
-  return {x_coord-Y.x_coord, y_coord-Y.y_coord, 0.};
+  real_t x_glob = x_coord-Y.x_coord;
+  real_t y_glob = y_coord-Y.y_coord;
+  return {x_glob*cos(Y.t_angle)+y_glob*sin(Y.t_angle),
+          -x_glob*sin(Y.t_angle)+y_glob*cos(Y.t_angle), 0.};
 }
 
 Rot square::operator<< (square Y){
