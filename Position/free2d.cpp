@@ -34,7 +34,10 @@ real_t free2d::operator| (free2d Y){
 }
 
 Imp  free2d::operator-  (free2d Y   ){
-  return {x_coord-Y.x_coord, y_coord-Y.y_coord, 0.};
+  real_t x_glob = x_coord-Y.x_coord;
+  real_t y_glob = y_coord-Y.y_coord;
+  return {x_glob*cos(Y.t_angle)+y_glob*sin(Y.t_angle),
+          -x_glob*sin(Y.t_angle)+y_glob*cos(Y.t_angle), 0.};
 }
 
 Rot free2d::operator<< (free2d Y){

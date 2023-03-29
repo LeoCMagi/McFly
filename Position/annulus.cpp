@@ -42,10 +42,10 @@ real_t annulus::operator| (annulus Y){
 }
 
 Imp  annulus::operator-  (annulus Y   ){
-  float X_f,Y_f;
-  X_f = rest(x_coord-Y.x_coord+.5,1.)+.5;
-  Y_f = rest(y_coord-Y.y_coord+L/2., L)+L/2.;
-  return {X_f, Y_f, 0.};
+  real_t x_glob = rest(x_coord-Y.x_coord+.5,1.)+.5;
+  real_t y_glob = rest(y_coord-Y.y_coord+L/2., L)+L/2.;
+  return {x_glob*cos(Y.t_angle)+y_glob*sin(Y.t_angle),
+          -x_glob*sin(Y.t_angle)+y_glob*cos(Y.t_angle), 0.};
 }
 
 Rot annulus::operator<< (annulus Y){

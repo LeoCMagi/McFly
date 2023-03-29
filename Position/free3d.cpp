@@ -36,7 +36,12 @@ real_t free3d::operator| (free3d Y){
 }
 
 Imp  free3d::operator-  (free3d Y   ){
-  return {x_coord-Y.x_coord, y_coord-Y.y_coord, z_coord-Y.z_coord};
+  Imp out = {x_coord-Y.x_coord, y_coord-Y.y_coord, z_coord-Y.z_coord};
+  out.rotate({Y.t_angle, Y.p_angle})
+  // attention, pas gigasûr de ce résultat
+  // faire des tests avant de valider...
+  // je rotate peut-être à l'envers...
+  return out;
 }
 
 
