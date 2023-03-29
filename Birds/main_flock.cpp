@@ -3,6 +3,9 @@
 #include <cmath>
 #include<fstream>
 using namespace std;
+
+#define WIDTH 1300
+#define HEIGHT 700
 int main (){
 /*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	XXX                              XXX
@@ -30,7 +33,7 @@ int main (){
     XXX                        XXX
     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 */
-	sf::RenderWindow window(sf::VideoMode(1900, 1600), "BOIDS");
+	sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "BOIDS");
 	window.setFramerateLimit(30);
 	int etape=0;
 	int k;

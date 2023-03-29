@@ -6,6 +6,9 @@
 #include<chrono>
 using namespace std;
 
+int WIDTH = 1300;
+int HEIGHT = 700;
+
 /*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	XXX                        XXX
     XXX     Initialisation     XXX
@@ -63,7 +66,7 @@ Flock::Flock (int N_birds_,real_t vi_birds,const std::vector<real_t>& speed_dron
         l_sprites[i].setColor(sf::Color(0, 0, 0, 108));//color,opacity 
         l_sprites[i].setOrigin(sf::Vector2f(texture.getSize().x/2,texture.getSize().y/2));//to translate and rotate frm the center of the sprite 
         l_sprites[i].setScale(0.07f,0.07f);//scale of the boid; 
-        l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*1500, l_pos[i].y()*1200));//initial position of the boid} 
+        l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*0.9*WIDTH, l_pos[i].y()*0.9*HEIGHT));//initial position of the boid} 
         l_sprites[i].setRotation(l_pos[i].p()*180/M_PI);//initial angle of the boid
     }
     for (i=N_birds; i<n;i++) {
@@ -73,7 +76,7 @@ Flock::Flock (int N_birds_,real_t vi_birds,const std::vector<real_t>& speed_dron
         l_sprites[i].setColor(sf::Color::Blue);//color,opacity 
         l_sprites[i].setOrigin(sf::Vector2f(texture.getSize().x/2,texture.getSize().y/2));//to translate and rotate frm the center of the sprite 
         l_sprites[i].setScale(0.09f,0.09f);//scale of the boid; 
-        l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*1500, l_pos[i].y()*1200));//initial position of the boid} 
+        l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*0.9*WIDTH, l_pos[i].y()*0.9*HEIGHT));//initial position of the boid} 
         l_sprites[i].setRotation(l_pos[i].p()*180/M_PI);//initial angle of the boid
     }
     l_speed_prec = l_speed;
@@ -105,7 +108,7 @@ Flock::Flock (const std::vector<real_t>& speed_birds, const std::vector<pos>& po
         l_sprites[i].setColor(sf::Color(255, 255, 255, 128));//color,opacity 
         l_sprites[i].setOrigin(sf::Vector2f(texture.getSize().x/2,texture.getSize().y/2));//to translate and rotate frm the center of the sprite 
         l_sprites[i].setScale(0.02f,0.02f);//scale of the boid; 
-        l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*1500, l_pos[i].y()*1200));//initial position of the boid} 
+        l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*0.9*WIDTH, l_pos[i].y()*0.9*HEIGHT));//initial position of the boid} 
         l_sprites[i].setRotation(l_pos[i].p()*180/M_PI);
     }
         for (i=N_birds;i<n;i++) {
@@ -115,7 +118,7 @@ Flock::Flock (const std::vector<real_t>& speed_birds, const std::vector<pos>& po
         l_sprites[i].setColor(sf::Color(118, 56, 159, 128));//color,opacity 
         l_sprites[i].setOrigin(sf::Vector2f(texture.getSize().x/2,texture.getSize().y/2));//to translate and rotate frm the center of the sprite 
         l_sprites[i].setScale(0.02f,0.02f);//scale of the boid; 
-        l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*1500, l_pos[i].y()*1200));//initial position of the boid
+        l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*0.9*WIDTH, l_pos[i].y()*0.9*HEIGHT));//initial position of the boid
         l_sprites[i].setRotation(l_pos[i].p()*180/M_PI);//initial angle of the boid
         } 
         l_pos_prec = l_pos;
@@ -170,17 +173,12 @@ void Flock::old_update_flock() {
         l_pos[i] ^ upd_spe.direction();
         if (l_speed[i]> 0.01) {l_speed[i] = 0.01;}
         l_sprites[i].setRotation(l_pos[i].p()*180/M_PI);
-        l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*1500, l_pos[i].y()*1200));
+        l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*0.9*WIDTH, l_pos[i].y()*0.9*HEIGHT));
     }
     for (i=N_birds;i<n;i++) {
         l_pos[i]+= l_speed[i];
         l_sprites[i].setRotation(l_pos[i].p()*180/M_PI);
-        l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*1500, l_pos[i].y()*1200));
-    }
-    for (i=N_birds;i<n;i++) {
-    l_pos[i]+= l_speed[i];
-    l_sprites[i].setRotation(l_pos[i].p()*180/M_PI);
-    l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*1500, l_pos[i].y()*1200));
+        l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*0.9*WIDTH, l_pos[i].y()*0.9*HEIGHT));
     }
     update_dist();
 }
@@ -261,7 +259,7 @@ void Flock::update_graphics(){
     int n= N_birds+n_drones;
     for (i=0; i<n; i++){
         l_sprites[i].setRotation(l_pos[i].p()*180/M_PI);
-        l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*1500, l_pos[i].y()*1200));
+        l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*0.9*WIDTH, l_pos[i].y()*0.9*HEIGHT));
     }
 }
 
