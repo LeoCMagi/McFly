@@ -36,21 +36,21 @@ void annulus::operator^ (Rot a){
 
 real_t annulus::operator| (annulus Y){
   float X_f,Y_f;
-  X_f = rest(x_coord-Y.x_coord+.5,1.)+.5;
-  Y_f = rest(y_coord-Y.y_coord+L/2., L)+L/2.;
+  X_f = rest(x_coord-Y.x_coord+.5,1.)-.5;
+  Y_f = rest(y_coord-Y.y_coord+L/2., L)-L/2.;
   return X_f*X_f + Y_f*Y_f;
 }
 
 Imp  annulus::operator-  (annulus Y   ){
-  real_t x_glob = rest(x_coord-Y.x_coord+.5,1.)+.5;
-  real_t y_glob = rest(y_coord-Y.y_coord+L/2., L)+L/2.;
+  real_t x_glob = rest(x_coord-Y.x_coord+.5,1.)-.5;
+  real_t y_glob = rest(y_coord-Y.y_coord+L/2., L)-L/2.;
   return {x_glob*cos(Y.t_angle)+y_glob*sin(Y.t_angle),
           -x_glob*sin(Y.t_angle)+y_glob*cos(Y.t_angle), 0.};
 }
 
 Rot annulus::operator<< (annulus Y){
-  float x_d = rest(x_coord-Y.x_coord+.5,1.)+.5;
-  float y_d = rest(y_coord-Y.y_coord+L/2., L)+L/2.;
+  float x_d = rest(x_coord-Y.x_coord+.5,1.)-.5;
+  float y_d = rest(y_coord-Y.y_coord+L/2., L)-L/2.;
   if (x_d==0.){
     if (y_d>0) return {M_PI/2, rest(-t_angle+3*M_PI/2, 2*M_PI)-M_PI};
     if (y_d<0) return {M_PI/2, rest(-t_angle+  M_PI/2, 2*M_PI)-M_PI};

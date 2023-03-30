@@ -23,8 +23,8 @@ int main (){
 	real_t r_all=0.1;
 	real_t r_att=10000;
 
-	int N_Boids = 100;
-	int nb_drones = 0;
+	int N_Boids = 10;
+	int nb_drones = 5;
 
 
 /*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
