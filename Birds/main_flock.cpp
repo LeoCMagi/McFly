@@ -4,8 +4,8 @@
 #include<fstream>
 using namespace std;
 
-#define WIDTH 1300
-#define HEIGHT 700
+#define WIDTH 1600
+#define HEIGHT 1300
 int main (){
 /*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	XXX                              XXX
@@ -57,7 +57,7 @@ int main (){
     XXXXXXXXXXXXXXXXXXXXXXXXX
 */
 	while (window.isOpen()){
-		flock_piaf.store_data(etape, 30, 0, false, false, history);
+		flock_piaf.store_data(etape, 50, 0, false, false, history);
 		window.clear(sf::Color::Yellow);
 		sf::Event event;
 		while (window.pollEvent(event)){

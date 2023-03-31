@@ -6,8 +6,8 @@
 #include<chrono>
 using namespace std;
 
-int WIDTH = 1300;
-int HEIGHT = 700;
+int WIDTH = 1600;
+int HEIGHT = 1300;
 
 /*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	XXX                        XXX
@@ -20,7 +20,7 @@ unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 std::default_random_engine generator (seed); 
 std::uniform_real_distribution<real_t> distribution(2.,360.);
 auto dice = std::bind (distribution,generator);
-// Distribution normale de largeur de l'ordre de 10%
+// normal distribution 
 std::normal_distribution<real_t> normal(0.,0.1);
 auto gauss = std::bind (normal,generator);
 
@@ -73,7 +73,7 @@ Flock::Flock (int N_birds_,real_t vi_birds,const std::vector<real_t>& speed_dron
         l_speed[i] =speed_drones[i-N_birds_];
         l_pos[i] = pos_drones[i-N_birds_];
         l_sprites[i].setTexture(texture);
-        l_sprites[i].setColor(sf::Color::Blue);//color,opacity 
+        l_sprites[i].setColor(sf::Color(118, 56, 159, 128));//color,opacity 
         l_sprites[i].setOrigin(sf::Vector2f(texture.getSize().x/2,texture.getSize().y/2));//to translate and rotate frm the center of the sprite 
         l_sprites[i].setScale(0.09f,0.09f);//scale of the boid; 
         l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*0.9*WIDTH, l_pos[i].y()*0.9*HEIGHT));//initial position of the boid} 
@@ -115,7 +115,7 @@ Flock::Flock (const std::vector<real_t>& speed_birds, const std::vector<pos>& po
         l_pos[i] = pos_drones[i-N_birds];
         l_speed[i] = speed_drones[i-N_birds];
         l_sprites[i].setTexture(texture);
-        l_sprites[i].setColor(sf::Color::Blue);//color,opacity 
+        l_sprites[i].setColor(sf::Color(118, 56, 159, 128));//color,opacity 
         l_sprites[i].setOrigin(sf::Vector2f(texture.getSize().x/2,texture.getSize().y/2));//to translate and rotate frm the center of the sprite 
         l_sprites[i].setScale(0.02f,0.02f);//scale of the boid; 
         l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*0.9*WIDTH, l_pos[i].y()*0.9*HEIGHT));//initial position of the boid
@@ -148,14 +148,14 @@ void Flock::old_update_flock() {
     int n= N_birds+n_drones;
     for (i=0;i<N_birds;i++) {
         l_pos[i]+= l_speed_prec[i]; //dt=1 
-        Imp Fsc {.x= 2*I_att*(v0-l_speed_prec[i]),.y=0,.z=0};//linear correction
-       // Imp Fsc {.x= (8*I_att/pow(v0,6))*pow((v0*v0-l_speed_prec[i]*l_speed_prec[i]),3),.y=0,.z=0};//marginal speed correction
+        Imp Fsc {.x= 2*I_att*(v0-l_speed_prec[i]),.y=0,.z=0};//linear speed correction
+       // Imp Fsc {.x= (8*I_att/pow(v0,6))*pow((v0*v0-l_speed_prec[i]*l_speed_prec[i]),3),.y=0,.z=0};//marginal speed correction if another model of speed correction is needed
         Imp Fint {0,0,0};
         Imp Frep {0,0,0};
         for (j=0;j<n;j++) {
        	  Rot angles = l_pos_prec[i] <<l_pos_prec[j];
        	  int M =1;//number of interacting neighbours
-            if (t_dist[i][j]<r_rep && i!=j && angles.phi()<M_PI/2 && angles.phi()>(-M_PI/2)) {
+            if (t_dist[i][j]<r_rep && i!=j ) {//&& angles.phi()<M_PI/2 && angles.phi()>(-M_PI/2) if a view angle is needed
             	 M+=1;
                 Fint += -I_all*Imp{l_speed_prec[i]-l_speed_prec[j]*cos(angles.phi())*sin(angles.theta()),
                 -l_speed_prec[j]*sin(angles.theta())*sin(angles.phi()),-l_speed_prec[j]*cos(angles.theta())};
@@ -168,7 +168,7 @@ void Flock::old_update_flock() {
             Frep=1.0/M*Frep;
         }
         Imp noise = Imp{gauss(),gauss(),gauss()};
-        Imp upd_spe = Frep +Fsc+Fint+Imp{l_speed[i],0,0} + 0*noise; //dt =1
+        Imp upd_spe = Frep +Fsc+Fint+Imp{l_speed[i],0,0} + 0*noise; //dt =1, noise shut down right now
         l_speed[i] = !(upd_spe);
         l_pos[i] ^ upd_spe.direction();
         l_sprites[i].setRotation(l_pos[i].p()*180/M_PI);
@@ -232,12 +232,12 @@ Imp Flock::F_att(int i){
     int n= N_birds+n_drones;
     real_t d;
 
-    // Initialisation de recherche plus proche voisin
+    // Initialisation for the nearest neighbor
     if (n==1) return {0,0,0};
     if (i==0) {d=t_dist[0][1]; best_j=1;}
     if (i!=0) {d=t_dist[0][i]; best_j=0;}
 
-    // Recherche plus proche voisin
+    // searching for the nearest neighbor
     for (j=0; j<n; j++){if(i!=j && t_dist[i][j]<d){
         best_j = j;
         d = t_dist[i][j];
@@ -248,7 +248,7 @@ Imp Flock::F_att(int i){
 
 /*  XXXXXXXXXXXXXXXXXXXXXXXXXXX
     XXX                     XXX
-    XXX     Les Updates     XXX
+    XXX     The Updates     XXX
     XXX                     XXX
     XXXXXXXXXXXXXXXXXXXXXXXXXXX
 */
@@ -282,7 +282,7 @@ void Flock::update_flock() {
     int n= N_birds+n_drones;
     Imp F;
     l_pos_prec = l_pos;
-    //l_speed_prec = l_speed;    car pour l'instant, je bosse à vitesse constante
+    //l_speed_prec = l_speed;    we work at constant speed
     for (i=0; i<N_birds; i++){
         F = get_F (i);
         l_pos[i] ^ F.direction(); // Action of the force

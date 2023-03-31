@@ -1,5 +1,5 @@
 #Fichiers sources (.cpp)
-SOURCES= Position/annulus.cpp Position/free2d.cpp Position/free3d.cpp Position/square.cpp Vec/Vec.cpp Birds/Flock.cpp Birds/main_flock.cpp #test.cpp 
+SOURCES= Position/disk.cpp Position/annulus.cpp Position/free2d.cpp Position/free3d.cpp Position/square.cpp Vec/Vec.cpp Birds/Flock.cpp Birds/main_flock.cpp #test.cpp 
 
 # Compilateur
 CXX=g++
