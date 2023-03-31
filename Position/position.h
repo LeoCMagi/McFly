@@ -12,16 +12,20 @@ using pos = free3d;
 */
 
 
-/*#include "square.h"
-using pos = square;*/
+#include "square.h"
+using pos = square;
 
 
 
-
+/*
 #include "annulus.h"
 using pos = annulus;
+*/
 
-
+/*
+#include "disk.h"
+using pos = disk;
+*/
 
 /*   Position Documentation:
 Every method's name can be used instead of the proper operator,
