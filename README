@@ -1,6 +1,8 @@
 This is the BOID project for MAG1 team "McFly"
 By Théo, Léo and Sacha
 
+-to change space: go in Position.position and uncomment the space needed and comment the previous
+
 -the scale of the space can be changed in Flock.cpp : WIDTH and LENGTH (don't forget to also change WIDTH and LENGHT in the main_flock.cpp)
 
 -when changing from a space to another, remove the .o files if any error occur during the make.
@@ -14,3 +16,5 @@ to change to the fluid-like model:	 change .update to .old_update
 							A=Iall
 							C=Iatt		
 							the noise is set to 0, can be changed (line 171 in Flock.cpp)
+							
+
