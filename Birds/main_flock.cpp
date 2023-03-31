@@ -23,8 +23,8 @@ int main (){
 	real_t r_all=0.1;
 	real_t r_att=10000;
 
-	int N_Boids = 10;
-	int nb_drones = 5;
+	int N_Boids = 100;
+	int nb_drones = 30;
 
 
 /*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -44,7 +44,7 @@ int main (){
 	for (k=0;k<nb_drones;k++) {
 		pos_drones[k] = pos(Imp{1.0*k/nb_drones,0.5,0},Rot(M_PI/2,0));
 	}
-    Flock flock_piaf (N_Boids, I_all, speed_drones, pos_drones);
+    Flock flock_piaf (N_Boids, v0, speed_drones, pos_drones);
 	
     flock_piaf.set_Intensities (I_rep, I_all, I_att, I_noi);
     flock_piaf.set_Radii       (r_rep, r_all, r_att);

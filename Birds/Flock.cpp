@@ -115,7 +115,7 @@ Flock::Flock (const std::vector<real_t>& speed_birds, const std::vector<pos>& po
         l_pos[i] = pos_drones[i-N_birds];
         l_speed[i] = speed_drones[i-N_birds];
         l_sprites[i].setTexture(texture);
-        l_sprites[i].setColor(sf::Color(118, 56, 159, 128));//color,opacity 
+        l_sprites[i].setColor(sf::Color::Blue);//color,opacity 
         l_sprites[i].setOrigin(sf::Vector2f(texture.getSize().x/2,texture.getSize().y/2));//to translate and rotate frm the center of the sprite 
         l_sprites[i].setScale(0.02f,0.02f);//scale of the boid; 
         l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*0.9*WIDTH, l_pos[i].y()*0.9*HEIGHT));//initial position of the boid
@@ -171,7 +171,6 @@ void Flock::old_update_flock() {
         Imp upd_spe = Frep +Fsc+Fint+Imp{l_speed[i],0,0} + 0*noise; //dt =1
         l_speed[i] = !(upd_spe);
         l_pos[i] ^ upd_spe.direction();
-        if (l_speed[i]> 0.01) {l_speed[i] = 0.01;}
         l_sprites[i].setRotation(l_pos[i].p()*180/M_PI);
         l_sprites[i].setPosition(sf::Vector2f(l_pos[i].x()*0.9*WIDTH, l_pos[i].y()*0.9*HEIGHT));
     }
